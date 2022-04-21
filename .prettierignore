@@ -1,5 +1,6 @@
-/node_modules/
+node_modules/
 /dist/
-/.eslintrc.js
-/docs/
 /CHANGELOG.md
+/.yarn_home/
+/src/test/apps/
+/src/tools/types/

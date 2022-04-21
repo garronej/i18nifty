@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
         "module": "CommonJS",
-        "target": "es5",
-        "lib": ["es2015", "DOM"],
+        "target": "ES6",
+        "lib": ["es2015", "ES2019.Object", "DOM"],
         "esModuleInterop": true,
         "declaration": true,
         "outDir": "./dist",
-        "sourceMap": true,
+        "sourceMap": false,
         "newLine": "LF",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
@@ -16,5 +16,6 @@
         "jsx": "react-jsx",
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["src/test/apps", "src/bin"]
 }

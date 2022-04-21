@@ -1,7 +1,7 @@
 {
     "name": "i18n-react-ts",
     "version": "0.0.0",
-    "description": "Internationalisation in React. Done well.",
+    "description": "Internationalization in React. Done well.",
     "repository": {
         "type": "git",
         "url": "git://github.com/garronej/i18n-react-ts.git"
@@ -9,13 +9,14 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "test": "echo DODO",
         "build": "tsc",
+        "start_spa": "yarn yarn_link && cd src/test/apps/spa && yarn start",
         "lint:check": "eslint . --ext .ts,.tsx",
-        "lint": "npm run lint:check -- --fix",
+        "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
-        "format": "npm run _format -- --write",
-        "format:check": "npm run _format -- --list-different"
+        "format": "yarn _format --write",
+        "format:check": "yarn _format --list-different",
+        "yarn_link": "ts-node src/bin/yarn_link.ts"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -33,23 +34,37 @@
     "author": "u/garronej",
     "license": "MIT",
     "files": [
-        "src/",
-        "!src/test/",
         "dist/",
         "!dist/test/",
+        "!dist/bin/",
+        "!dist/package.json",
         "!dist/tsconfig.tsbuildinfo"
     ],
-    "keywords": [],
-    "homepage": "https://github.com/garronej/i18n-react-ts",
+    "keywords": [
+        "i18n",
+        "hooks",
+        "react",
+        "typescript"
+    ],
+    "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
+    },
+    "dependencies": {
+        "powerhooks": "^0.16.3",
+        "tsafe": "^0.10.0"
+    },
     "devDependencies": {
-        "@types/node": "^16.4.9",
-        "typescript": "^4.3.5",
-        "@typescript-eslint/eslint-plugin": "^4.28.5",
-        "@typescript-eslint/parser": "^4.28.5",
-        "eslint": "^7.32.0",
+        "@types/node": "^15.3.1",
+        "@types/react": "^17.0.2",
+        "@typescript-eslint/eslint-plugin": "^4.24.0",
+        "@typescript-eslint/parser": "^4.24.0",
+        "eslint": "^7.26.0",
         "eslint-config-prettier": "^8.3.0",
         "husky": "^4.3.8",
-        "lint-staged": "^11.1.1",
-        "prettier": "^2.3.2"
+        "lint-staged": "^11.0.0",
+        "prettier": "^2.3.0",
+        "react": "^17.0.2",
+        "ts-node": "^10.2.1",
+        "typescript": "^4.6.3"
     }
 }

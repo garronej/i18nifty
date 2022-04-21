@@ -73,20 +73,9 @@ jobs:
         action_name: is_package_json_version_upgraded
         branch: ${{ github.head_ref || github.ref }}
 
-  update_changelog:
-    runs-on: ubuntu-latest
-    needs: check_if_version_upgraded
-    if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
-    steps:
-    - uses: garronej/ts-ci@v1.1.4
-      with:
-        action_name: update_changelog
-        branch: ${{ github.head_ref || github.ref }}
-
   create_github_release:
     runs-on: ubuntu-latest
     needs: 
-      - update_changelog
       - check_if_version_upgraded
     steps:
     - name: Build GitHub release body
@@ -114,7 +103,7 @@ jobs:
   publish_on_npm:
     runs-on: ubuntu-latest
     needs: 
-      - update_changelog
+      - create_github_release
       - check_if_version_upgraded
     steps:
     - uses: actions/checkout@v2.3.4

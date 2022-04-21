@@ -41,4 +41,7 @@ jspm_packages
 .DS_Store
 
 /dist
+
+/build_keycloak
+/build
 /.yarn_home
