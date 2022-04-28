@@ -1,6 +1,5 @@
 
-import type { I18nDeclaration } from "i18n-react-ts";
-import type { UnionToIntersection } from "i18n-react-ts/tools/UnionToIntersection";
+import { createI18nApi } from "i18nts";
 
 export const languages = ["en", "fr"] as const;
 
@@ -8,7 +7,7 @@ export const fallbackLanguage = "en";
 
 export type Language = typeof languages[number];
 
-export const { useTranslation, evtLanguage, useLanguage, resolveLocalizedString } = createI18nTools<
+export const { useTranslation } = createI18nApi<
 	typeof import("./Component1").i18nDeclaration |
 	typeof import("./Component2").i18nDeclaration
 >()(
@@ -44,23 +43,4 @@ export const { useTranslation, evtLanguage, useLanguage, resolveLocalizedString 
 );
 
 
-
-export function createI18nTools<Declaration extends I18nDeclaration<any,any >>() {
-	return function <Language extends string, FallbackLanguage extends Language>(
-		params: {
-			languages: readonly Language[];
-			fallbackLanguage: FallbackLanguage;
-		},
-		//translations: Record<Language, UnionToIntersection<Declaration>>,
-		translations: { [L in Language]: L extends FallbackLanguage ? UnionToIntersection<Declaration> : Partial<UnionToIntersection<Declaration>> }
-	) {
-
-		function useTranslation() { }
-		function evtLanguage() { }
-		function useLanguage() { }
-		function resolveLocalizedString() { }
-
-		return { useTranslation, evtLanguage, useLanguage, resolveLocalizedString };
-
-	}
-}
+const x = useTranslation("MyComponent1");

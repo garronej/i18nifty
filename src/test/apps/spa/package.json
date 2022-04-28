@@ -1,11 +1,11 @@
 {
-    "name": "i18n-react-ts_test-app",
+    "name": "i18nts-app",
     "version": "0.0.0",
     "description": "An app for testing i18n-react-ts",
     "private": true,
     "repository": {
         "type": "git",
-        "url": "git://github.com/garronej/i18n-react-ts"
+        "url": "git://github.com/garronej/i18nts"
     },
     "scripts": {
         "build": "react-app-rewired build",
@@ -24,7 +24,7 @@
     "author": "u/garronej",
     "license": "MIT",
     "dependencies": {
-        "i18n-react-ts": "file:../../../../dist",
+        "i18nts": "file:../../../../dist",
         "react": "^17.0.2",
         "react-dom": "^17.0.2"
     },

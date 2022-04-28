@@ -1,10 +1,10 @@
 {
-    "name": "i18n-react-ts",
+    "name": "i18nts",
     "version": "0.0.0",
     "description": "Internationalization in React. Done well.",
     "repository": {
         "type": "git",
-        "url": "git://github.com/garronej/i18n-react-ts.git"
+        "url": "git://github.com/garronej/i18nts.git"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -51,7 +51,8 @@
     },
     "dependencies": {
         "powerhooks": "^0.16.3",
-        "tsafe": "^0.10.0"
+        "tsafe": "^0.10.0",
+        "evt": "2.0.0-beta.39"
     },
     "devDependencies": {
         "@types/node": "^15.3.1",

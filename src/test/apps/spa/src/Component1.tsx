@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { i18nDeclare } from "i18n-react-ts";
+import { i18nDeclare } from "i18nts";
 
 export const MyComponent1 = memo(() => {
 	return null;
