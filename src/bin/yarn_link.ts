@@ -31,7 +31,7 @@ fs.writeFileSync(
 );
 
 const commonThirdPartyDeps = (() => {
-    const namespaceModuleNames = ["@emotion"];
+    const namespaceModuleNames: string[] = [];
     const standaloneModuleNames = ["react", "@types/react"];
 
     return [
@@ -127,6 +127,7 @@ execYarnLink({ "cwd": pathJoin(tssReactDirPath, "dist") });
 testAppNames.forEach(testAppName =>
     execYarnLink({
         "cwd": getTestAppPath(testAppName),
-        "targetModuleName": "tss-react",
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        "targetModuleName": require("../../package.json").name,
     }),
 );
