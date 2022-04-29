@@ -7,9 +7,9 @@ export const fallbackLanguage = "en";
 
 export type Language = typeof languages[number];
 
-export const { useTranslation } = createI18nApi<
-	typeof import("./Component1").i18nDeclaration |
-	typeof import("./Component2").i18nDeclaration
+export const { useTranslation, resolveLocalizedString, useLng, useResolveLocalizedString } = createI18nApi<
+	typeof import("./Component1").i18n |
+	typeof import("./Component2").i18n
 >()(
 	{
 		languages,
@@ -26,6 +26,7 @@ export const { useTranslation } = createI18nApi<
 			"MyComponent2": {
 				"ready": "ready",
 				"something else": "something else",
+				"i am ready to fight": ({ link, x }) => <>i am ready to fight {link} {x}</>,
 			}
 		},
 		"fr": {
@@ -37,10 +38,11 @@ export const { useTranslation } = createI18nApi<
 			"MyComponent2": {
 				"ready": "prêt",
 				"something else": "autre chose",
+				"i am ready to fight": undefined
 			}
 		}
 	}
 );
 
 
-const x = useTranslation("MyComponent1");
+

@@ -1,11 +1,16 @@
 import { memo } from "react";
-import { i18nDeclare } from "i18nts";
+import { declareComponentKeys } from "i18nts";
+import { useTranslation } from "./i18n";
 
 export const MyComponent1 = memo(() => {
-	return null;
+
+	const { t } = useTranslation({ MyComponent1 });
+
+	return <span>{t("one thing")} {t("something else")} {t("yet another thing", { "name": "bob", "x": 33 })}</span>;
+
 });
 
-export const { i18nDeclaration } = i18nDeclare<
+export const { i18n } = declareComponentKeys<
 	"one thing" |
 	"something else" |
 	["yet another thing", { x: number; name: string; }]

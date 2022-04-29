@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { i18nDeclare } from "../..";
+import { declareComponentKeys } from "../..";
 import { assert } from "tsafe/assert";
 import { Equals } from "tsafe";
 import type { ReactNode } from "react";
@@ -9,7 +9,7 @@ export const MyComponent = memo(() => {
 });
 
 {
-    const { i18nDeclaration } = i18nDeclare<
+    const { i18n } = declareComponentKeys<
         | "one thing"
         | "something else"
         | ["yet another thing", { x: number; name: string }]
@@ -24,13 +24,13 @@ export const MyComponent = memo(() => {
             >;
     };
 
-    type Got = typeof i18nDeclaration;
+    type Got = typeof i18n;
 
     assert<Equals<Got, Expected>>();
 }
 
 {
-    const { i18nDeclaration } = i18nDeclare<"one thing" | "something else">()({
+    const { i18n } = declareComponentKeys<"one thing" | "something else">()({
         MyComponent,
     });
 
@@ -39,13 +39,13 @@ export const MyComponent = memo(() => {
             Record<"something else", string>;
     };
 
-    type Got = typeof i18nDeclaration;
+    type Got = typeof i18n;
 
     assert<Equals<Got, Expected>>();
 }
 
 {
-    const { i18nDeclaration } = i18nDeclare<
+    const { i18n } = declareComponentKeys<
         | "one thing"
         | "something else"
         | ["yet another thing", { node: JSX.Element }]
@@ -60,13 +60,13 @@ export const MyComponent = memo(() => {
             >;
     };
 
-    type Got = typeof i18nDeclaration;
+    type Got = typeof i18n;
 
     assert<Equals<Got, Expected>>();
 }
 
 {
-    const { i18nDeclaration } = i18nDeclare<
+    const { i18n } = declareComponentKeys<
         | "one thing"
         | "something else"
         | ["yet another thing", { node: ReactNode; x: number }]
@@ -81,7 +81,7 @@ export const MyComponent = memo(() => {
             >;
     };
 
-    type Got = typeof i18nDeclaration;
+    type Got = typeof i18n;
 
     assert<Equals<Got, Expected>>();
 }
