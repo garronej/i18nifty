@@ -1,5 +1,5 @@
 {
-    "name": "i18nts",
+    "name": "tsi18n",
     "version": "0.0.1",
     "description": "Internationalization in React. Done well.",
     "repository": {
