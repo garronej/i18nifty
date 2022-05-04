@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { declareComponentKeys } from "i18nts";
+import { declareComponentKeys } from "i18nifty";
 import { useTranslation } from "./i18n";
 
 export const MyComponent2 = memo(() => {

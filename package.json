@@ -4,7 +4,7 @@
     "description": "Internationalization in React. Done well.",
     "repository": {
         "type": "git",
-        "url": "git://github.com/garronej/i18nts.git"
+        "url": "git://github.com/garronej/i18nifty.git"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

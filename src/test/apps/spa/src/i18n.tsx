@@ -1,5 +1,5 @@
 
-import { createI18nApi } from "i18nts";
+import { createI18nApi } from "i18nifty";
 
 export const languages = ["en", "fr"] as const;
 
