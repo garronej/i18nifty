@@ -1,37 +1,34 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import type { I18nDeclaration } from "./declareComponentKeys";
-import type { UnionToIntersection } from "./tools/UnionToIntersection";
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { createUseGlobalState } from "powerhooks/useGlobalState";
 import type { StatefulEvt } from "evt";
 import { Reflect } from "tsafe/Reflect";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
-import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
+import type {
+    ComponentKeyToRecord,
+    WithOptionalKeys,
+    TranslationFunction,
+} from "./typeUtils";
 
-type WithOptionalKeys<Declaration> = {
-    [ComponentName in keyof Declaration]: {
-        [Key in keyof Declaration[ComponentName]]:
-            | Declaration[ComponentName][Key]
-            | undefined;
-    };
-};
-
-export function createI18nApi<Declaration extends I18nDeclaration<any, any>>() {
+export function createI18nApi<
+    ComponentKey extends [string, string | [string, Record<string, any>]],
+>() {
     return function <
         Language extends string,
         FallbackLanguage extends Language,
+        Translations extends {
+            [L in Language]: L extends FallbackLanguage
+                ? ComponentKeyToRecord<ComponentKey>
+                : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
+        },
     >(
         params: {
             languages: readonly Language[];
             fallbackLanguage: FallbackLanguage;
         },
-        translations: {
-            [L in Language]: L extends FallbackLanguage
-                ? UnionToIntersection<Declaration>
-                : WithOptionalKeys<UnionToIntersection<Declaration>>;
-        },
+        translations: Translations,
     ) {
         const { languages, fallbackLanguage } = params;
 
@@ -79,38 +76,22 @@ export function createI18nApi<Declaration extends I18nDeclaration<any, any>>() {
             return { resolveLocalizedString };
         }
 
-        function useTranslation<
-            ComponentName extends keyof UnionToIntersection<Declaration>,
-        >(componentNameAsKey: Record<ComponentName, unknown>) {
-            type MessageByKey = UnionToIntersection<Declaration>[ComponentName];
-
-            type NoParamsKeys = NonNullable<
-                {
-                    [Key in keyof MessageByKey]: MessageByKey[Key] extends string
-                        ? Key
-                        : never;
-                }[keyof MessageByKey]
+        function useTranslation<ComponentName extends ComponentKey[0]>(
+            componentNameAsKey: Record<ComponentName, unknown>,
+        ): {
+            t: TranslationFunction<
+                ComponentName,
+                ComponentKey,
+                Language,
+                FallbackLanguage,
+                Translations
             >;
-
-            type TFunction = {
-                (key: NoParamsKeys): string;
-                <Key extends Exclude<keyof MessageByKey, NoParamsKeys>>(
-                    key: Key,
-                    params: MessageByKey[Key] extends (
-                        param: infer Param,
-                    ) => unknown
-                        ? Param
-                        : never,
-                ): MessageByKey[Key] extends (...arg: any[]) => infer R
-                    ? R
-                    : never;
-            };
-
+        } {
             const { lng } = useLng();
 
             const componentName = symToStr(componentNameAsKey);
 
-            const tImpl = useGuaranteedMemo(
+            const t = useGuaranteedMemo(
                 (): any => (key: string, params?: Record<string, any>) => {
                     const getStrOrFn = (lng: string) =>
                         (translations as any)[lng][componentName][key];
@@ -126,9 +107,7 @@ export function createI18nApi<Declaration extends I18nDeclaration<any, any>>() {
                 [lng, componentName],
             );
 
-            return {
-                "t": id<TFunction>(tImpl),
-            };
+            return { t };
         }
 
         function resolveLocalizedString(
