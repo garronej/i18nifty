@@ -32,35 +32,38 @@ export function createI18nApi<
     ) {
         const { languages, fallbackLanguage } = params;
 
-        const { useLng, evtLng } = createUseGlobalState("lng", (): Language => {
-            const iso2LanguageLike = navigator.language
-                .split("-")[0]
-                .toLowerCase();
+        const { useLang, evtLang } = createUseGlobalState(
+            "lang",
+            (): Language => {
+                const iso2LanguageLike = navigator.language
+                    .split("-")[0]
+                    .toLowerCase();
 
-            const lng = languages.find(lng =>
-                lng.toLowerCase().includes(iso2LanguageLike),
-            );
+                const lang = languages.find(lang =>
+                    lang.toLowerCase().includes(iso2LanguageLike),
+                );
 
-            if (lng !== undefined) {
-                return lng;
-            }
+                if (lang !== undefined) {
+                    return lang;
+                }
 
-            return fallbackLanguage;
-        });
+                return fallbackLanguage;
+            },
+        );
 
         function useResolveLocalizedString() {
-            const { lng } = useLng();
+            const { lang } = useLang();
 
             const { resolveLocalizedString } = useGuaranteedMemo(() => {
                 const { resolveLocalizedString } = createResolveLocalizedString(
                     {
-                        "currentLanguage": lng,
+                        "currentLanguage": lang,
                         fallbackLanguage,
                     },
                 );
 
                 return { resolveLocalizedString };
-            }, [lng]);
+            }, [lang]);
 
             return { resolveLocalizedString };
         }
@@ -76,16 +79,16 @@ export function createI18nApi<
                 Translations
             >;
         } {
-            const { lng } = useLng();
+            const { lang } = useLang();
 
             const componentName = symToStr(componentNameAsKey);
 
             const t = useGuaranteedMemo(
                 (): any => (key: string, params?: Record<string, any>) => {
-                    const getStrOrFn = (lng: string) =>
-                        (translations as any)[lng][componentName][key];
+                    const getStrOrFn = (lang: string) =>
+                        (translations as any)[lang][componentName][key];
 
-                    let strOrFn = getStrOrFn(lng);
+                    let strOrFn = getStrOrFn(lang);
 
                     if (strOrFn === undefined) {
                         strOrFn = getStrOrFn(fallbackLanguage);
@@ -93,7 +96,7 @@ export function createI18nApi<
 
                     return params === undefined ? strOrFn : strOrFn(params);
                 },
-                [lng, componentName],
+                [lang, componentName],
             );
 
             return { t };
@@ -103,18 +106,18 @@ export function createI18nApi<
             localizedString: LocalizedString<Language>,
         ): string {
             return createResolveLocalizedString({
-                "currentLanguage": evtLng.state,
+                "currentLanguage": evtLang.state,
                 fallbackLanguage,
             }).resolveLocalizedString(localizedString);
         }
 
         return {
-            useLng,
+            useLang,
             useTranslation,
             useResolveLocalizedString,
             resolveLocalizedString,
             //NOTE: We need to redeclare StatefulEvt
-            "evtLng": id<StatefulEvt<Language>>(evtLng),
+            "evtLang": id<StatefulEvt<Language>>(evtLang),
         };
     };
 }

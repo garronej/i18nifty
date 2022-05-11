@@ -7,7 +7,7 @@ export const fallbackLanguage = "en";
 
 export type Language = typeof languages[number];
 
-export const { useTranslation, resolveLocalizedString, useLng, useResolveLocalizedString } = createI18nApi<
+export const { useTranslation, resolveLocalizedString, useLang, useResolveLocalizedString } = createI18nApi<
 	typeof import("./Component1").i18n |
 	typeof import("./Component2").i18n
 >()(
