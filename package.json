@@ -1,6 +1,6 @@
 {
     "name": "i18nifty",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Internationalization in React. Done well.",
     "repository": {
         "type": "git",
@@ -46,6 +46,14 @@
         "react",
         "typescript"
     ],
+    "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "react": true
+        }
+    },
     "dependencies": {
         "powerhooks": "^0.16.3",
         "tsafe": "^0.10.0",
