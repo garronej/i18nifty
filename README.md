@@ -1,5 +1,3 @@
-# i18n-react-ts
-
 <p align="center">
     <i>Internationalization and translation in React. Done right</i>
     <br>
@@ -17,3 +15,5 @@
       <img src="https://img.shields.io/npm/l/i18nifty">
     </a>
 </p>
+
+[See example setup](https://github.com/etalab/sill-web/blob/main/src/ui/i18n.tsx)
