@@ -46,14 +46,6 @@
         "react",
         "typescript"
     ],
-    "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
-    },
-    "peerDependenciesMeta": {
-        "winston": {
-            "react": true
-        }
-    },
     "dependencies": {
         "powerhooks": "^0.16.3",
         "tsafe": "^0.10.0",
