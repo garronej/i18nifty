@@ -51,6 +51,10 @@ export function createI18nApi<
             },
         );
 
+        evtLang.attach(lang =>
+            document.documentElement.setAttribute("lang", lang),
+        );
+
         function useResolveLocalizedString() {
             const { lang } = useLang();
 
