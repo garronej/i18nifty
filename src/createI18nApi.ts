@@ -3,7 +3,6 @@ import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { createUseGlobalState } from "powerhooks/useGlobalState";
 import type { StatefulEvt } from "evt";
-import { Reflect } from "tsafe/Reflect";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { symToStr } from "tsafe/symToStr";
 import type {
@@ -11,6 +10,7 @@ import type {
     WithOptionalKeys,
     TranslationFunction,
 } from "./typeUtils";
+import { id } from "tsafe/id";
 
 export function createI18nApi<
     ComponentKey extends [string, string | [string, Record<string, any>]],
@@ -32,32 +32,21 @@ export function createI18nApi<
     ) {
         const { languages, fallbackLanguage } = params;
 
-        const { useLng, propertyEvtLng } = (() => {
-            const wrap = createUseGlobalState("lng", (): Language => {
-                const iso2LanguageLike = navigator.language
-                    .split("-")[0]
-                    .toLowerCase();
+        const { useLng, evtLng } = createUseGlobalState("lng", (): Language => {
+            const iso2LanguageLike = navigator.language
+                .split("-")[0]
+                .toLowerCase();
 
-                const lng = languages.find(lng =>
-                    lng.toLowerCase().includes(iso2LanguageLike),
-                );
+            const lng = languages.find(lng =>
+                lng.toLowerCase().includes(iso2LanguageLike),
+            );
 
-                if (lng !== undefined) {
-                    return lng;
-                }
+            if (lng !== undefined) {
+                return lng;
+            }
 
-                return fallbackLanguage;
-            });
-
-            const { useLng } = wrap;
-
-            const propertyEvtLng = [
-                "evtLng",
-                { "get": () => wrap.evtLng },
-            ] as const;
-
-            return { useLng, propertyEvtLng };
-        })();
+            return fallbackLanguage;
+        });
 
         function useResolveLocalizedString() {
             const { lng } = useLng();
@@ -114,20 +103,18 @@ export function createI18nApi<
             localizedString: LocalizedString<Language>,
         ): string {
             return createResolveLocalizedString({
-                "currentLanguage": propertyEvtLng[1].get().state,
+                "currentLanguage": evtLng.state,
                 fallbackLanguage,
             }).resolveLocalizedString(localizedString);
         }
 
-        return Object.defineProperty(
-            {
-                useLng,
-                useTranslation,
-                useResolveLocalizedString,
-                resolveLocalizedString,
-                "evtLng": Reflect<StatefulEvt<Language>>(),
-            },
-            ...propertyEvtLng,
-        );
+        return {
+            useLng,
+            useTranslation,
+            useResolveLocalizedString,
+            resolveLocalizedString,
+            //NOTE: We need to redeclare StatefulEvt
+            "evtLng": id<StatefulEvt<Language>>(evtLng),
+        };
     };
 }
