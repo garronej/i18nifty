@@ -30,6 +30,7 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 			}
 		},
 		"fr": {
+			/* spell-checker: disable */
 			"MyComponent1": {
 				"one thing": "une chose",
 				"something else": "autre chose",
@@ -40,6 +41,7 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 				"something else": "autre chose",
 				"i am ready to fight": undefined
 			}
+			/* spell-checker: enable */
 		}
 	}
 );
