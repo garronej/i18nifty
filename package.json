@@ -1,6 +1,6 @@
 {
     "name": "i18nifty",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Internationalization in React. Done well.",
     "repository": {
         "type": "git",
