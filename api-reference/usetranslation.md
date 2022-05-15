@@ -34,5 +34,5 @@ description: Returns the usual t function
 ```
 
 {% hint style="info" %}
-See [Quick start](./) for more details.
+See [Quick start](../) for more details.
 {% endhint %}
