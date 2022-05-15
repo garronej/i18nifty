@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export type KeyToRecord<Key extends string | [string, Record<string, any>]> = {
-    [K in Extract<Key, string>]: string;
+    [K in Extract<Key, string>]: ReactNode;
 } & {
     [K in Exclude<Key, string>[0]]: (
         params: Extract<Key, [K, any]>[1],
@@ -35,9 +35,9 @@ export type TranslationFunction<
             : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
     },
 > = {
-    (
-        key: Extract<Extract<ComponentKey, [ComponentName, any]>[1], string>,
-    ): string;
+    <K extends Extract<Extract<ComponentKey, [ComponentName, any]>[1], string>>(
+        key: K,
+    ): Exclude<Translations[Language][ComponentName][K], undefined>;
     <
         K extends Exclude<
             Extract<ComponentKey, [ComponentName, any]>[1],

@@ -33,7 +33,7 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 		"fr": {
 			/* spell-checker: disable */
 			"MyComponent1": {
-				"one thing": "une chose",
+				"one thing": <>une <g>chose</g></>,
 				"something else": "autre chose",
 				"yet another thing": ({ name, x }) => `autre chose ${name} ${x}`,
 			},

@@ -12,8 +12,8 @@ import type { Equals } from "tsafe";
     type Input = "key1" | "key2" | ["key3", { x: number }];
 
     type ExpectedOutput = {
-        key1: string;
-        key2: string;
+        key1: ReactNode;
+        key2: ReactNode;
         key3: (params: { x: number }) => ReactNode;
     };
 
@@ -29,14 +29,14 @@ import type { Equals } from "tsafe";
 
     type ExpectedOutput = {
         MyComponent1: {
-            key1: string;
-            key2: string;
+            key1: ReactNode;
+            key2: ReactNode;
         } & {
             key3: (params: { x: number }) => ReactNode;
         };
         MyComponent2: {
-            keyA: string;
-            keyC: string;
+            keyA: ReactNode;
+            keyC: ReactNode;
         } & {
             keyB: (params: { str: string }) => ReactNode;
         };
@@ -62,7 +62,7 @@ import type { Equals } from "tsafe";
         "en": {
             "MyComponent1": {
                 "key1": Reflect<string>(),
-                "key2": Reflect<string>(),
+                "key2": Reflect<JSX.Element>(),
                 "key3": Reflect<(params: { x: number }) => JSX.Element>(),
             },
             "MyComponent2": {
@@ -104,7 +104,7 @@ import type { Equals } from "tsafe";
     {
         const got = t("key2");
 
-        type Expected = string;
+        type Expected = JSX.Element | string;
 
         assert<Equals<typeof got, Expected>>();
     }

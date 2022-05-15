@@ -45,7 +45,7 @@ import { Reflect } from "tsafe/Reflect";
             "en": {
                 "MyComponent1": {
                     "key1": Reflect<string>(),
-                    "key2": Reflect<string>(),
+                    "key2": Reflect<JSX.Element>(),
                     "key3": ({ x }) => {
                         assert<Equals<typeof x, number>>();
                         return Reflect<JSX.Element>();
@@ -93,7 +93,7 @@ import { Reflect } from "tsafe/Reflect";
         {
             const text = t("key2");
 
-            assert<Equals<typeof text, string>>();
+            assert<Equals<typeof text, string | JSX.Element>>();
         }
 
         {
