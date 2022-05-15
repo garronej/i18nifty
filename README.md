@@ -91,8 +91,8 @@ export type Language = typeof languages[number];
 export const { 
 	useTranslation, 
 	resolveLocalizedString, 
-	evtLang,
 	useLang, 
+	evtLang,
 	useResolveLocalizedString 
 } = createI18nApi<
     | typeof import ("components/MyComponent").i18n
