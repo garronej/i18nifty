@@ -10,6 +10,7 @@ import { Reflect } from "tsafe/Reflect";
         {
             "languages": ["en"] as const,
             "fallbackLanguage": "en",
+            "doPersistLanguageInLocalStorage": false,
         },
         {
             "en": {
@@ -38,6 +39,7 @@ import { Reflect } from "tsafe/Reflect";
         {
             "languages": ["en", "fr"] as const,
             "fallbackLanguage": "en" as const,
+            "doPersistLanguageInLocalStorage": false,
         },
         {
             "en": {

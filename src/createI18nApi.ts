@@ -27,10 +27,12 @@ export function createI18nApi<
         params: {
             languages: readonly Language[];
             fallbackLanguage: FallbackLanguage;
+            doPersistLanguageInLocalStorage: boolean;
         },
         translations: Translations,
     ) {
-        const { languages, fallbackLanguage } = params;
+        const { languages, fallbackLanguage, doPersistLanguageInLocalStorage } =
+            params;
 
         const { useLang, evtLang } = createUseGlobalState(
             "lang",
@@ -48,6 +50,11 @@ export function createI18nApi<
                 }
 
                 return fallbackLanguage;
+            },
+            {
+                "persistance": doPersistLanguageInLocalStorage
+                    ? "localStorage"
+                    : false,
             },
         );
 
