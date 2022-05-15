@@ -91,6 +91,7 @@ export type Language = typeof languages[number];
 export const { 
 	useTranslation, 
 	resolveLocalizedString, 
+	evtLang,
 	useLang, 
 	useResolveLocalizedString 
 } = createI18nApi<
