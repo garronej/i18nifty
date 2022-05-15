@@ -5,6 +5,8 @@ export type LocalizedString<Language extends string> =
     | string
     | Partial<Record<Language, string>>;
 
+
+/** @see <https://docs.i18nifty.dev/api-reference/localizedstring> */
 export function createResolveLocalizedString<Language extends string>(params: {
     currentLanguage: Language;
     fallbackLanguage: Language;

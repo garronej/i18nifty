@@ -12,6 +12,7 @@ import type {
 } from "./typeUtils";
 import { id } from "tsafe/id";
 
+/** @see <https://docs.i18nifty.dev> */
 export function createI18nApi<
     ComponentKey extends [string, string | [string, Record<string, any>]],
 >() {

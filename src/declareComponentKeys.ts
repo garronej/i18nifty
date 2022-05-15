@@ -1,5 +1,6 @@
 import { Reflect } from "tsafe/Reflect";
 
+/** @see <https://docs.i18nifty.dev> */
 export function declareComponentKeys<
     Key extends string | [string, Record<string, any>],
 >() {
