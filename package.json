@@ -1,32 +1,81 @@
 {
+  "homepage": "https://www.i18nifty.dev/",
   "name": "i18nifty_landingpage",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+  "version": "0.0.0",
+  "description": "i18nifty landingpage",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/InseeFrLab/onyxia.git"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-app-rewired build && hack-gh-pages src/ui/router.ts",
+    "start": "react-app-rewired start",
+    "link_inhouse_deps": "ts-node --skip-project src/bin/link_inhouse_deps.ts",
+    "storybook": "start-storybook -p 6006 -s public",
+    "format": "prettier '**/*.{ts,tsx,json,md}' --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged -v"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,json,md}": [
+      "prettier --write"
+    ]
+  },
+  "author": "u/marchufschmitt & u/garronej",
+  "license": "MIT",
+  "keywords": [ "i18n", "react" ],
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.0",
+    "@mui/icons-material": "^5.5.0",
+    "evt": "2.0.0-beta.39",
+    "github-pages-plugin-for-type-route": "^0.1.0",
+    "gitlanding": "^0.13.0",
+    "memoizee": "^0.4.15",
+    "onyxia-ui": "^0.35.2",
+    "powerhooks": "^0.16.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tsafe": "^0.10.0",
+    "tss-react": "^3.6.2",
+    "type-route": "^0.7.1",
+    "i18nifty": "^0.4.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-events": "6.2.9",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/node-logger": "^6.3.7",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.7",
+    "@types/memoizee": "^0.4.6",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "circular-dependency-plugin": "^5.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.3.0",
+    "react-app-rewired": "^2.1.8",
+    "react-scripts": "4.0.2",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.5.4"
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+      "react-app"
+    ],
+    "rules": {
+      "@typescript-eslint/no-redeclare": "off",
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "browserslist": {
     "production": [
@@ -39,6 +88,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage": "https://garronej.github.io/i18nifty"
+  }
 }
