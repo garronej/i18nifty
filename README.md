@@ -2,7 +2,9 @@
 
 Before diving into the thick of things, consider editing your `tsconfig.json` file to be able to use absolute instead of relative path.&#x20;
 
-It will prevent you from having to write imports like `import { useTranslations } from "../../../../i18n";`&#x20;
+It will prevent you from having to write imports like&#x20;
+
+`import { useTranslations } from "../../../../i18n";`&#x20;
 
 ```diff
  {
@@ -88,10 +90,13 @@ export const fallbackLanguage = "en";
 
 export type Language = typeof languages[number];
 
+export type LocalizedString = Parameters<typeof resolveLocalizedString>[0];
+
 export const { 
 	useTranslation, 
 	resolveLocalizedString, 
 	useLang, 
+	evtLang,
 	useResolveLocalizedString 
 } = createI18nApi<
     | typeof import ("components/MyComponent").i18n
