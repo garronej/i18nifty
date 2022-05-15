@@ -92,7 +92,6 @@ export const {
 	useTranslation, 
 	resolveLocalizedString, 
 	useLang, 
-	evtLang,
 	useResolveLocalizedString 
 } = createI18nApi<
     | typeof import ("components/MyComponent").i18n
