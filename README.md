@@ -158,8 +158,9 @@ export const {
 Now go back to your component and use the translation function: &#x20;
 
 ```diff
- import { declareComponentKeys } from "i18nifty";+import { useTranslation } from "i18n"; //You can import it like that thanks to baseUrl
-
+ import { declareComponentKeys } from "i18nifty";
++import { useTranslation } from "i18n"; //You can import it like that thanks to baseUrl
+   
  type Props = {
      name: string;
  };
@@ -167,7 +168,8 @@ Now go back to your component and use the translation function: &#x20;
  function MyComponent(props: Props) {
      const { name } = props;
      
-+    const { t } = useTranslatation();
++    const { t } = useTranslation({ MyComponent });
+
      
      return (
          <>
