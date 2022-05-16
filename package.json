@@ -8,8 +8,8 @@
     "url": "git://github.com/InseeFrLab/onyxia.git"
   },
   "scripts": {
-    "build": "react-app-rewired build && hack-gh-pages src/ui/router.ts",
-    "start": "react-app-rewired start",
+    "build": "react-scripts build && hack-gh-pages src/ui/router.ts",
+    "start": "react-scripts start",
     "link_inhouse_deps": "ts-node --skip-project src/bin/link_inhouse_deps.ts",
     "storybook": "start-storybook -p 6006 -s public",
     "format": "prettier '**/*.{ts,tsx,json,md}' --write"
@@ -57,7 +57,6 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "circular-dependency-plugin": "^5.2.0",
     "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.3.0",
     "react-app-rewired": "^2.1.8",
