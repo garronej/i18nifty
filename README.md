@@ -110,7 +110,7 @@ export const {
     {
         "en": {
             "MyComponent": {
-                "geeting": ({ who })=> `Hello ${who}`,
+                "greeting": ({ who })=> `Hello ${who}`,
                 "how are you": "How are you feeling today?",
                 "learn more": ({ href }) => (
                     <>
@@ -134,7 +134,7 @@ export const {
 	/* spell-checker: disable */
 	"fr": {
             "MyComponent": {
-                "geeting": ({ who })=> `Bonjour ${who}`,
+                "greeting": ({ who })=> `Bonjour ${who}`,
                 "how are you": "Comment vous sentez vous au jour d'hui?",
                 "learn more": ({ href }) => (
                     <>
