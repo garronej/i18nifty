@@ -130,7 +130,7 @@ export const {
                     }
                 }
             },
-        }
+        },
 	/* spell-checker: disable */
 	"fr": {
             "MyComponent": {
