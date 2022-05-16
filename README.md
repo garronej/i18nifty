@@ -25,7 +25,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
      name: string;
  };
 
- function MyComponent(props: Props) {
+ export function MyComponent(props: Props) {
      const { name } = props;
      
      return (
@@ -57,7 +57,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
      
  };
 
- function MyOtherComponent(props: Props) {
+ export function MyOtherComponent(props: Props) {
      const { messageCount } = props;
      
      return (
@@ -165,7 +165,7 @@ Now go back to your component and use the translation function: &#x20;
      name: string;
  };
 
- function MyComponent(props: Props) {
+ export function MyComponent(props: Props) {
      const { name } = props;
      
 +    const { t } = useTranslation({ MyComponent });
