@@ -115,7 +115,7 @@ export const {
                 "learn more": ({ href }) => (
                     <>
                         Learn more about 
-                        <a href={href}>this</a> website.
+                        <a href={href}>this website</a>.
                     </>
                 )
             },
@@ -139,7 +139,7 @@ export const {
                 "learn more": ({ href }) => (
                     <>
                         En savoir plus à propos de  
-                        <a href={href}>ce</a> site web.
+                        <a href={href}>ce site web</a>.
                     </>
                 )
             },
@@ -187,7 +187,7 @@ Now go back to your component and use the translation function: &#x20;
  }
 
  export const { i18n } = declareComponentKeys<
-     | ["geeting", { who: string; }]
+     | ["greeting", { who: string; }]
      | "how are you"
      | [ "learn more", { href: string; }]
  >()({ MyComponent });
