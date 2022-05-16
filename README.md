@@ -73,7 +73,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
 +    | "open"
 +    | "delete"
 +    | ["unread messages", { howMany: number; }]
-+>()({ MyComponent });
++>()({ MyOtherComponent });
 ```
 
 then create your `src/i18n.tsx` file: &#x20;
