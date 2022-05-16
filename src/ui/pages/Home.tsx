@@ -2,21 +2,37 @@ import { createGroup } from "type-route";
 import { routes } from "../router";
 import { GlHero } from "gitlanding/GlHero";
 import { GlHeroText } from "gitlanding/GlHero/GlHeroText";
-import dragonHoldingComputerSvgUrl from "ui/assets/svg/DragonHoldingComputer.svg";
 import { Text } from "ui/theme";
 import { useTranslation } from "ui/i18n";
 import { makeStyles } from "../theme";
 import { breakpointsValues } from "onyxia-ui";
-import { GlArticle } from "gitlanding/GlArticle";
-import { GlIllustration } from "gitlanding/GlIllustration";
-import toilLightPngUrl from "ui/assets/img/ToilLight.png";
 import { declareComponentKeys } from "i18nifty";
+import demoMp4Url from "ui/assets/demo_1.mp4";
+import demoWebmUrl from "ui/assets/demo_1.webm";
 
 Home.routeGroup = createGroup([routes.home]);
 
 export function Home() {
     const { t } = useTranslation({ Home });
-    const { classes, theme } = useStyles();
+    const { classes } = useStyles();
+
+    /*
+    <GlIllustration
+    hasShadow={false}
+    type="video"
+    height={400}
+    sources={[
+      {
+        "src": nestedSelectorsMp4Url,
+        "type": 'video/mp4; codecs="hvc1"',
+      },
+      {
+        "src": nestedSelectorsWebmUrl,
+        "type": "video/webm",
+      },
+    ]}
+  />
+  */
 
     return (
         <>
@@ -29,8 +45,17 @@ export function Home() {
                 }
                 subTitle={t("subTitle")}
                 illustration={{
-                    "type": "image",
-                    "imageSrc": dragonHoldingComputerSvgUrl
+                    "type": "video",
+                    "sources": [
+                        {
+                            "src": demoMp4Url,
+                            "type": 'video/mp4; codecs="hvc1"',
+                        },
+                        {
+                            "src": demoWebmUrl,
+                            "type": "video/webm",
+                        }
+                    ]
                 }}
                 hasLinkToSectionBellow={true}
                 hasIllustrationShadow={false}
@@ -40,6 +65,7 @@ export function Home() {
                     "textWrapper": classes.textWrapper,
                 }}
             />
+            {/*
             <GlArticle
                 id="firstSection"
                 title={t("what is onyxia title")}
@@ -56,6 +82,7 @@ export function Home() {
                 hasAnimation={true}
                 illustrationPosition="right"
             />
+            */}
         </>
 
     );
@@ -103,8 +130,8 @@ const useStyles = makeStyles({ "name": { Home } })(theme => ({
 }));
 
 export const { i18n } = declareComponentKeys<
-    "hero text" | 
-    "hero text subtext" | 
+    "hero text" |
+    "hero text subtext" |
     "subTitle" |
     "what is onyxia title" |
     "what is onyxia body" |

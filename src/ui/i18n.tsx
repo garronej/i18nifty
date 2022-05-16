@@ -1,6 +1,6 @@
 import { createI18nApi } from "i18nifty";
 
-export const languages = ["en", "fr", "zh-CN"] as const;
+export const languages = ["en", "fr"] as const;
 
 export const fallbackLanguage = "en";
 
@@ -9,9 +9,9 @@ export type Language = typeof languages[number];
 export type LocalizedString = Parameters<typeof resolveLocalizedString>[0];
 
 export const { useTranslation, resolveLocalizedString, useLang, useResolveLocalizedString } = createI18nApi<
-	typeof import("./App").i18n |
-	typeof import("./pages/Home").i18n |
-	typeof import("./pages/FourOhFour").i18n
+	| typeof import("./App").i18n
+	| typeof import("./pages/Home").i18n
+	| typeof import("./pages/FourOhFour").i18n
 >()(
 	{
 		languages,
@@ -21,12 +21,8 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 	{
 		"en": {
 			"App": {
-				"install": "Install",
-				"paid for by French taxpayers": "Onyxia is free and open source software payed for by the french tax payers 🇫🇷",
-				"pricing": "Pricing",
+				"documentation": "Documentation",
 				"try it": "Try it",
-				"it is libre software": "It is libre software",
-				"ok": "Ok"
 			},
 			"Home": {
 				"hero text": <>i18<g>nifty</g></>,
@@ -40,18 +36,14 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 				"install now": "Install now",
 			},
 			"FourOhFour": {
-				"not found": "Page not found",
-			},
+				"not found": "Page not found"
+			}
 		},
 		/* spell-checker: disable */
 		"fr": {
 			"App": {
-				"install": "Installer",
-				"paid for by French taxpayers": "Onyxia est un logiciel libre et gratuit firancer par le contribuable francais. 🇫🇷",
-				"pricing": "Prix",
-				"try it": "Demo",
-				"it is libre software": "C'est un logiciel libre",
-				"ok": "D'accord"
+				"documentation": "Documentation",
+				"try it": "Essayez",
 			},
 			"Home": {
 				"hero text": undefined,
@@ -67,27 +59,6 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 			},
 			"FourOhFour": {
 				"not found": "Page non trouvée",
-			},
-		},
-		"zh-CN": {
-			"App": {
-				"install": undefined,
-				"paid for by French taxpayers": undefined,
-				"pricing": undefined,
-				"try it": undefined,
-				"it is libre software": undefined,
-				"ok": undefined
-			},
-			"Home": {
-				"hero text": undefined,
-				"hero text subtext": undefined,
-				"subTitle": undefined,
-				"what is onyxia title": undefined,
-				"what is onyxia body": undefined,
-				"install now": undefined
-			},
-			"FourOhFour": {
-				"not found": undefined
 			},
 		},
 	}

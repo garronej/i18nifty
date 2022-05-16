@@ -26,15 +26,19 @@
   },
   "author": "u/marchufschmitt & u/garronej",
   "license": "MIT",
-  "keywords": [ "i18n", "react" ],
+  "keywords": [
+    "i18n",
+    "react"
+  ],
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
-    "@mui/material": "^5.5.0",
     "@mui/icons-material": "^5.5.0",
+    "@mui/material": "^5.5.0",
     "evt": "2.0.0-beta.39",
     "github-pages-plugin-for-type-route": "^0.1.0",
     "gitlanding": "^0.13.0",
+    "i18nifty": "^0.4.0",
     "memoizee": "^0.4.15",
     "onyxia-ui": "^0.35.2",
     "powerhooks": "^0.16.3",
@@ -42,8 +46,7 @@
     "react-dom": "^17.0.2",
     "tsafe": "^0.10.0",
     "tss-react": "^3.6.2",
-    "type-route": "^0.7.1",
-    "i18nifty": "^0.4.0"
+    "type-route": "^0.7.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.7",
@@ -58,6 +61,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-tss-unused-classes": "^0.0.3",
     "prettier": "^2.3.0",
     "react-app-rewired": "^2.1.8",
     "react-scripts": "4.0.2",
@@ -68,12 +72,16 @@
     "babel-loader": "8.1.0"
   },
   "eslintConfig": {
+    "plugins": [
+      "tss-unused-classes"
+    ],
     "extends": [
       "react-app"
     ],
     "rules": {
       "@typescript-eslint/no-redeclare": "off",
-      "react-hooks/exhaustive-deps": "off"
+      "react-hooks/exhaustive-deps": "off",
+      "tss-unused-classes/unused-classes": "warn"
     }
   },
   "browserslist": {
