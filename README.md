@@ -25,7 +25,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
      name: string;
  };
 
- export function MyComponent(props: Props) {
+ function MyComponent(props: Props) {
      const { name } = props;
      
      return (
@@ -41,7 +41,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
  }
 
 +export const { i18n } = declareComponentKeys<
-+    | ["greating", { who: string; }]
++    | ["geeting", { who: string; }]
 +    | "how are you"
 +    | [ "learn more", { href: string; }]
 +>()({ MyComponent });
@@ -57,7 +57,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
      
  };
 
- export function MyOtherComponent(props: Props) {
+ function MyOtherComponent(props: Props) {
      const { messageCount } = props;
      
      return (
@@ -73,7 +73,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
 +    | "open"
 +    | "delete"
 +    | ["unread messages", { howMany: number; }]
-+>()({ MyOtherComponent });
++>()({ MyComponent });
 ```
 
 then create your `src/i18n.tsx` file: &#x20;
@@ -110,7 +110,7 @@ export const {
     {
         "en": {
             "MyComponent": {
-                "greating": ({ who })=> `Hello ${who}`,
+                "greeting": ({ who })=> `Hello ${who}`,
                 "how are you": "How are you feeling today?",
                 "learn more": ({ href }) => (
                     <>
@@ -130,11 +130,11 @@ export const {
                     }
                 }
             },
-        },
+        }
 	/* spell-checker: disable */
 	"fr": {
             "MyComponent": {
-                "greating": ({ who })=> `Bonjour ${who}`,
+                "greeting": ({ who })=> `Bonjour ${who}`,
                 "how are you": "Comment vous sentez vous au jour d'hui?",
                 "learn more": ({ href }) => (
                     <>
@@ -165,7 +165,7 @@ Now go back to your component and use the translation function: &#x20;
      name: string;
  };
 
- export function MyComponent(props: Props) {
+ function MyComponent(props: Props) {
      const { name } = props;
      
 +    const { t } = useTranslation({ MyComponent });
@@ -187,7 +187,7 @@ Now go back to your component and use the translation function: &#x20;
  }
 
  export const { i18n } = declareComponentKeys<
-     | ["greating", { who: string; }]
+     | ["greeting", { who: string; }]
      | "how are you"
      | [ "learn more", { href: string; }]
  >()({ MyComponent });
