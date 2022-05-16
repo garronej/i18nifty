@@ -41,7 +41,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
  }
 
 +export const { i18n } = declareComponentKeys<
-+    | ["geeting", { who: string; }]
++    | ["greating", { who: string; }]
 +    | "how are you"
 +    | [ "learn more", { href: string; }]
 +>()({ MyComponent });
@@ -110,7 +110,7 @@ export const {
     {
         "en": {
             "MyComponent": {
-                "greeting": ({ who })=> `Hello ${who}`,
+                "greating": ({ who })=> `Hello ${who}`,
                 "how are you": "How are you feeling today?",
                 "learn more": ({ href }) => (
                     <>
@@ -134,7 +134,7 @@ export const {
 	/* spell-checker: disable */
 	"fr": {
             "MyComponent": {
-                "greeting": ({ who })=> `Bonjour ${who}`,
+                "greating": ({ who })=> `Bonjour ${who}`,
                 "how are you": "Comment vous sentez vous au jour d'hui?",
                 "learn more": ({ href }) => (
                     <>
@@ -187,7 +187,7 @@ Now go back to your component and use the translation function: &#x20;
  }
 
  export const { i18n } = declareComponentKeys<
-     | ["greeting", { who: string; }]
+     | ["greating", { who: string; }]
      | "how are you"
      | [ "learn more", { href: string; }]
  >()({ MyComponent });
