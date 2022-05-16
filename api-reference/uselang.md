@@ -21,7 +21,7 @@ function MyComponent(){
                     case "fr": return "French";
                 }
             })()}</span>
-            <button onClick={()=> setLang("en")}>Put the app in Enclish</button>
+            <button onClick={()=> setLang("en")}>Put the app in English</button>
             <button onClick={()=> setLang("fr")}>Put the app in French</button>
         </>
     );

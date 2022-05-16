@@ -2,7 +2,7 @@
 
 Before diving into the thick of things, consider editing your `tsconfig.json` file to be able to use absolute instead of relative path.&#x20;
 
-It will prevent you from having to write imports like&#x20;
+It will prevent you from having to write imports like:
 
 `import { useTranslations } from "../../../../i18n";`&#x20;
 
