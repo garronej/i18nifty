@@ -84,7 +84,7 @@ import { createI18nApi } from "i18nifty";
 //List the languages you with to support
 export const languages = ["en", "fr"] as const;
 
-//If the user's browser language dosen't match any 
+//If the user's browser language doesn't match any 
 //of the languages above specify the language to fallback to:  
 export const fallbackLanguage = "en";
 
