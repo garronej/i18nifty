@@ -7581,17 +7581,17 @@ github-slugger@^1.0.0:
   resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-1.4.0.tgz#206eb96cdb22ee56fdc53a28d5a302338463444e"
   integrity sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==
 
-gitlanding@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/gitlanding/-/gitlanding-0.13.0.tgz#de0a6a4fa1b3aca0efbe60bcb7c5e9496a578eb4"
-  integrity sha512-Uv/zdQiXO2TSfR585JCfNlOKxjslyXgW7U4RqLYOwj7rB9cpanfhwKdkHVN3HVEWA68ErhbHnucmHtb2P3syhg==
+gitlanding@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/gitlanding/-/gitlanding-0.17.0.tgz#e79faf8e3bf20157d24492ab606c9704271a93c4"
+  integrity sha512-bcQ34SphLBZh8IAxPm/4TSxMAYCXk5DbPgh64MVlJsiJfaZbxsIEJTrubfmx0bYlxP+w7NnE7BJ98kObniinLg==
   dependencies:
     "@mui/icons-material" "^5.5.0"
     embla-carousel "^4.1.5"
     framer-motion "^4.1.17"
     memoizee "^0.4.15"
     powerhooks "^0.16.3"
-    react-code-blocks "^0.0.8"
+    react-code-blocks "^0.0.9-0"
     react-github-btn "^1.2.0"
     react-markdown "^5.0.3"
     react-svg "^13.0.4"
@@ -12196,16 +12196,15 @@ react-app-rewired@^2.1.8:
   dependencies:
     semver "^5.6.0"
 
-react-code-blocks@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/react-code-blocks/-/react-code-blocks-0.0.8.tgz#3bb70b9b60510dba6c6b7ef350d1977cf022ff15"
-  integrity sha512-xGw05QLvaEteWnlmPKr7pe/F7WrhUT7GbL5h+Yf3zmErVDmZJbQgJVxSnDSEw30V32fo4EFb8wo/3mhO4pZSsw==
+react-code-blocks@^0.0.9-0:
+  version "0.0.9-0"
+  resolved "https://registry.yarnpkg.com/react-code-blocks/-/react-code-blocks-0.0.9-0.tgz#0c6d04d8a40b74cffe95f24f1a8e62a0fda8c014"
+  integrity sha512-jdYJVZwGtsr6WIUaqILy5fkF1acf57YV5s0V3+w5o9v3omYnqBeO6EuZi1Vf2x1hahkYGEedsp46+ofdkYlqyw==
   dependencies:
     "@babel/runtime" "^7.10.4"
     react-syntax-highlighter "^12.2.1"
     styled-components "^5.1.1"
     tslib "^2.0.0"
-    typescript-plugin-styled-components "^1.4.4"
 
 react-colorful@^5.1.2:
   version "5.5.1"
@@ -14437,11 +14436,6 @@ typeface-work-sans@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-work-sans/-/typeface-work-sans-1.1.13.tgz#344ac638cbebcd55611fc4c2d08c7c9b47792157"
   integrity sha512-LA5agpsXPLWFaUB88mhxsjtwius4Eu2AHuy5gaKeRY8RMHpEzJbDCES8DWbJ/vAYOljaE1OIoKeqrFdDqjKDtQ==
-
-typescript-plugin-styled-components@^1.4.4:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/typescript-plugin-styled-components/-/typescript-plugin-styled-components-1.6.0.tgz#6ee1d2b079490ad101055112fda1974d761f2e96"
-  integrity sha512-cUCbOuY0iNr1JjPYC5MqCiABrfv2ouLift+7gi4vS0gBPQySUT006wHCjwzynMfU5LGMQaZqpssAgzRRjt30Ng==
 
 typescript@^4.5.4:
   version "4.6.4"
