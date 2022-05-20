@@ -11,7 +11,6 @@ import demo1Mp4Url from "ui/assets/demo_1.mp4";
 import demo1WebmUrl from "ui/assets/demo_1.webm";
 import demo2Mp4Url from "ui/assets/demo_2.mp4";
 import demo2WebmUrl from "ui/assets/demo_2.webm";
-import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlArticle } from "gitlanding/GlArticle";
 import { playgroundUrl } from "../router";
 
@@ -45,15 +44,15 @@ export function Home() {
                             "src": demo1WebmUrl,
                             "type": "video/webm",
                         }
-                    ]
+                    ],
+                    "hasShadow": true
                 }}
                 hasLinkToSectionBellow={true}
-                hasIllustrationShadow={true}
                 classes={{
                     "subtitle": classes.heroSubtitle,
                     "imageWrapper": classes.heroImageWrapper,
                     "textWrapper": classes.heroTextWrapper,
-                    "image": classes.heroImage
+                    "illustration": classes.heroImage
                 }}
             />
             <GlArticle
@@ -62,12 +61,13 @@ export function Home() {
                 body={t("article body")}
                 buttonLabel={t("try now")}
                 buttonLink={{ "href": playgroundUrl }}
+                classes={{
+                    "video": classes.articleVideo
+                }}
                 illustration={
-                    <GlIllustration
-                        hasShadow={false}
-                        type="video"
-                        height={500}
-                        sources={[
+                    {
+                        "type": "video",
+                        "sources": [
                             {
                                 "src": demo2Mp4Url,
                                 "type": 'video/mp4; codecs="hvc1"',
@@ -76,8 +76,9 @@ export function Home() {
                                 "src": demo2WebmUrl,
                                 "type": "video/webm",
                             },
-                        ]}
-                    />
+
+                        ]
+                    }
                 }
                 hasAnimation={true}
                 illustrationPosition="right"
@@ -100,6 +101,11 @@ export const { i18n } = declareComponentKeys<
 
 const useStyles = makeStyles({ "name": { Home } })(theme => ({
     "heroImage": {
+        "borderRadius": 10,
+        "maxWidth": 700
+    },
+    "articleVideo": {
+        "maxWidth": 500,
         "borderRadius": 10
     },
     "title2": {
