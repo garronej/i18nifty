@@ -1,5 +1,5 @@
-import { useEffect, useMemo, memo } from "react";
-import { useRoute } from "./router";
+import { useEffect, memo } from "react";
+import { useRoute, githubRepoUrl, docsUrl, playgroundUrl } from "./router";
 import { FourOhFour } from "./pages/FourOhFour";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { useSplashScreen } from "onyxia-ui";
@@ -14,9 +14,6 @@ import { declareComponentKeys } from "i18nifty";
 import { GlLogo } from "gitlanding/utils/GlLogo";
 import bannerDarkUrl from "ui/assets/banner_dark.png";
 import bannerLightUrl from "ui/assets/banner_light.png";
-
-
-const githubRepoUrl = "https://github.com/garronej/i18nifty";
 
 /* spell-checker: disable */
 export const App = memo(() => {
@@ -34,25 +31,13 @@ export const App = memo(() => {
 
     const { t } = useTranslation({ App });
 
-    const pageNode = useMemo(() => {
-        {
-            const Page = Home;
-
-            if (Page.routeGroup.has(route)) {
-                return <Page />;
-            }
-        }
-
-        return <FourOhFour />;
-    }, [route]);
-
     const { classes, theme } = useStyles();
 
     return (
         <GlTemplate
             header={
                 <GlHeader
-                    title={<GlLogo logoUrl={theme.isDarkModeEnabled ? bannerDarkUrl : bannerLightUrl} width={100} />}
+                    title={<GlLogo logoUrl={theme.isDarkModeEnabled ? bannerDarkUrl : bannerLightUrl} width={150} />}
                     links={[
                         {
                             "label": "GitHub",
@@ -60,11 +45,11 @@ export const App = memo(() => {
                         },
                         {
                             "label": t("documentation"),
-                            "href": "https://docs.i18nifty.dev",
+                            "href": docsUrl,
                         },
                         {
                             "label": t("try it"),
-                            "href": "https://stackblitz.com/edit/react-ts-m4d8w7?file=components/LanguageSwitch.tsx",
+                            "href": playgroundUrl
                         },
                     ]}
                     enableDarkModeSwitch={true}
@@ -86,14 +71,27 @@ export const App = memo(() => {
                 "isRetracted": "smart",
             }}
         >
-            {pageNode}
+            {(() => {
+
+                {
+                    const Page = Home;
+
+                    if (Page.routeGroup.has(route)) {
+                        return <Page />;
+                    }
+                }
+
+                return <FourOhFour />;
+
+
+            })()}
         </GlTemplate>
     );
 });
 
 export const { i18n } = declareComponentKeys<
-    | "documentation" 
-    | "try it" 
+    | "documentation"
+    | "try it"
 >()({ App });
 
 const useStyles = makeStyles({ "name": { App } })(theme => ({

@@ -20,6 +20,6 @@
         "noFallthroughCasesInSwitch": true,
         "downlevelIteration": true
     },
-    "include": ["src"],
+    "include": ["src", "src/ui/.MyComponent.tsx"],
     "exclude": ["src/bin"]
 }

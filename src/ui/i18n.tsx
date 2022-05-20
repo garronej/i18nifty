@@ -12,6 +12,7 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 	| typeof import("./App").i18n
 	| typeof import("./pages/Home").i18n
 	| typeof import("./pages/FourOhFour").i18n
+	//| typeof import("./MyComponent").i18n
 >()(
 	{
 		languages,
@@ -25,19 +26,18 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 				"try it": "Try it",
 			},
 			"Home": {
-				"hero text": <>i18<g>nifty</g></>,
-				"hero text subtext": "Type safe internationalization and translation in React",
-				"subTitle": "Pool computing resources and provide a state of the art work environnement to your data scientists without relying on big tech closed-source software.",
-				"what is onyxia title": "What's Onyxia?",
-				"what is onyxia body":
-					`Onyxia is a web app that installs on [Kubernetes](https://hubernetes.io) cluster.  
-                It provides to your data scientist a nice and intuitive interface to launch on demand [containers](https://wwww.docker.com/) like [Spark, RStudio or Jupyter](https://datalab/sppcloud.fr/catalog) on demand.  
-                On top of that Onyxia features a tight S3 integration via [MINIO](https://min.io/) or [AWS](https://aws.amazon.com/s3/) and [Vault](https://www.vaultproject.io) for managing sensitive information.`,
-				"install now": "Install now",
+				"hero text subtext": "Type-safe internationalization and translation in React",
+				"subTitle": "A i18n library designed to leverage TypeScript's type inference capability.",
+				"article title": "Localization is much less of a chore when assisted by intellisense.",
+				"article body": `With i18nifty you get red squiggly lines wherever a translation is missing.  
+				When using the translation function you are provided with a list of available keys for 
+				the current component.
+				`,
+				"try now": "Try in a playground"
 			},
 			"FourOhFour": {
 				"not found": "Page not found"
-			}
+			},
 		},
 		/* spell-checker: disable */
 		"fr": {
@@ -46,16 +46,12 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 				"try it": "Essayez",
 			},
 			"Home": {
-				"hero text": undefined,
-				"hero text subtext": undefined,
-				"subTitle": "Mettez en commun votre puissance de calcul et fournissez un environnement de travail a l'état de l'art à vos datascientits sans dépendre de logiciels propiétaires des GAFAM.",
-				"what is onyxia title": "Qu'est-ce qu'Onyxia?",
-				"what is onyxia body":
-					`Onyxia est une application web qui s'installe sur un cluster [Kubernetes](https://kubernetes.io/).  
-            Elle fournit à vos data scientistes une interface intuitive et agréable pour lancer des [containers](https://www.docker.com/) comme [Spark, RStudio ou Jupyter](https://datalab.sspcloud.fr/catalog/) à la demande
-            et propose une intégration S3 ([MINIO](https://min.io/) ou [AWS](https://aws.amazon.com/s3/)) pour travailler avec la donnée et [Vault](https://www.vaultproject.io/) pour la géstion sécuisé des information sensibles.
-            `,
-				"install now": "Installer maintenant",
+				"hero text subtext": "Type-safe internationalisation et traduction en React",
+				"subTitle": "Une libraire i18n conçu pour tirer profit des capacités d'inférence de TypeScript.",
+				"article title": "Guidée par intllisense, la localisation n'est plus autant une corvée.",
+				"article body": `Avec i18n, là on des traductions sont manquante vous aurez des choses soulignées en rouge.  
+				Quand vous utilisez la fonction de traduction, les clefs disponibles pour le composant courant sont listées.`,
+				"try now": "Essayez dans une sandbox"
 			},
 			"FourOhFour": {
 				"not found": "Page non trouvée",

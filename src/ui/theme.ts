@@ -16,13 +16,15 @@ import { createButtonBarButton } from "onyxia-ui/ButtonBarButton";
 import { createLanguageSelect } from "onyxia-ui/LanguageSelect";
 import type { Language } from "ui/i18n";
 import { createOnyxiaSplashScreenLogo } from "onyxia-ui/lib/SplashScreen";
+import { ultravioletPalette } from "onyxia-ui";
 
 export const { ThemeProvider, useTheme } = createThemeProvider({
     "getTypographyDesc": params => ({
         ...defaultGetTypographyDesc(params),
         "fontFamily": '"Work Sans", sans-serif',
         //"fontFamily": 'Marianne, sans-serif',
-    })
+    }),
+    "palette": ultravioletPalette
 });
 
 export const { makeStyles, useStyles } = createMakeStyles({ useTheme });
