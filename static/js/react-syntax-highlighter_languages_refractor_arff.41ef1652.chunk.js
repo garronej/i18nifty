@@ -1,0 +1,2 @@
+(this.webpackJsonpi18nifty_landingpage=this.webpackJsonpi18nifty_landingpage||[]).push([[8],{671:function(n,a,t){"use strict";function e(n){n.languages.arff={comment:/%.*/,string:{pattern:/(["'])(?:\\.|(?!\1)[^\\\r\n])*\1/,greedy:!0},keyword:/@(?:attribute|data|end|relation)\b/i,number:/\b\d+(?:\.\d+)?\b/,punctuation:/[{},]/}}n.exports=e,e.displayName="arff",e.aliases=[]}}]);
+//# sourceMappingURL=react-syntax-highlighter_languages_refractor_arff.41ef1652.chunk.js.map
