@@ -1,3 +1,13 @@
+<div align="center">
+
+  ![Logo Dark](https://www.i18nifty.dev/banner_dark.png#gh-dark-mode-only)
+
+</div>
+<div align="center">
+
+  ![Logo Light](https://www.i18nifty.dev/banner_light.png#gh-light-mode-only)
+
+</div>
 <p align="center">
     <i>Internationalization and translation in React. Done right</i>
     <br>
@@ -16,4 +26,9 @@
     </a>
 </p>
 
-[See example setup](https://github.com/etalab/sill-web/blob/main/src/ui/i18n.tsx)
+<p align="center">
+  <a href="https://www.i18nifty.dev">Home</a>
+  -
+  <a href="https://docs.i18nifty.dev">Documentation</a>
+</p>
+
