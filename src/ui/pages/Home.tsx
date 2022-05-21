@@ -38,7 +38,7 @@ export function Home() {
                     "sources": [
                         {
                             "src": demo1Mp4Url,
-                            "type": 'video/mp4; codecs="hvc1"',
+                            "type": 'video/mp4',
                         },
                         {
                             "src": demo1WebmUrl,
@@ -70,7 +70,7 @@ export function Home() {
                         "sources": [
                             {
                                 "src": demo2Mp4Url,
-                                "type": 'video/mp4; codecs="hvc1"',
+                                "type": 'video/mp4',
                             },
                             {
                                 "src": demo2WebmUrl,
