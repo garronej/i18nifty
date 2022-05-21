@@ -9,11 +9,11 @@
 
 </div>
 <p align="center">
-    <i>Internationalization and translation in React. Done right</i>
+    <i>Type-safe internationalization and translation in React</i>
     <br>
     <br>
     <a href="https://github.com/garronej/i18nifty/actions">
-      <img src="https://github.com/garronej/i18nifty/workflows/ci/badge.svg?branch=develop">
+      <img src="https://github.com/garronej/i18nifty/workflows/ci/badge.svg?branch=main">
     </a>
     <a href="https://bundlephobia.com/package/i18nifty">
       <img src="https://img.shields.io/bundlephobia/minzip/i18nifty">
