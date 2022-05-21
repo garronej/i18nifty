@@ -81,7 +81,7 @@ export function Home() {
                     }
                 }
                 hasAnimation={true}
-                illustrationPosition="right"
+                illustrationPosition="left"
             />
         </>
 
