@@ -1,14 +1,14 @@
 <div align="center">
 
-  ![Logo Dark](https://www.i18nifty.dev/banner_dark.png#gh-dark-mode-only)
+![Logo Dark](https://www.i18nifty.dev/banner_dark.png#gh-dark-mode-only)
 
-</div>  
+</div>
 
 <div align="center">
 
-  ![Logo Light](https://www.i18nifty.dev/banner_light.png#gh-light-mode-only)
+![Logo Light](https://www.i18nifty.dev/banner_light.png#gh-light-mode-only)
 
-</div>  
+</div>
 
 <p align="center">
     <i>Type-safe internationalization and translation in React</i>
@@ -33,4 +33,3 @@
   -
   <a href="https://docs.i18nifty.dev">Documentation</a>
 </p>
-
