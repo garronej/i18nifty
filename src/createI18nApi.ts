@@ -35,9 +35,9 @@ export function createI18nApi<
         const { languages, fallbackLanguage, doPersistLanguageInLocalStorage } =
             params;
 
-        const { useLang, evtLang } = createUseGlobalState(
-            "lang",
-            (): Language => {
+        const { useLang, evtLang } = createUseGlobalState({
+            "name": "lang",
+            "initialState": (): Language => {
                 const iso2LanguageLike = navigator.language
                     .split("-")[0]
                     .toLowerCase();
@@ -52,12 +52,8 @@ export function createI18nApi<
 
                 return fallbackLanguage;
             },
-            {
-                "persistance": doPersistLanguageInLocalStorage
-                    ? "localStorage"
-                    : false,
-            },
-        );
+            "doPersistAcrossReloads": doPersistLanguageInLocalStorage,
+        });
 
         evtLang.attach(lang =>
             document.documentElement.setAttribute("lang", lang),
