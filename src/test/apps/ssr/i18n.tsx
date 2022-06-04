@@ -1,6 +1,6 @@
 
 import { Fragment } from "react";
-import { createI18nApi } from "i18nifty";
+import { createI18nApi } from "i18nifty/ssr";
 
 //List the languages you with to support
 export const languages = ["en", "fr"] as const;
@@ -18,7 +18,8 @@ export const {
   resolveLocalizedString,
   useLang,
   evtLang,
-  useResolveLocalizedString
+  useResolveLocalizedString,
+  withLang
 } = createI18nApi<
   | typeof import('./components/MyComponent').i18n
   | typeof import('./components/MyOtherComponent').i18n

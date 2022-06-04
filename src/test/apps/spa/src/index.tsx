@@ -1,11 +1,10 @@
-import { render } from "react-dom";
-import { MyComponent1 } from "./Component1";
-import { MyComponent2 } from "./Component2";
+import { createRoot } from "react-dom/client";
+import { StrictMode } from "react";
+import { App } from "./components/App";
 
-render(
-	<>
-		<MyComponent1 />
-		<MyComponent2 />
-	</>,
-    document.getElementById("root"),
-);
+createRoot(document.getElementById("root") as HTMLElement)
+	.render(
+		<StrictMode>
+			<App />
+		</StrictMode>
+	);

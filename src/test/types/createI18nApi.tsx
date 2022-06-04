@@ -1,16 +1,17 @@
-import { createI18nApi } from "../../createI18nApi";
+import { createI18nApi } from "../../spa";
+import { createI18nApi as createSsrI18nApi  } from "../../ssr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { Reflect } from "tsafe/Reflect";
+import DefaultApp from "next/app";
 
 {
     const i18n: ["MyComponent", ["the key", { x: number }]] = null as any;
 
-    const { useTranslation } = createI18nApi<typeof i18n>()(
+    const { useTranslation, evtLang, resolveLocalizedString, useLang,useResolveLocalizedString, ...rest } = createI18nApi<typeof i18n>()(
         {
             "languages": ["en"] as const,
             "fallbackLanguage": "en",
-            "doPersistLanguageInLocalStorage": false,
         },
         {
             "en": {
@@ -23,6 +24,43 @@ import { Reflect } from "tsafe/Reflect";
             },
         },
     );
+
+    assert<Equals<typeof rest, {}>>();
+
+    const { t } = useTranslation({ "MyComponent": null });
+
+    const out = t("the key", { "x": Reflect<number>() });
+
+    assert<Equals<typeof out, string>>();
+}
+
+{
+    const i18n: ["MyComponent", ["the key", { x: number }]] = null as any;
+
+    const { useTranslation, evtLang, resolveLocalizedString, useLang,useResolveLocalizedString, withLang, ...rest } = createSsrI18nApi<typeof i18n>()(
+        {
+            "languages": ["en"] as const,
+            "fallbackLanguage": "en",
+        },
+        {
+            "en": {
+                "MyComponent": {
+                    "the key": ({ x }) => {
+                        assert<Equals<typeof x, number>>();
+                        return Reflect<string>();
+                    },
+                },
+            },
+        },
+    );
+
+    assert<Equals<typeof rest, {}>>();
+
+    let MyApp= withLang();
+
+    assert<Equals<typeof MyApp, typeof DefaultApp>>();
+
+    MyApp = withLang(DefaultApp);
 
     const { t } = useTranslation({ "MyComponent": null });
 
@@ -39,7 +77,6 @@ import { Reflect } from "tsafe/Reflect";
         {
             "languages": ["en", "fr"] as const,
             "fallbackLanguage": "en" as const,
-            "doPersistLanguageInLocalStorage": false,
         },
         {
             "en": {

@@ -1,61 +1,31 @@
 {
     "name": "i18nifty-app",
     "version": "0.0.0",
-    "description": "An app for testing i18n-react-ts",
+    "description": "SPA test app for i18nifty",
     "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/garronej/i18nifty"
-    },
     "scripts": {
         "build": "react-app-rewired build",
         "start": "react-app-rewired start"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged -v"
-        }
-    },
-    "lint-staged": {
-        "*.{ts,tsx,json,md}": [
-            "prettier --write"
-        ]
-    },
-    "author": "u/garronej",
-    "license": "MIT",
     "dependencies": {
         "i18nifty": "file:../../../../dist",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react": "18.1.0",
+        "react-dom": "18.1.0"
     },
     "devDependencies": {
-        "@storybook/addon-actions": "^6.3.7",
-        "@storybook/addon-essentials": "^6.3.7",
-        "@storybook/addon-events": "6.2.9",
-        "@storybook/addon-links": "^6.3.7",
-        "@storybook/node-logger": "^6.3.7",
-        "@storybook/preset-create-react-app": "^3.2.0",
-        "@storybook/react": "^6.3.7",
-        "@types/js-yaml": "^4.0.3",
-        "@types/memoizee": "^0.4.6",
-        "@types/node": "^12.0.0",
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
-        "circular-dependency-plugin": "^5.2.0",
-        "eslint-config-prettier": "^8.3.0",
-        "prettier": "^2.3.0",
-        "react-app-rewired": "^2.1.8",
-        "react-scripts": "4.0.2",
-        "typescript": "^4.5.4"
+        "typescript": "^4.7.3",
+        "react-scripts": "5.0.1",
+        "@types/node": "^16.11.38",
+        "@types/react": "18.0.10",
+        "@types/react-dom": "18.0.5",
+        "react-app-rewired": "^2.2.1",
+        "circular-dependency-plugin": "^5.2.2"
     },
     "eslintConfig": {
         "extends": [
-            "react-app"
-        ],
-        "rules": {
-            "@typescript-eslint/no-redeclare": "off",
-            "react-hooks/exhaustive-deps": "off"
-        }
+            "react-app",
+            "react-app/jest"
+        ]
     },
     "browserslist": {
         "production": [
