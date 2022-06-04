@@ -11,7 +11,6 @@ import type {
 } from "./typeUtils";
 import type { Dispatch, SetStateAction } from "react";
 
-
 type I18nApi<
     ComponentKey extends [string, string | [string, Record<string, any>]],
     Language extends string,
@@ -20,7 +19,7 @@ type I18nApi<
         [L in Language]: L extends FallbackLanguage
             ? ComponentKeyToRecord<ComponentKey>
             : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
-    }
+    },
 > = {
     useLang: () => {
         lang: Language;
@@ -48,7 +47,11 @@ type I18nApi<
     ) => string;
 };
 
-export function createI18nApiFactory<AppType extends { type: "ssr"; NextComponentType: any; DefaultAppType: any; } | { type: "spa"; }>(params: {
+export function createI18nApiFactory<
+    AppType extends
+        | { type: "ssr"; NextComponentType: any; DefaultAppType: any }
+        | { type: "spa" },
+>(params: {
     createUseLang: <Language extends string>(params: {
         languages: readonly Language[];
         fallbackLanguage: Language;
@@ -76,11 +79,19 @@ export function createI18nApiFactory<AppType extends { type: "ssr"; NextComponen
             fallbackLanguage: FallbackLanguage;
         },
         translations: Translations,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        ) => I18nApi<ComponentKey, Language, FallbackLanguage, Translations> & (AppType extends { type: "spa"; } ? {} : AppType extends { type: "ssr"; } ? { withLang: {
-            <AppComponent extends AppType["NextComponentType"]>(App: AppComponent): AppComponent;
-            (): AppType["DefaultAppType"];
-        } } : never);
+    ) => I18nApi<ComponentKey, Language, FallbackLanguage, Translations> &
+        (AppType extends { type: "spa" }
+            ? unknown
+            : AppType extends { type: "ssr" }
+            ? {
+                  withLang: {
+                      <AppComponent extends AppType["NextComponentType"]>(
+                          App: AppComponent,
+                      ): AppComponent;
+                      (): AppType["DefaultAppType"];
+                  };
+              }
+            : never);
 } {
     const { createUseLang } = params;
 
@@ -106,7 +117,6 @@ export function createI18nApiFactory<AppType extends { type: "ssr"; NextComponen
             const { languages, fallbackLanguage } = params;
 
             const { useLang, evtLang, withLang } = (() => {
-
                 const result = createUseLang({
                     languages,
                     fallbackLanguage,
@@ -116,7 +126,6 @@ export function createI18nApiFactory<AppType extends { type: "ssr"; NextComponen
                 const { withLang } = result as any;
 
                 return { useLang, evtLang, withLang };
-
             })();
 
             function useResolveLocalizedString() {
@@ -178,19 +187,23 @@ export function createI18nApiFactory<AppType extends { type: "ssr"; NextComponen
                 }).resolveLocalizedString(localizedString);
             }
 
-            const i18nApi: I18nApi<ComponentKey, Language, FallbackLanguage, Translations> = {
+            const i18nApi: I18nApi<
+                ComponentKey,
+                Language,
+                FallbackLanguage,
+                Translations
+            > = {
                 useLang,
                 useTranslation,
                 useResolveLocalizedString,
                 resolveLocalizedString,
-                evtLang
+                evtLang,
             };
 
             return {
                 ...i18nApi,
-                withLang
+                withLang,
             } as any;
-
         };
     }
 
