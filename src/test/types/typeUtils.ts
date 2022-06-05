@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type {
     KeyToRecord,
     ComponentKeyToRecord,
@@ -9,12 +8,19 @@ import { Reflect } from "tsafe/Reflect";
 import type { Equals } from "tsafe";
 
 {
-    type Input = "key1" | "key2" | ["key3", { x: number }];
+    type Input =
+        | "key1"
+        | "key2"
+        | { K: "key3"; P: { x: number } }
+        | { K: "key4"; P: { y: string }; R: JSX.Element }
+        | { K: "key5"; R: JSX.Element };
 
     type ExpectedOutput = {
-        key1: ReactNode;
-        key2: ReactNode;
-        key3: (params: { x: number }) => ReactNode;
+        key1: string;
+        key2: string;
+        key3: (params: { x: number }) => string;
+        key4: (params: { y: string }) => JSX.Element;
+        key5: JSX.Element;
     };
 
     type Output = KeyToRecord<Input>;
@@ -24,21 +30,45 @@ import type { Equals } from "tsafe";
 
 {
     type Input =
-        | ["MyComponent1", "key1" | "key2" | ["key3", { x: number }]]
-        | ["MyComponent2", "keyA" | ["keyB", { str: string }] | "keyC"];
+        | [
+              "MyComponent1",
+
+              (
+                  | "key1"
+                  | "key2"
+                  | { K: "key3"; P: { x: number } }
+                  | { K: "key4"; P: { y: string }; R: JSX.Element }
+                  | { K: "key5"; R: JSX.Element }
+              ),
+          ]
+        | [
+              "MyComponent2",
+
+              (
+                  | "keyA"
+                  | "keyB"
+                  | { K: "keyC"; P: { x: number } }
+                  | { K: "keyD"; P: { y: string }; R: JSX.Element }
+                  | { K: "keyE"; R: JSX.Element }
+              ),
+          ];
 
     type ExpectedOutput = {
         MyComponent1: {
-            key1: ReactNode;
-            key2: ReactNode;
+            key1: string;
+            key2: string;
         } & {
-            key3: (params: { x: number }) => ReactNode;
+            key3: (params: { x: number }) => string;
+            key4: (params: { y: string }) => JSX.Element;
+            key5: JSX.Element;
         };
         MyComponent2: {
-            keyA: ReactNode;
-            keyC: ReactNode;
+            keyA: string;
+            keyB: string;
         } & {
-            keyB: (params: { str: string }) => ReactNode;
+            keyC: (params: { x: number }) => string;
+            keyD: (params: { y: string }) => JSX.Element;
+            keyE: JSX.Element;
         };
     };
 
@@ -51,47 +81,30 @@ import type { Equals } from "tsafe";
     type ComponentName = "MyComponent1";
 
     type ComponentKey =
-        | ["MyComponent1", "key1" | "key2" | ["key3", { x: number }]]
-        | ["MyComponent2", "keyA" | ["keyB", { str: string }] | "keyC"];
+        | [
+              "MyComponent1",
 
-    type Language = "en" | "fr";
+              (
+                  | "key1"
+                  | "key2"
+                  | { K: "key3"; P: { x: number } }
+                  | { K: "key4"; P: { y: string }; R: JSX.Element }
+                  | { K: "key5"; R: JSX.Element }
+              ),
+          ]
+        | [
+              "MyComponent2",
 
-    type FallbackLanguage = "en";
+              (
+                  | "keyA"
+                  | "keyB"
+                  | { K: "keyC"; P: { x: number } }
+                  | { K: "keyD"; P: { y: string }; R: JSX.Element }
+                  | { K: "keyE"; R: JSX.Element }
+              ),
+          ];
 
-    const translation = {
-        "en": {
-            "MyComponent1": {
-                "key1": Reflect<string>(),
-                "key2": Reflect<JSX.Element>(),
-                "key3": Reflect<(params: { x: number }) => JSX.Element>(),
-            },
-            "MyComponent2": {
-                "keyA": Reflect<string>(),
-                "keyB": Reflect<(params: { str: string }) => JSX.Element>(),
-                "keyC": Reflect<string>(),
-            },
-        },
-        "fr": {
-            "MyComponent1": {
-                "key1": Reflect<string>(),
-                "key2": Reflect<string>(),
-                "key3": Reflect<(params: { x: number }) => string>(),
-            },
-            "MyComponent2": {
-                "keyA": Reflect<string>(),
-                "keyB": Reflect<(params: { str: string }) => JSX.Element>(),
-                "keyC": Reflect<string>(),
-            },
-        },
-    };
-
-    const t: TranslationFunction<
-        ComponentName,
-        ComponentKey,
-        Language,
-        FallbackLanguage,
-        typeof translation
-    > = null as any;
+    const t: TranslationFunction<ComponentName, ComponentKey> = null as any;
 
     {
         const got = t("key1");
@@ -104,7 +117,7 @@ import type { Equals } from "tsafe";
     {
         const got = t("key2");
 
-        type Expected = JSX.Element | string;
+        type Expected = string;
 
         assert<Equals<typeof got, Expected>>();
     }
@@ -112,7 +125,23 @@ import type { Equals } from "tsafe";
     {
         const got = t("key3", { "x": Reflect<number>() });
 
-        type Expected = string | JSX.Element;
+        type Expected = string;
+
+        assert<Equals<typeof got, Expected>>();
+    }
+
+    {
+        const got = t("key4", { "y": Reflect<string>() });
+
+        type Expected = JSX.Element;
+
+        assert<Equals<typeof got, Expected>>();
+    }
+
+    {
+        const got = t("key5");
+
+        type Expected = JSX.Element;
 
         assert<Equals<typeof got, Expected>>();
     }

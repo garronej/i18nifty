@@ -1,6 +1,5 @@
-import * as React from "react";
 import { declareComponentKeys } from "i18nifty";
-import { useTranslation } from "../i18n";
+import { useTranslation } from "../i18n";
 
 type Props = {
   messageCount: number;
@@ -24,5 +23,5 @@ export function MyOtherComponent(props: Props) {
 export const { i18n } = declareComponentKeys<
   | "open" 
   | "delete" 
-  | ["unread messages", { howMany: number }]
+  | { K: "unread messages"; P: { howMany: number } }
 >()({ MyOtherComponent });

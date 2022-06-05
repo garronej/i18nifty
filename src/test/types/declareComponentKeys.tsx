@@ -11,7 +11,11 @@ export const MyComponent = memo(() => {
     const { i18n } = declareComponentKeys<
         | "one thing"
         | "something else"
-        | ["yet another thing", { x: number; name: string }]
+        | {
+              K: "yet another thing";
+              P: { x: number; name: string };
+              R: JSX.Element;
+          }
     >()({ MyComponent });
 
     type Expected = [
@@ -19,7 +23,11 @@ export const MyComponent = memo(() => {
         (
             | "one thing"
             | "something else"
-            | ["yet another thing", { x: number; name: string }]
+            | {
+                  K: "yet another thing";
+                  P: { x: number; name: string };
+                  R: JSX.Element;
+              }
         ),
     ];
 

@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { declareComponentKeys } from 'i18nifty';
-import { useTranslation } from '../i18n'; //You can import it like that thanks to baseUrl
+import { declareComponentKeys } from "i18nifty";
+import { useTranslation } from "i18n"; //You can import it like that thanks to baseUrl in tsconfig.json
 
 type Props = {
   name: string;
@@ -13,15 +12,17 @@ export function MyComponent(props: Props) {
 
   return (
     <div>
-      <h1>{t("greeting", { who: name })}</h1>
+      <h1>{t("greeting", { "who": name })}</h1>
       <h3>{t("how are you")}</h3>
-      <p>{t("learn more", { href: "https://example.com" })}</p>
+      <span>{t("any questions ?")}</span>
+      <p>{t("learn more", { "href": "https://example.com" })}</p>
     </div>
   );
 }
 
 export const { i18n } = declareComponentKeys<
-  | ['greeting', { who: string }]
-  | 'how are you'
-  | ['learn more', { href: string }]
+  | { K: "greeting"; P: { who: string }; }
+  | "how are you"
+  | { K: "learn more"; P: { href: string }; R: JSX.Element; }
+  | { K: "any questions ?"; R: JSX.Element; }
 >()({ MyComponent });

@@ -12,14 +12,8 @@ import type {
 import type { Dispatch, SetStateAction } from "react";
 
 type I18nApi<
-    ComponentKey extends [string, string | [string, Record<string, any>]],
+    ComponentKey extends [string, string | { K: string }],
     Language extends string,
-    FallbackLanguage extends Language,
-    Translations extends {
-        [L in Language]: L extends FallbackLanguage
-            ? ComponentKeyToRecord<ComponentKey>
-            : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
-    },
 > = {
     useLang: () => {
         lang: Language;
@@ -29,13 +23,7 @@ type I18nApi<
     useTranslation: <ComponentName extends ComponentKey[0]>(
         componentNameAsKey: Record<ComponentName, unknown>,
     ) => {
-        t: TranslationFunction<
-            ComponentName,
-            ComponentKey,
-            Language,
-            FallbackLanguage,
-            Translations
-        >;
+        t: TranslationFunction<ComponentName, ComponentKey>;
     };
     useResolveLocalizedString: () => {
         resolveLocalizedString: (
@@ -64,7 +52,7 @@ export function createI18nApiFactory<
     };
 }): {
     createI18nApi: <
-        ComponentKey extends [string, string | [string, Record<string, any>]],
+        ComponentKey extends [string, string | { K: string }],
     >() => <
         Language extends string,
         FallbackLanguage extends Language,
@@ -79,7 +67,7 @@ export function createI18nApiFactory<
             fallbackLanguage: FallbackLanguage;
         },
         translations: Translations,
-    ) => I18nApi<ComponentKey, Language, FallbackLanguage, Translations> &
+    ) => I18nApi<ComponentKey, Language> &
         (AppType extends { type: "spa" }
             ? unknown
             : AppType extends { type: "ssr" }
@@ -97,7 +85,7 @@ export function createI18nApiFactory<
 
     /** @see <https://docs.i18nifty.dev> */
     function createI18nApi<
-        ComponentKey extends [string, string | [string, Record<string, any>]],
+        ComponentKey extends [string, string | { K: string }],
     >() {
         return function <
             Language extends string,
@@ -147,13 +135,7 @@ export function createI18nApiFactory<
             function useTranslation<ComponentName extends ComponentKey[0]>(
                 componentNameAsKey: Record<ComponentName, unknown>,
             ): {
-                t: TranslationFunction<
-                    ComponentName,
-                    ComponentKey,
-                    Language,
-                    FallbackLanguage,
-                    Translations
-                >;
+                t: TranslationFunction<ComponentName, ComponentKey>;
             } {
                 const { lang } = useLang();
 
@@ -187,12 +169,7 @@ export function createI18nApiFactory<
                 }).resolveLocalizedString(localizedString);
             }
 
-            const i18nApi: I18nApi<
-                ComponentKey,
-                Language,
-                FallbackLanguage,
-                Translations
-            > = {
+            const i18nApi: I18nApi<ComponentKey, Language> = {
                 useLang,
                 useTranslation,
                 useResolveLocalizedString,

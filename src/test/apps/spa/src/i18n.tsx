@@ -1,5 +1,4 @@
 
-import { Fragment } from "react";
 import { createI18nApi } from "i18nifty";
 
 //List the languages you with to support
@@ -7,7 +6,7 @@ export const languages = ["en", "fr"] as const;
 
 //If the user's browser language doesn't match any
 //of the languages above specify the language to fallback to:
-export const fallbackLanguage = 'en';
+export const fallbackLanguage = "en";
 
 export type Language = typeof languages[number];
 
@@ -32,11 +31,12 @@ export const {
       "MyComponent": {
         "greeting": ({ who }) => `Hello ${who}`,
         "how are you": "How are you feeling today?",
+        "any questions ?": <>Any <b>questions</b>?</>,
         "learn more": ({ href }) => (
-          <Fragment>
+          <>
             Learn more about&nbsp;
             <a href={href}>this website</a>.
-          </Fragment>
+          </>
         )
       },
       "MyOtherComponent": {
@@ -58,12 +58,13 @@ export const {
 			/* spell-checker: disable */
       "MyComponent": {
         "greeting": ({ who }) => `Bonjour ${who}`,
+        "any questions ?": <>Des <b>questions</b>?</>,
         "how are you": "Comment vous sentez vous au jour d'hui?",
         "learn more": ({ href }) => (
-          <Fragment>
+          <>
             En savoir plus à propos de&nbsp;
             <a href={href}>ce site web</a>.
-          </Fragment>
+          </>
         )
       },
       "MyOtherComponent": {

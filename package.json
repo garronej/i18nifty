@@ -1,7 +1,8 @@
 {
     "name": "i18nifty",
     "version": "0.4.1",
-    "description": "Internationalization in React. Done well.",
+    "description": "Type safe React i18n library",
+    "homepage": "https://www.i18nifty.dev",
     "repository": {
         "type": "git",
         "url": "git://github.com/garronej/i18nifty.git"
@@ -67,7 +68,6 @@
     "devDependencies": {
         "@types/node": "^16.11.38",
         "@types/react": "18.0.10",
-        "@types/react-dom": "18.0.5",
         "@typescript-eslint/eslint-plugin": "^4.24.0",
         "@typescript-eslint/parser": "^4.24.0",
         "eslint": "^7.26.0",

@@ -1,9 +1,8 @@
-import * as React from "react";
-import { useLang } from "../i18n";
+import { useLang } from "../i18n";
 
 export function LanguageSwitch(){
 
-    const { lang, setLang } = useLang();
+    const { lang, setLang } = useLang();
       
     return (
         <div>

@@ -6,7 +6,15 @@ import { Reflect } from "tsafe/Reflect";
 import DefaultApp from "next/app";
 
 {
-    const i18n: ["MyComponent", ["the key", { x: number }]] = null as any;
+    const i18n = Reflect<
+        [
+            "MyComponent",
+            {
+                K: "the key";
+                P: { x: number };
+            },
+        ]
+    >();
 
     const {
         useTranslation,
@@ -42,7 +50,15 @@ import DefaultApp from "next/app";
 }
 
 {
-    const i18n: ["MyComponent", ["the key", { x: number }]] = null as any;
+    const i18n = Reflect<
+        [
+            "MyComponent",
+            {
+                K: "the key";
+                P: { x: number };
+            },
+        ]
+    >();
 
     const {
         useTranslation,
@@ -86,8 +102,22 @@ import DefaultApp from "next/app";
 
 {
     const { useTranslation } = createI18nApi<
-        | ["MyComponent1", "key1" | "key2" | ["key3", { x: number }]]
-        | ["MyComponent2", "keyA" | ["keyB", { str: string }] | "keyC"]
+        | [
+              "MyComponent1",
+              (
+                  | "key1"
+                  | { K: "key2"; R: JSX.Element | string }
+                  | { K: "key3"; P: { x: number }; R: JSX.Element | string }
+              ),
+          ]
+        | [
+              "MyComponent2",
+              (
+                  | "keyA"
+                  | { K: "keyB"; P: { str: string }; R: JSX.Element }
+                  | "keyC"
+              ),
+          ]
     >()(
         {
             "languages": ["en", "fr"] as const,
