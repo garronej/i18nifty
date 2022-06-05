@@ -49,14 +49,10 @@
         "typescript"
     ],
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.2 || ^18.0.0",
-        "next": "^12.1.0"
+        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
     },
     "peerDependenciesMeta": {
         "react": {
-            "optional": true
-        },
-        "next": {
             "optional": true
         }
     },
