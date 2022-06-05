@@ -7,6 +7,7 @@ import {
 import type { StatefulEvt } from "evt";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
+import { typeGuard } from "tsafe/typeGuard";
 
 export function createUseLang<Language extends string>(params: {
     languages: readonly Language[];
@@ -35,7 +36,7 @@ export function createUseLang<Language extends string>(params: {
 
     evtLang.attach(lang => document.documentElement.setAttribute(name, lang));
 
-    {
+    read_url: {
         const result = retrieveParamFromUrl({
             "url": window.location.href,
             name,
@@ -43,6 +44,17 @@ export function createUseLang<Language extends string>(params: {
 
         if (result.wasPresent) {
             updateSearchBarUrl(result.newUrl);
+
+            if (
+                !typeGuard<Language>(
+                    result.value,
+                    id<readonly string[]>(languages).includes(result.value),
+                )
+            ) {
+                break read_url;
+            }
+
+            evtLang.state = result.value;
         }
     }
 

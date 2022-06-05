@@ -23,6 +23,6 @@ export function MyComponent(props: Props) {
 export const { i18n } = declareComponentKeys<
   | { K: "greeting"; P: { who: string }; }
   | "how are you"
-  | { K: "learn more"; P: { href: string }; R: JSX.Element; }
   | { K: "any questions ?"; R: JSX.Element; }
+  | { K: "learn more"; P: { href: string }; R: JSX.Element; }
 >()({ MyComponent });
