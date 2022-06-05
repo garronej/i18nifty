@@ -1,6 +1,6 @@
 {
     "name": "i18nifty",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Type safe React i18n library",
     "homepage": "https://www.i18nifty.dev",
     "repository": {
