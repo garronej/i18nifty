@@ -53,20 +53,16 @@ export function createI18nApiFactory<
 }): {
     createI18nApi: <
         ComponentKey extends [string, string | { K: string }],
-    >() => <
-        Language extends string,
-        FallbackLanguage extends Language,
-        Translations extends {
-            [L in Language]: L extends FallbackLanguage
-                ? ComponentKeyToRecord<ComponentKey>
-                : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
-        },
-    >(
+    >() => <Language extends string, FallbackLanguage extends Language>(
         params: {
             languages: readonly Language[];
             fallbackLanguage: FallbackLanguage;
         },
-        translations: Translations,
+        translations: {
+            [L in Language]: L extends FallbackLanguage
+                ? ComponentKeyToRecord<ComponentKey>
+                : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
+        },
     ) => I18nApi<ComponentKey, Language> &
         (AppType extends { type: "spa" }
             ? unknown

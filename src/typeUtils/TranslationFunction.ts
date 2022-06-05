@@ -19,14 +19,17 @@ export type TranslationFunction<
     ): HelperR<HelperExtractKey<ComponentKey, ComponentName>, K>;
 };
 
+//NOTE: We need to extract this type because we get ts(2536) with typescript 4.7.3
+type HelperROrString<Key extends { K: string }> = Key extends { R: any }
+    ? Key["R"]
+    : string;
+
 type HelperR<
     Key extends string | { K: string },
     K extends string,
 > = Key extends { K: string }
     ? Key extends { K: K }
-        ? Key extends { R: any }
-            ? Key["R"]
-            : string
+        ? HelperROrString<Key>
         : never
     : Key extends K
     ? string
@@ -53,14 +56,16 @@ type HelperFlatKeyWithParams<Key extends string | { K: string }> = Key extends {
         : never
     : never;
 
+type HelperPOrVoid<Key extends { K: string }> = Key extends { P: any }
+    ? Key["P"]
+    : void;
+
 type HelperP<
     Key extends string | { K: string },
     K extends string,
 > = Key extends { K: string }
     ? Key extends { K: K }
-        ? Key extends { P: any }
-            ? Key["P"]
-            : void
+        ? HelperPOrVoid<Key>
         : never
     : Key extends K
     ? void

@@ -35,6 +35,8 @@ import DefaultApp from "next/app";
                         assert<Equals<typeof x, number>>();
                         return Reflect<string>();
                     },
+                    //@ts-expect-error: This key is not declared
+                    "not a key": "",
                 },
             },
         },
