@@ -12,12 +12,10 @@ export const { useTranslation, resolveLocalizedString, useLang, useResolveLocali
 	| typeof import("./App").i18n
 	| typeof import("./pages/Home").i18n
 	| typeof import("./pages/FourOhFour").i18n
-	//| typeof import("./MyComponent").i18n
 >()(
 	{
 		languages,
-		fallbackLanguage,
-		"doPersistLanguageInLocalStorage": true
+		fallbackLanguage
 	},
 	{
 		"en": {

@@ -1,13 +1,15 @@
-import { render } from "react-dom";
-import { App } from "./App";
-import { RouteProvider } from "./router";
-import { ThemeProvider, splashScreen } from "./theme";
+import { App } from "ui/App";
+import { ThemeProvider, splashScreen } from "ui/theme";
+import { createRoot } from "react-dom/client";
+import { StrictMode } from "react";
+import { RouteProvider } from "ui/router";
 
-render(
-    <RouteProvider>
+createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+        <RouteProvider>
             <ThemeProvider splashScreen={splashScreen}>
                 <App />
             </ThemeProvider>
-    </RouteProvider>,
-    document.getElementById("root"),
+        </RouteProvider>
+    </StrictMode>
 );
