@@ -25,7 +25,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
      name: string;
  };
 
- function MyComponent(props: Props) {
+ export function MyComponent(props: Props) {
      const { name } = props;
      
      return (
@@ -41,9 +41,9 @@ Start by declaring the text keys you'll need in each component.&#x20;
  }
 
 +export const { i18n } = declareComponentKeys<
-+    | ["geeting", { who: string; }]
++    | { K: "greating"; P: { who: string; } }
 +    | "how are you"
-+    | [ "learn more", { href: string; }]
++    | { K: "learn more"; P: { href: string; }; R: JSX.Element }
 +>()({ MyComponent });
 ```
 
@@ -53,11 +53,10 @@ Start by declaring the text keys you'll need in each component.&#x20;
 +import { declareComponentKeys } from "i18nifty";
 
  type Props = {
-     messageCount: string;
-     
+     messageCount: number;
  };
 
- function MyOtherComponent(props: Props) {
+ export function MyOtherComponent(props: Props) {
      const { messageCount } = props;
      
      return (
@@ -72,8 +71,8 @@ Start by declaring the text keys you'll need in each component.&#x20;
 +export const { i18n } = declareComponentKeys<
 +    | "open"
 +    | "delete"
-+    | ["unread messages", { howMany: number; }]
-+>()({ MyComponent });
++    | { K: "unread messages"; P: { howMany: number; } }
++>()({ MyOtherComponent });
 ```
 
 then create your `src/i18n.tsx` file: &#x20;
@@ -110,7 +109,7 @@ export const {
     {
         "en": {
             "MyComponent": {
-                "greeting": ({ who })=> `Hello ${who}`,
+                "greating": ({ who })=> `Hello ${who}`,
                 "how are you": "How are you feeling today?",
                 "learn more": ({ href }) => (
                     <>
@@ -130,11 +129,11 @@ export const {
                     }
                 }
             },
-        }
+        },
 	/* spell-checker: disable */
 	"fr": {
             "MyComponent": {
-                "greeting": ({ who })=> `Bonjour ${who}`,
+                "greating": ({ who })=> `Bonjour ${who}`,
                 "how are you": "Comment vous sentez vous au jour d'hui?",
                 "learn more": ({ href }) => (
                     <>
@@ -155,6 +154,39 @@ export const {
 );
 ```
 
+<details>
+
+<summary>Extra steps for Next.js</summary>
+
+Edit your `i18n.ts` file like so: &#x20;
+
+```diff
+-import { createI18nApi } from "i18nifty";
++import { createI18nApi } from "i18nifty/ssr";
+
+ export const { 
+ 	 useTranslation, 
+ 	 resolveLocalizedString, 
+	 useLang, 
+	 evtLang,
+	 useResolveLocalizedString,
++        withLang
+ } = createI18nApi<
+```
+
+Create an \_app.tsx file (if you didn't had one already):
+
+```jsx
+import { withLang } from "../i18n";
+
+export default withLang();
+
+//Or, if you had a custom App already 
+//export default withLang(MyApp);
+```
+
+</details>
+
 Now go back to your component and use the translation function: &#x20;
 
 ```diff
@@ -165,11 +197,10 @@ Now go back to your component and use the translation function: &#x20;
      name: string;
  };
 
- function MyComponent(props: Props) {
+ export function MyComponent(props: Props) {
      const { name } = props;
      
 +    const { t } = useTranslation({ MyComponent });
-
      
      return (
          <>
@@ -187,9 +218,9 @@ Now go back to your component and use the translation function: &#x20;
  }
 
  export const { i18n } = declareComponentKeys<
-     | ["greeting", { who: string; }]
+     | { K: "greating"; P: { who: string; } }
      | "how are you"
-     | [ "learn more", { href: string; }]
+     | { K: "learn more"; P: { href: string; }; R: JSX.Element }
  >()({ MyComponent });
 ```
 
