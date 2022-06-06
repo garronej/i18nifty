@@ -29,7 +29,7 @@ description: Returns the usual t function
  export const { i18n } = declareComponentKeys<
      | { K: "geeting"; P: { who: string; } }
      | "how are you"
-     | { K: "learn more"; P: { href: string; } R: JSX.Element }
+     | { K: "learn more"; P: { href: string; }; R: JSX.Element }
  >()({ MyComponent });
 ```
 
