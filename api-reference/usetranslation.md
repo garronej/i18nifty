@@ -15,7 +15,7 @@ description: Returns the usual t function
  function MyComponent(props: Props) {
      const { name } = props;
      
-     const { t } = useTranslatation();
+     const { t } = useTranslatation({ MyComponent });
      
      return (
          <>
@@ -27,9 +27,9 @@ description: Returns the usual t function
  }
 
  export const { i18n } = declareComponentKeys<
-     | ["geeting", { who: string; }]
+     | { K: "geeting"; P: { who: string; } }
      | "how are you"
-     | [ "learn more", { href: string; }]
+     | { K: "learn more"; P: { href: string; } R: JSX.Element }
  >()({ MyComponent });
 ```
 
