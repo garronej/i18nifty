@@ -36,7 +36,7 @@
   <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
 
-What do I expect from my i18n library:  
+## What do I expect from my i18n library:  
 
 - [x] I want **true type safety**, If I forgot something I want to be warned about it at **compile time**. I want to be guided by intelisence 
   through and throug so I can focus on my content.   
@@ -49,4 +49,4 @@ What do I expect from my i18n library:
 - [x] I want all this to work with **server side rendering**.  
 - [x] I want to be able to change the language of my app by adding `?lang=xx` to the url without involving my routing library.  
 
-`i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).  
+> `i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).  
