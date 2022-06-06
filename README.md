@@ -33,4 +33,6 @@
   <a href="https://www.i18nifty.dev">Home</a>
   -
   <a href="https://docs.i18nifty.dev">Documentation</a>
+  -
+  <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
