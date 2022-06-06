@@ -36,9 +36,17 @@
   <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
 
-https://user-images.githubusercontent.com/6702424/172249198-d9328544-3581-44c7-a421-c943f0f624ae.mp4
+What do I expect from my i18n library:  
 
-https://user-images.githubusercontent.com/6702424/172249228-335f99f3-d3d6-4101-88c2-e4c0f7ea9d60.mp4
+- [x] I want **true type safety**, If I forgot something I want to be warned about it at **compile time**. I want to be guided by intelisence 
+  through and throug so I can focus on my content.   
+- [x] I want to be able to **explicitly fallback to english** when I can't translate myself.
+- [x] I want it to be **easy for non tech peoples** to provide missing translation.  
+- [x] I want to be able to [use React components](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L35-L40) and [involve JS logic](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L45-L53) in my translations.  
+- [x] I want the language to **default to the browser preference**.  
+- [x] I want the language preferences to be **persistant accros reloads**.  
+- [x] **SEO**: I want to let Google to know that my website is avalaible in multiple language.  
+- [x] I want all this to work with **server side rendering**.  
+- [x] I want to be able to change the language of my app by adding `?lang=xx` to the url without involving my routing library.  
 
-
-
+`i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).  
