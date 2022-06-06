@@ -36,25 +36,25 @@ export function Home() {
                 }
                 subTitle={t("subTitle")}
                 illustration={{
-                    type: "video",
-                    sources: [
+                    "type": "video",
+                    "sources": [
                         {
-                            src: demo1Mp4Url,
-                            type: "video/mp4",
+                            "src": demo1Mp4Url,
+                            "type": "video/mp4",
                         },
                         {
-                            src: demo1WebmUrl,
-                            type: "video/webm",
+                            "src": demo1WebmUrl,
+                            "type": "video/webm",
                         },
                     ],
-                    hasShadow: true,
+                    "hasShadow": true,
                 }}
                 hasLinkToSectionBellow={true}
                 classes={{
-                    subtitle: classes.heroSubtitle,
-                    imageWrapper: classes.heroImageWrapper,
-                    textWrapper: classes.heroTextWrapper,
-                    illustration: classes.heroImage,
+                    "subtitle": classes.heroSubtitle,
+                    "imageWrapper": classes.heroImageWrapper,
+                    "textWrapper": classes.heroTextWrapper,
+                    "illustration": classes.heroIllustration,
                 }}
             />
             <GlArticle
@@ -88,40 +88,30 @@ export function Home() {
                 hasAnimation={true}
                 elements={[
                     {
-                        "title": "SSR Ready",
-                        "description": `i18nifty features a great [Next.js](https://nextjs.org/) integration.  
-            [See for yourself](https://ssr.i18nifty.dev).
-            `,
+                        "title": t("bp title 1"),
+                        "description": t("bp description 1", { "nextUrl": "https://nextjs.org/", "demoNextUrl": "https://ssr.i18nifty.dev" })
                     },
                     {
-                        "title": "Easy collaboration with non technical peoples",
-                        "description": `Everything is in a single file. 
-            Providing a translation is as easy as filling a form.
-            `,
+                        "title": t("bp title 2"),
+                        "description": t("bp description 2")
                     },
                     {
-                        "title": "React component and logic",
-                        "description": `Freely includes React components such as \`<a/>\` in your translations
-            and involve JavaScript logic like \`message\${plural?"s":""}\`.
-            `,
+                        "title": t("bp title 3"),
+                        "description": t("bp description 3")
                     },
                     {
-                        "title": "Language defaults to browser preference",
-                        "description": `Language default to \`navigator.language\` if your app is an SPA or to \`ACCEPT-LANGUAGE\`
-            HTTP Header if it's a Next.js app.
-            `,
+                        "title": t("bp title 4"),
+                        "description": t("bp description 4")
                     },
                     {
-                        "title": "SEO",
-                        "description": `i18nifty automatically generates [\`hreflang\` links in your \`<head>\`](https://user-images.githubusercontent.com/6702424/172121583-524a83d1-7283-4964-8fd1-a447f1a20be1.png) 
-            to [let Google know](https://youtu.be/isW-Ke-AJJU?t=3356) that your site supports multiple languages.  
-            The \`?lang=xx\` URL parameter works out of the box.
-            `,
+                        "title": t("bp title 5"),
+                        "description": t("bp description 5", { "hreflangImgUrl":"https://user-images.githubusercontent.com/6702424/172121583-524a83d1-7283-4964-8fd1-a447f1a20be1.png",
+                        "youtubeVideoUrl": "https://youtu.be/isW-Ke-AJJU?t=3356"
+                      })
                     },
                     {
-                        "title": "Selected language persisted across reloads",
-                        "description": `The language is persisted across reloads using \`localStorage\` for SPA and 
-            using cookie for Next.js apps.`,
+                        "title": t("bp title 6"),
+                        "description": t("bp description 6")
                     },
                 ]}
             />
@@ -130,13 +120,39 @@ export function Home() {
 }
 
 export const { i18n } = declareComponentKeys<
-    "hero text subtext" | "subTitle" | "article title" | "article body" | "try now"
+    | "hero text subtext" 
+    | "subTitle" 
+    | "article title" 
+    | "article body" 
+    | "try now"
+    | "bp title 1"
+    | { K: "bp description 1"; P: { nextUrl: string; demoNextUrl: string; }  }
+    | "bp title 2"
+    | "bp description 2"
+    | "bp title 3"
+    | "bp description 3"
+    | "bp title 4"
+    | "bp description 4"
+    | "bp title 5"
+    | { K: "bp description 5"; P: { hreflangImgUrl: string; youtubeVideoUrl: string; } }
+    | "bp title 6"
+    | "bp description 6"
 >()({ Home });
 
 const useStyles = makeStyles({ name: { Home } })(theme => ({
-    "heroImage": {
+    "heroIllustration": {
         "borderRadius": 10,
-        "maxWidth": 700,
+        //TODO: Remove once gitlanding fixed
+        "width": (()=>{
+
+            if( theme.windowInnerWidth > 535 ){
+                return 450;
+            }
+
+            return undefined;
+
+
+        })()
     },
     "articleVideo": {
         "maxWidth": 500,

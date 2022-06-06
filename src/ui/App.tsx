@@ -48,16 +48,16 @@ export const App = memo(() => {
                     }
                     links={[
                         {
-                            label: "GitHub",
-                            href: githubRepoUrl,
+                            "label": "GitHub",
+                            "href": githubRepoUrl,
                         },
                         {
-                            label: t("documentation"),
-                            href: docsUrl,
+                            "label": t("documentation"),
+                            "href": docsUrl,
                         },
                         {
-                            label: t("try it"),
-                            href: playgroundUrl,
+                            "label": t("try it"),
+                            "href": playgroundUrl,
                         },
                     ]}
                     enableDarkModeSwitch={true}
@@ -75,12 +75,12 @@ export const App = memo(() => {
                 />
             }
             headerOptions={{
-                position: "sticky",
-                isRetracted: "smart",
+                "position": "sticky",
+                "isRetracted": "smart",
             }}
             footer={
                 <GlFooter
-                  bottomDivContent={`[GitHub](${githubRepoUrl}) - [Documentation](${docsUrl})`}
+                  bottomDivContent={`[GitHub](${githubRepoUrl}) - [Documentation](${docsUrl}) - [${t("edit this website")}](${githubRepoUrl}/blob/landingpage/src/ui/i18n.tsx)`}
                   links={[
                     {
                       "href": "https://www.npmjs.com/package/i18nifty",
@@ -109,7 +109,7 @@ export const App = memo(() => {
     );
 });
 
-export const { i18n } = declareComponentKeys<"documentation" | "try it">()({
+export const { i18n } = declareComponentKeys<"documentation" | "try it" | "edit this website">()({
     App,
 });
 
