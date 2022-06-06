@@ -15,7 +15,7 @@ description: Returns the usual t function
  function MyComponent(props: Props) {
      const { name } = props;
      
-     const { t } = useTranslatation({ MyComponent });
+     const { t } = useTranslatation();
      
      return (
          <>
