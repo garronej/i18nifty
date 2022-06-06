@@ -1,14 +1,15 @@
 <div align="center">
 
-![Logo Dark](https://www.i18nifty.dev/banner_dark.png#gh-dark-mode-only)
-
+![Logo Dark](https://user-images.githubusercontent.com/6702424/172086369-292a3ada-8294-4328-bbb0-336061cbf830.png#gh-dark-mode-only)
+    
 </div>
 
 <div align="center">
 
-![Logo Light](https://www.i18nifty.dev/banner_light.png#gh-light-mode-only)
-
+![Logo Light](https://user-images.githubusercontent.com/6702424/172086583-2014cf56-6deb-466d-b4d4-df80b6e85a1e.png#gh-light-mode-only)
+    
 </div>
+
 
 <p align="center">
     <i>Type-safe internationalization and translation in React</i>
