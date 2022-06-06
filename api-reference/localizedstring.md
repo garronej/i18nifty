@@ -1,6 +1,6 @@
 # LocalizedString
 
-A localized string is a common type that represent either a plane string or a map lang -> value in a given language. &#x20;
+A localized string is a common type that represent either a plane string or a map lang -> text.
 
 ```typescript
 type LocalizedString = string | Partial<Record<"en" | "fr", string>>;
