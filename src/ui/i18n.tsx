@@ -45,7 +45,7 @@ export const {
 				"bp title 2": "Easy collaboration with non technical peoples",
 				"bp description 2": `Everything is in a single file. 
             		Providing a translation is as easy as filling a form.`,
-				"bp title 3": "React component and logic",
+				"bp title 3": "React component and JS logic",
 				"bp description 3": "Freely includes React components such as `<a/>` in your translations and involve JavaScript logic like ```message${plural?'s':''}```.",
 				"bp title 4": "Language defaults to browser preference",
 				"bp description 4": `Language default to \`navigator.language\` if your app is an SPA or to \`ACCEPT-LANGUAGE\`
@@ -78,18 +78,25 @@ export const {
 					"Guidée par intllisense, la localisation n'est plus autant une corvée.",
 				"article body": `TypeScripTypeScript vous fait savoir où et quelle traduction son manquante tout en vous laissant la possibilité de fournir certaines traductions plus tard.`,
 				"try now": "Essayez dans une sandbox",
+				"production ready": "Prêt pour la prod",
 				"bp title 1": "Compatible avec le SSR",
-				"bp description 1": undefined,
-				"bp title 2": undefined,
-				"bp description 2": undefined,
-				"bp title 3": undefined,
-				"bp description 3": undefined,
-				"bp title 4": undefined,
-				"bp description 4": undefined,
-				"bp title 5": undefined,
-				"bp description 5": undefined,
-				"bp title 6": undefined,
-				"bp description 6": undefined
+				"bp description 1": ({ nextUrl, demoNextUrl})=> `i18nifty s'intègre parfaitement avec [Next.js](${nextUrl}).  
+					[Jugez vous-même](${demoNextUrl}).`,
+				"bp title 2": "Collaboration facile avec des personnes non Tech",
+				"bp description 2": `Tout est dans un unique fichier. 
+            		Traduire pour une nouvelle langue est aussi facile que de remplir un formulaire.`,
+				"bp title 3": "Composants React et logique JS",
+				"bp description 3": "Utiliser librement des composants tels que `<a/>` dans vos traductions et faite intervenir de la logique JS tels que ```message${plural?'s':''}```.",
+				"bp title 4": "Langue par défaut selon les préférences navigateur.",
+				"bp description 4": `\`navigator.language\` est la langue par défaut si votre app est une SPA,
+					sinon, le Header HTTP \`ACCEPT-LANGUAGE\` sera utiliser si vous utilisé Next.js.`,
+				"bp title 5": "SEO",
+				"bp description 5": ({ hreflangImgUrl, youtubeVideoUrl }) => `i18nifty génère automatiquement des liens [\`hreflang\` ans votre \`<head>\`](${hreflangImgUrl}) 
+            		afin de [faire savoir a Google](${youtubeVideoUrl}) que notre site support plusieurs langages.  
+            		Le paramètre d'URL \`?lang=xx\` fonctione par défaut.`,
+				"bp title 6": "Les rechargements de pages n'affectent pas le choix de la langue",
+				"bp description 6": `La langue sélectionner est conservé via le \`localStorage\` dans les SPA
+				et par le biais de cookie pour Next.js`
 			},
 			"FourOhFour": {
 				"not found": "Page non trouvée",

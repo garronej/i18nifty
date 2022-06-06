@@ -84,7 +84,7 @@ export function Home() {
             />
             <GlSectionDivider />
             <GlCheckList
-                heading="Production ready"
+                heading={t("production ready")}
                 hasAnimation={true}
                 elements={[
                     {
@@ -125,6 +125,7 @@ export const { i18n } = declareComponentKeys<
     | "article title" 
     | "article body" 
     | "try now"
+    | "production ready"
     | "bp title 1"
     | { K: "bp description 1"; P: { nextUrl: string; demoNextUrl: string; }  }
     | "bp title 2"
