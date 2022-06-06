@@ -18,6 +18,11 @@ export default function App() {
 			<MyComponent name="John Doe" />
 			<MyOtherComponent messageCount={messageCount} />
 			<LanguageSwitch />
+			<br/>
+			<span style={{ "border": "1px solid black", "backgroundColor": "pink" }}>
+				NOTE: You can <a href="https://developer.chrome.com/docs/devtools/javascript/disable/" target="_blank">disable javascript</a> and reload the page,
+				the selected language, even if it isn't the browser default, is persisted across reloads using cookie.
+			</span>
 		</div>
 	);
 }
