@@ -49,4 +49,4 @@
 - [x] I want all this to work with **server side rendering**.  
 - [x] I want to be able to change the language of my app by adding `?lang=xx` to the url without involving my routing library.  
 
-> `i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).  
+`i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).  
