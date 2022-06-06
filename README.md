@@ -11,7 +11,7 @@
 </div>
 
 <p align="center">
-    <i>Type-safe internationalization and translation in React</i>
+    <i>Type-safe internationalization and translation React library</i>
     <br>
     <br>
     <a href="https://github.com/garronej/i18nifty/actions">
