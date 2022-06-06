@@ -35,3 +35,10 @@
   -
   <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
+
+https://user-images.githubusercontent.com/6702424/172249198-d9328544-3581-44c7-a421-c943f0f624ae.mp4
+
+https://user-images.githubusercontent.com/6702424/172249228-335f99f3-d3d6-4101-88c2-e4c0f7ea9d60.mp4
+
+
+
