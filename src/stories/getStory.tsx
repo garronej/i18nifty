@@ -112,8 +112,8 @@ export function getStoryFactory<Props>(params: {
             NonNullable<ThemeProviderProps["getViewPortConfig"]>
         >(
             ({ windowInnerWidth }) => ({
-                "targetBrowserFontSizeFactor": chromeFontSizesFactors[chromeFontSize],
-                "targetWindowInnerWidth": targetWindowInnerWidth || windowInnerWidth,
+                targetBrowserFontSizeFactor: chromeFontSizesFactors[chromeFontSize],
+                targetWindowInnerWidth: targetWindowInnerWidth || windowInnerWidth,
             }),
             [targetWindowInnerWidth, chromeFontSize],
         );
@@ -125,12 +125,12 @@ export function getStoryFactory<Props>(params: {
                 {
                     <GlobalStyles
                         styles={{
-                            "html": {
-                                "fontSize": "100% !important",
+                            html: {
+                                fontSize: "100% !important",
                             },
-                            "body": {
-                                "padding": `0 !important`,
-                                "backgroundColor": `${theme.colors.useCases.surfaces.surface1} !important`,
+                            body: {
+                                padding: `0 !important`,
+                                backgroundColor: `${theme.colors.useCases.surfaces.surface1} !important`,
                             },
                         }}
                     />
@@ -139,10 +139,10 @@ export function getStoryFactory<Props>(params: {
                     <ScreenSize />
                     <div
                         style={{
-                            "marginLeft": 50,
-                            "width": containerWidth || undefined,
-                            "border": "1px dotted grey",
-                            "display": "inline-block",
+                            marginLeft: 50,
+                            width: containerWidth || undefined,
+                            border: "1px dotted grey",
+                            display: "inline-block",
                         }}
                     >
                         <RouteProvider>
@@ -158,11 +158,11 @@ export function getStoryFactory<Props>(params: {
         const out = Template.bind({});
 
         out.args = {
-            "darkMode": false,
-            "containerWidth": defaultContainerWidth ?? 0,
-            "targetWindowInnerWidth": 0,
-            "chromeFontSize": "Medium (Recommended)",
-            "lang": fallbackLanguage,
+            darkMode: false,
+            containerWidth: defaultContainerWidth ?? 0,
+            targetWindowInnerWidth: 0,
+            chromeFontSize: "Medium (Recommended)",
+            lang: fallbackLanguage,
             ...props,
         };
 
@@ -172,34 +172,34 @@ export function getStoryFactory<Props>(params: {
     }
 
     return {
-        "meta": id<Meta>({
+        meta: id<Meta>({
             title,
-            "component": Component,
-            "argTypes": {
-                "containerWidth": {
-                    "control": {
-                        "type": "range",
-                        "min": 0,
-                        "max": 1920,
-                        "step": 1,
+            component: Component,
+            argTypes: {
+                containerWidth: {
+                    control: {
+                        type: "range",
+                        min: 0,
+                        max: 1920,
+                        step: 1,
                     },
                 },
-                "targetWindowInnerWidth": {
-                    "control": {
-                        "type": "range",
-                        "min": 0,
-                        "max": 2560,
-                        "step": 10,
+                targetWindowInnerWidth: {
+                    control: {
+                        type: "range",
+                        min: 0,
+                        max: 2560,
+                        step: 10,
                     },
                 },
-                "chromeFontSize": {
-                    "options": objectKeys(chromeFontSizesFactors),
-                    "control": { "type": "select" },
+                chromeFontSize: {
+                    options: objectKeys(chromeFontSizesFactors),
+                    control: { type: "select" },
                 },
-                "lang": {
-                    "options": languages,
-                    "control": {
-                        "type": "inline-radio",
+                lang: {
+                    options: languages,
+                    control: {
+                        type: "inline-radio",
                     },
                 },
                 ...argTypes,

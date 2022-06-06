@@ -12,6 +12,7 @@ import { useLang } from "ui/i18n";
 import { breakpointsValues } from "onyxia-ui";
 import { declareComponentKeys } from "i18nifty";
 import { GlLogo } from "gitlanding/utils/GlLogo";
+import { GlFooter } from "gitlanding/GlFooter";
 import bannerDarkUrl from "ui/assets/banner_dark.png";
 import bannerLightUrl from "ui/assets/banner_light.png";
 
@@ -37,19 +38,26 @@ export const App = memo(() => {
         <GlTemplate
             header={
                 <GlHeader
-                    title={<GlLogo logoUrl={theme.isDarkModeEnabled ? bannerDarkUrl : bannerLightUrl} width={150} />}
+                    title={
+                        <GlLogo
+                            logoUrl={
+                                theme.isDarkModeEnabled ? bannerDarkUrl : bannerLightUrl
+                            }
+                            width={150}
+                        />
+                    }
                     links={[
                         {
-                            "label": "GitHub",
-                            "href": githubRepoUrl
+                            label: "GitHub",
+                            href: githubRepoUrl,
                         },
                         {
-                            "label": t("documentation"),
-                            "href": docsUrl,
+                            label: t("documentation"),
+                            href: docsUrl,
                         },
                         {
-                            "label": t("try it"),
-                            "href": playgroundUrl
+                            label: t("try it"),
+                            href: playgroundUrl,
                         },
                     ]}
                     enableDarkModeSwitch={true}
@@ -67,12 +75,26 @@ export const App = memo(() => {
                 />
             }
             headerOptions={{
-                "position": "sticky",
-                "isRetracted": "smart",
+                position: "sticky",
+                isRetracted: "smart",
             }}
+            footer={
+                <GlFooter
+                  bottomDivContent={`[GitHub](${githubRepoUrl}) - [Documentation](${docsUrl})`}
+                  links={[
+                    {
+                      "href": "https://www.npmjs.com/package/i18nifty",
+                      "label": <img src="https://img.shields.io/npm/dw/i18nifty" alt="" />
+                    },
+                    {
+                      "href": `${githubRepoUrl}/blob/main/LICENSE`,
+                      "label": <img src="https://img.shields.io/npm/l/i18nifty" alt="" />
+                    }
+                  ]}
+                />
+            }
         >
             {(() => {
-
                 {
                     const Page = Home;
 
@@ -82,29 +104,23 @@ export const App = memo(() => {
                 }
 
                 return <FourOhFour />;
-
-
             })()}
         </GlTemplate>
     );
 });
 
-export const { i18n } = declareComponentKeys<
-    | "documentation"
-    | "try it"
->()({ App });
+export const { i18n } = declareComponentKeys<"documentation" | "try it">()({
+    App,
+});
 
-const useStyles = makeStyles({ "name": { App } })(theme => ({
-    "languageSelect": {
-        "marginLeft": theme.spacing(3),
-        "display": (() => {
-
+const useStyles = makeStyles({ name: { App } })(theme => ({
+    languageSelect: {
+        display: (() => {
             if (theme.windowInnerWidth >= breakpointsValues.lg) {
                 return undefined;
             }
 
             return "none";
-
-        })()
-    }
+        })(),
+    },
 }));

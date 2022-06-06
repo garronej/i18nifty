@@ -47,9 +47,9 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 
     execSync(cmd, {
         cwd,
-        "env": {
+        env: {
             ...process.env,
-            "HOME": yarnHomeDirPath,
+            HOME: yarnHomeDirPath,
         },
     });
 };
@@ -74,12 +74,12 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
         ],
     );
 
-    execYarnLink({ "cwd": localInstallPath });
+    execYarnLink({ cwd: localInstallPath });
 
     inHouseModuleNames.forEach(inHouseModuleName =>
         execYarnLink({
-            "targetModuleName": commonThirdPartyDep,
-            "cwd": pathJoin(webAppProjectRootDirPath, "..", inHouseModuleName),
+            targetModuleName: commonThirdPartyDep,
+            cwd: pathJoin(webAppProjectRootDirPath, "..", inHouseModuleName),
         }),
     );
 });
@@ -106,8 +106,8 @@ inHouseModuleNames.forEach(inHouseModuleName => {
 
                     return {
                         ...packageJsonParsed,
-                        "main": packageJsonParsed["main"].replace(/^dist\//, ""),
-                        "types": packageJsonParsed["types"].replace(/^dist\//, ""),
+                        main: packageJsonParsed["main"].replace(/^dist\//, ""),
+                        types: packageJsonParsed["types"].replace(/^dist\//, ""),
                     };
                 })(),
                 null,
@@ -120,7 +120,7 @@ inHouseModuleNames.forEach(inHouseModuleName => {
 
 inHouseModuleNames.forEach(inHouseModuleName =>
     execYarnLink({
-        "cwd": pathJoin(webAppProjectRootDirPath, "..", inHouseModuleName, "dist"),
+        cwd: pathJoin(webAppProjectRootDirPath, "..", inHouseModuleName, "dist"),
     }),
 );
 
@@ -133,8 +133,8 @@ inHouseModuleNames.forEach(inHouseModuleNameOuter =>
         )
         .forEach(inHouseModuleNameInner =>
             execYarnLink({
-                "targetModuleName": inHouseModuleNameInner,
-                "cwd": pathJoin(webAppProjectRootDirPath, "..", inHouseModuleNameOuter),
+                targetModuleName: inHouseModuleNameInner,
+                cwd: pathJoin(webAppProjectRootDirPath, "..", inHouseModuleNameOuter),
             }),
         ),
 );
@@ -143,7 +143,7 @@ console.log("=== Linking in house dependencies in web app ===");
 
 inHouseModuleNames.forEach(inHouseModuleName => {
     execYarnLink({
-        "targetModuleName": inHouseModuleName,
-        "cwd": webAppProjectRootDirPath,
+        targetModuleName: inHouseModuleName,
+        cwd: webAppProjectRootDirPath,
     });
 });

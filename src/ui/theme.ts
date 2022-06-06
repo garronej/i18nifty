@@ -1,7 +1,4 @@
-import {
-    createThemeProvider,
-    defaultGetTypographyDesc
-} from "onyxia-ui";
+import { createThemeProvider, defaultGetTypographyDesc } from "onyxia-ui";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
 import { createButton } from "onyxia-ui/Button";
@@ -19,20 +16,20 @@ import { createOnyxiaSplashScreenLogo } from "onyxia-ui/lib/SplashScreen";
 import { ultravioletPalette } from "onyxia-ui";
 
 export const { ThemeProvider, useTheme } = createThemeProvider({
-    "getTypographyDesc": params => ({
+    getTypographyDesc: params => ({
         ...defaultGetTypographyDesc(params),
-        "fontFamily": '"Work Sans", sans-serif',
+        fontFamily: '"Work Sans", sans-serif',
         //"fontFamily": 'Marianne, sans-serif',
     }),
-    "palette": ultravioletPalette
+    palette: ultravioletPalette,
 });
 
 export const { makeStyles, useStyles } = createMakeStyles({ useTheme });
 
 /** @see: <https://material-ui.com/components/material-icons/> */
 export const { Icon } = createIcon({
-    "accessTime": AccessTimeIcon,
-    "sentimentSatisfied": SentimentSatisfiedIcon,
+    accessTime: AccessTimeIcon,
+    sentimentSatisfied: SentimentSatisfiedIcon,
 });
 
 export type IconId = Param0<typeof Icon>["iconId"];
@@ -44,8 +41,8 @@ export const { Text } = createText({ useTheme });
 const { OnyxiaSplashScreenLogo } = createOnyxiaSplashScreenLogo({ useTheme });
 
 export const splashScreen: ThemeProviderProps["splashScreen"] = {
-    "Logo": OnyxiaSplashScreenLogo,
-    "minimumDisplayDuration": 0,
+    Logo: OnyxiaSplashScreenLogo,
+    minimumDisplayDuration: 0,
 };
 
 export const { PageHeader } = createPageHeader({ Icon });
@@ -53,8 +50,8 @@ export const { PageHeader } = createPageHeader({ Icon });
 export const { ButtonBarButton } = createButtonBarButton({ Icon });
 
 export const { LanguageSelect } = createLanguageSelect<Language>({
-    "languagesPrettyPrint": {
-        "en": "English",
-        "fr": "Français"
-    }
+    languagesPrettyPrint: {
+        en: "English",
+        fr: "Français",
+    },
 });

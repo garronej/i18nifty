@@ -1,0 +1,8 @@
+node_modules/
+/CHANGELOG.md
+/.yarn_home/
+/build/
+/public/
+/src/env.ts
+/build_keycloak/
+
