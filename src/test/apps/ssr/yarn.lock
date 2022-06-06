@@ -173,6 +173,11 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
+"@types/node@^16.11.38":
+  version "16.11.38"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.38.tgz#be0edd097b23eace6c471c525a74b3f98803017f"
+  integrity sha512-hjO/0K140An3GWDw2HJfq7gko3wWeznbjXgg+rzPdVzhe198hp4x2i1dgveAOEiFKd8sOilAxzoSJiVv5P/CUg==
+
 "@types/prop-types@*":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
@@ -1096,8 +1101,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-"i18nifty@file:../../../../dist":
-  version "0.4.1"
+i18nifty@latest:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/i18nifty/-/i18nifty-1.0.2.tgz#4a88e83491b62cd5116791a44aaca17042ce969b"
+  integrity sha512-D58CPj4qjzGoPFhd9PBvVIWD+A4fc3iNFYCyI6rrQvIQxfxCUoYqR9rS9teF9unO4VP2WvNXU8jn8GOxkyg0vA==
   dependencies:
     evt "2.0.0-beta.44"
     powerhooks "^0.19.0"
