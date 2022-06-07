@@ -41,7 +41,7 @@
 -   [x] I want **true type safety**, If I forgot something I want to be warned about it at **compile time**. I want to be guided by intelisence
         through and through so I can focus on my content.
 -   [x] I want to be able to **explicitly fallback to English** when I can't translate myself.
--   [x] I want it to be **easy for non-tech peoples** to provide missing translation.
+-   [x] I want it to be **easy for non-tech peoples** to provide missing translations.
 -   [x] I want to be able to [use React components](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L35-L40) and [involve JS logic](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L45-L53) in my translations.
 -   [x] I want the language to **default to the browser preference**.
 -   [x] I want the language preferences to be **persistant across reloads**.
