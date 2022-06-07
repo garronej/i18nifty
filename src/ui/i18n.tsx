@@ -39,6 +39,7 @@ export const {
 					"Localization is much less of a chore when assisted by intellisense.",
 				"article body": `TypeScript let you know where and what translations need to be provided while allowing you explicitly fallback to the default language.`,
 				"try now": "Try in a playground",
+				"production ready": "Production ready",
 				"bp title 1": "SSR Ready",
 				"bp description 1": ({ nextUrl, demoNextUrl})=> `i18nifty features a great [Next.js](${nextUrl}) integration.  
 					[See for yourself](${demoNextUrl}).`,
