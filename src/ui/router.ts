@@ -12,7 +12,7 @@ export const { RouteProvider, useRoute, routes } = createRouter(
     routeDefs,
 );
 
-export const githubRepoUrl = "https://github.com/garronej/i18nifty";
+export const githubRepoUrl = "https://github.com/etalab/i18nifty";
 
 export const docsUrl = "https://docs.i18nifty.dev";
 
