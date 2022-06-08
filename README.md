@@ -55,5 +55,10 @@
     
 ![demo_1_gh](https://user-images.githubusercontent.com/6702424/172532135-26ac05a4-695b-49b1-94a7-d84ab534d113.gif)
 ![demo_2_gh](https://user-images.githubusercontent.com/6702424/172532593-b702e3a2-1792-48f5-bc4a-e41bf4c9899c.gif)
-    
+        
 </div>
+
+It works great with Copilot:  
+
+https://user-images.githubusercontent.com/6702424/172593184-9fe3792d-2913-426a-8bf8-4f4defa797aa.mov
+
