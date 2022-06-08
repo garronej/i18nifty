@@ -1,5 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import { createI18nApi } from "i18nifty";
+import MuiLink from "@mui/material/Link";
 
 export const languages = ["en", "fr"] as const;
 
@@ -39,6 +40,9 @@ export const {
 					"Localization is much less of a chore when assisted by intellisense.",
 				"article body": `TypeScript let you know where and what translations need to be provided while allowing you explicitly fallback to the default language.`,
 				"try now": "Try in a playground",
+				"article 2 title": "Enable Copilot!",
+				"article 2 body": ({ copilotUrl }) => `With [GitHub Copilot](${copilotUrl}) enabled, translation is mostly a matter of supervision, even when there is logic involved!`,
+				"see documentation": "Documentation",
 				"production ready": "Production ready",
 				"bp title 1": "SSR Ready",
 				"bp description 1": ({ nextUrl, demoNextUrl})=> `i18nifty features a great [Next.js](${nextUrl}) integration.  
@@ -73,12 +77,13 @@ export const {
 			"Home": {
 				"hero text subtext":
 					"Type-safe internationalisation et traduction en React",
-				"subTitle":
-					"Une libraire i18n conçu pour tirer profit des capacités d'inférence de TypeScript.",
-				"article title":
-					"Guidée par intllisense, la localisation n'est plus autant une corvée.",
+				"subTitle": "Une libraire i18n conçu pour tirer profit des capacités d'inférence de TypeScript.",
+				"article title": "Guidée par intllisense, la localisation n'est plus autant une corvée.",
 				"article body": `TypeScripTypeScript vous fait savoir où et quelle traduction son manquante tout en vous laissant la possibilité de fournir certaines traductions plus tard.`,
 				"try now": "Essayez dans une sandbox",
+				"article 2 title": "Activez Copilot!",
+				"article 2 body": ({ copilotUrl }) => `Avec [GitHub Copilot](${copilotUrl}) activé, la traduction est généralement un travail de supervision, même quand il y à de la logique JavaScript!`,
+				"see documentation": "Documentation",
 				"production ready": "Prêt pour la prod",
 				"bp title 1": "Compatible avec le SSR",
 				"bp description 1": ({ nextUrl, demoNextUrl})=> `i18nifty s'intègre parfaitement avec [Next.js](${nextUrl}).  

@@ -11,8 +11,10 @@ import demo1Mp4Url from "ui/assets/demo_1.mp4";
 import demo1WebmUrl from "ui/assets/demo_1.webm";
 import demo2Mp4Url from "ui/assets/demo_2.mp4";
 import demo2WebmUrl from "ui/assets/demo_2.webm";
+import demo3Mp4Url from "ui/assets/demo_3.mp4";
+import demo3WebmUrl from "ui/assets/demo_3.webm";
 import { GlArticle } from "gitlanding/GlArticle";
-import { playgroundUrl } from "../router";
+import { playgroundUrl, docsUrl } from "../router";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 
@@ -82,6 +84,30 @@ export function Home() {
                 hasAnimation={true}
                 illustrationPosition="left"
             />
+            <GlArticle
+                title={t("article 2 title") + " 🦾"}
+                body={t("article 2 body", { "copilotUrl": "https://copilot.github.com/" })}
+                buttonLabel={t("see documentation")}
+                buttonLink={{ "href": docsUrl }}
+                classes={{
+                    "video": classes.articleVideo2,
+                }}
+                illustration={{
+                    type: "video",
+                    sources: [
+                        {
+                            "src": demo3Mp4Url,
+                            "type": "video/mp4",
+                        },
+                        {
+                            "src": demo3WebmUrl,
+                            "type": "video/webm",
+                        },
+                    ],
+                }}
+                hasAnimation={true}
+                illustrationPosition="right"
+            />
             <GlSectionDivider />
             <GlCheckList
                 heading={t("production ready")}
@@ -125,6 +151,9 @@ export const { i18n } = declareComponentKeys<
     | "article title" 
     | "article body" 
     | "try now"
+    | "article 2 title" 
+    | { K: "article 2 body"; P: { copilotUrl: string; }; }
+    | "see documentation"
     | "production ready"
     | "bp title 1"
     | { K: "bp description 1"; P: { nextUrl: string; demoNextUrl: string; }  }
@@ -157,6 +186,10 @@ const useStyles = makeStyles({ name: { Home } })(theme => ({
     },
     "articleVideo": {
         "maxWidth": 500,
+        "borderRadius": 10,
+    },
+    "articleVideo2": {
+        "maxWidth": 700,
         "borderRadius": 10,
     },
     "title2": {
