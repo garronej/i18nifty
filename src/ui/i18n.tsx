@@ -93,7 +93,7 @@ export const {
 					sinon, le Header HTTP \`ACCEPT-LANGUAGE\` sera utiliser si vous utilisé Next.js.`,
 				"bp title 5": "SEO",
 				"bp description 5": ({ hreflangImgUrl, youtubeVideoUrl }) => `i18nifty génère automatiquement des liens [\`hreflang\` ans votre \`<head>\`](${hreflangImgUrl}) 
-            		afin de [faire savoir a Google](${youtubeVideoUrl}) que notre site support plusieurs langages.  
+            		afin de [faire savoir a Google](${youtubeVideoUrl}) que votre site est disponible dans plusieurs langes.  
             		Le paramètre d'URL \`?lang=xx\` fonctione par défaut.`,
 				"bp title 6": "Les rechargements de pages n'affectent pas le choix de la langue",
 				"bp description 6": `La langue sélectionner est conservé via le \`localStorage\` dans les SPA
