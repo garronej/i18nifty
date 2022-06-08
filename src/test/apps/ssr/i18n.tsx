@@ -2,7 +2,7 @@
 import { createI18nApi } from "i18nifty/ssr";
 
 //List the languages you with to support
-export const languages = ["en", "fr"] as const;
+export const languages = ["en", "fr", "zh-CN"] as const;
 
 //If the user's browser language doesn't match any
 //of the languages above specify the language to fallback to:
@@ -56,7 +56,7 @@ export const {
       }
     },
     "fr": {
-			/* spell-checker: disable */
+      /* spell-checker: disable */
       "MyComponent": {
         "greeting": ({ who }) => `Bonjour ${who}`,
         "any questions ?": <>Des <b>questions</b>?</>,
@@ -83,7 +83,21 @@ export const {
           }
         }
       }
-			/* spell-checker: enable */
+      /* spell-checker: enable */
+    },
+    //We are waiting for the Chinese translation
+    "zh-CN": {
+      "MyComponent": {
+        "greeting": undefined,
+        "any questions ?": undefined,
+        "how are you": undefined,
+        "learn more": undefined
+      },
+      "MyOtherComponent": {
+        "open": undefined,
+        "delete": undefined,
+        "unread messages": undefined
+      }
     }
   }
 );
