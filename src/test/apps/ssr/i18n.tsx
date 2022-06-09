@@ -1,5 +1,6 @@
 
 import { createI18nApi } from "i18nifty/ssr";
+export { declareComponentKeys } from "i18nifty";
 
 //List the languages you with to support
 export const languages = ["en", "fr", "zh-CN"] as const;

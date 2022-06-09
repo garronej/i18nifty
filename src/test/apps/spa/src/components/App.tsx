@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useReducer, useEffect } from "react";
 import { MyComponent } from "./MyComponent";
 import { MyOtherComponent } from "./MyOtherComponent";

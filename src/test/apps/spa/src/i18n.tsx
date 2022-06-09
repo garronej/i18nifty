@@ -1,5 +1,6 @@
 
-import { createI18nApi } from "i18nifty";
+import { createI18nApi, declareComponentKeys } from "i18nifty";
+export { declareComponentKeys };
 
 //List the languages you with to support
 export const languages = ["en", "fr", "zh-CN"] as const;

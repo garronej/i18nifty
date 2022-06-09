@@ -1,5 +1,4 @@
-import { declareComponentKeys } from "i18nifty";
-import { useTranslation } from "i18n"; //You can import it like that thanks to baseUrl in tsconfig.json
+import { useTranslation, declareComponentKeys } from "i18n"; //You can import it like that thanks to baseUrl in tsconfig.json
 
 type Props = {
   name: string;
