@@ -77,12 +77,12 @@ export const {
 			"Home": {
 				"hero text subtext":
 					"Type-safe internationalisation et traduction en React",
-				"subTitle": "Une libraire i18n conçu pour tirer profit des capacités d'inférence de TypeScript.",
-				"article title": "Guidée par intllisense, la localisation n'est plus autant une corvée.",
-				"article body": `TypeScripTypeScript vous fait savoir où et quelle traduction son manquante tout en vous laissant la possibilité de fournir certaines traductions plus tard.`,
+				"subTitle": "Une librairie i18n conçue pour tirer profit des capacités d'inférence de TypeScript.",
+				"article title": "Guidée par IntelliSense, la localisation n'est plus autant une corvée.",
+				"article body": `TypeScript vous permet de savoir où et quelles traductions sont manquantes, tout en vous laissant la possibilité de fournir certaines traductions plus tard`,
 				"try now": "Essayez dans une sandbox",
 				"article 2 title": "Activez Copilot!",
-				"article 2 body": ({ copilotUrl }) => `Avec [GitHub Copilot](${copilotUrl}) activé, la traduction est généralement un travail de supervision, même quand il y à de la logique JavaScript!`,
+				"article 2 body": ({ copilotUrl }) => `Avec [GitHub Copilot](${copilotUrl}) activé, la traduction est généralement un travail de supervision, même quand il y a de la logique JavaScript!`,
 				"see documentation": "Documentation",
 				"production ready": "Prêt pour la prod",
 				"bp title 1": "Compatible avec le SSR",
@@ -92,17 +92,17 @@ export const {
 				"bp description 2": `Tout est dans un unique fichier. 
             		Traduire pour une nouvelle langue est aussi facile que de remplir un formulaire.`,
 				"bp title 3": "Composants React et logique JS",
-				"bp description 3": "Utiliser librement des composants tels que `<a/>` dans vos traductions et faite intervenir de la logique JS tels que ```message${plural?'s':''}```.",
+				"bp description 3": "Utilisez librement des composants tels que `<a/>` dans vos traductions et faites intervenir de la logique JS tels que ```message${plural?'s':''}```.",
 				"bp title 4": "Langue par défaut selon les préférences navigateur.",
 				"bp description 4": `\`navigator.language\` est la langue par défaut si votre app est une SPA,
-					sinon, le Header HTTP \`ACCEPT-LANGUAGE\` sera utiliser si vous utilisé Next.js.`,
+					sinon, le Header HTTP \`ACCEPT-LANGUAGE\` sera utilisé si vous utilisez Next.js.`,
 				"bp title 5": "SEO",
-				"bp description 5": ({ hreflangImgUrl, youtubeVideoUrl }) => `i18nifty génère automatiquement des liens [\`hreflang\` ans votre \`<head>\`](${hreflangImgUrl}) 
-            		afin de [faire savoir a Google](${youtubeVideoUrl}) que votre site est disponible dans plusieurs langes.  
-            		Le paramètre d'URL \`?lang=xx\` fonctione par défaut.`,
+				"bp description 5": ({ hreflangImgUrl, youtubeVideoUrl }) => `i18nifty génère automatiquement des liens [\`hreflang\` dans votre \`<head>\`](${hreflangImgUrl}) 
+            		afin de [faire savoir a Google](${youtubeVideoUrl}) que votre site est disponible dans plusieurs langues.  
+            		Le paramètre d'URL \`?lang=xx\` fonctionne par défaut.`,
 				"bp title 6": "Les rechargements de pages n'affectent pas le choix de la langue",
-				"bp description 6": `La langue sélectionner est conservé via le \`localStorage\` dans les SPA
-				et par le biais de cookie pour Next.js`
+				"bp description 6": `La langue sélectionnée est conservée via le \`localStorage\` dans les SPA
+				et par le biais de cookies pour Next.js`
 			},
 			"FourOhFour": {
 				"not found": "Page non trouvée",
