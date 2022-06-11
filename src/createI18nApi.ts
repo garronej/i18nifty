@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
-import type { StatefulEvt } from "evt";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { symToStr } from "tsafe/symToStr";
 import type {
@@ -10,6 +9,7 @@ import type {
     TranslationFunction,
 } from "./typeUtils";
 import type { Dispatch, SetStateAction } from "react";
+import { StatefulObservable } from "powerhooks/tools/StatefulObservable";
 
 type I18nApi<
     ComponentKey extends [string, string | { K: string }],
@@ -19,7 +19,7 @@ type I18nApi<
         lang: Language;
         setLang: Dispatch<SetStateAction<Language>>;
     };
-    evtLang: StatefulEvt<Language>;
+    $lang: StatefulObservable<Language>;
     useTranslation: <ComponentName extends ComponentKey[0]>(
         componentNameAsKey: Record<ComponentName, unknown>,
     ) => {
@@ -48,7 +48,7 @@ export function createI18nApiFactory<
             lang: Language;
             setLang: Dispatch<SetStateAction<Language>>;
         };
-        evtLang: StatefulEvt<Language>;
+        $lang: StatefulObservable<Language>;
     };
 }): {
     createI18nApi: <
@@ -100,16 +100,16 @@ export function createI18nApiFactory<
         ) {
             const { languages, fallbackLanguage } = params;
 
-            const { useLang, evtLang, withLang } = (() => {
+            const { useLang, $lang, withLang } = (() => {
                 const result = createUseLang({
                     languages,
                     fallbackLanguage,
                 });
 
-                const { useLang, evtLang } = result;
+                const { useLang, $lang } = result;
                 const { withLang } = result as any;
 
-                return { useLang, evtLang, withLang };
+                return { useLang, $lang, withLang };
             })();
 
             function useResolveLocalizedString() {
@@ -160,7 +160,7 @@ export function createI18nApiFactory<
                 localizedString: LocalizedString<Language>,
             ): string {
                 return createResolveLocalizedString({
-                    "currentLanguage": evtLang.state,
+                    "currentLanguage": $lang.current,
                     fallbackLanguage,
                 }).resolveLocalizedString(localizedString);
             }
@@ -170,7 +170,7 @@ export function createI18nApiFactory<
                 useTranslation,
                 useResolveLocalizedString,
                 resolveLocalizedString,
-                evtLang,
+                $lang,
             };
 
             return {

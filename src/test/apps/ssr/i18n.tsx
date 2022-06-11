@@ -17,7 +17,7 @@ export const {
   useTranslation,
   resolveLocalizedString,
   useLang,
-  evtLang,
+  $lang,
   useResolveLocalizedString,
   withLang
 } = createI18nApi<

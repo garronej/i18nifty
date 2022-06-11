@@ -17,7 +17,7 @@ export const {
   useTranslation,
   resolveLocalizedString,
   useLang,
-  evtLang,
+  $lang,
   useResolveLocalizedString
 } = createI18nApi<
   | typeof import('./components/MyComponent').i18n

@@ -1,13 +1,14 @@
 import { createUseGlobalState } from "powerhooks/useGlobalState";
+import type { StatefulObservable } from "powerhooks/useGlobalState";
 import {
     updateSearchBarUrl,
     retrieveParamFromUrl,
     addParamToUrl,
 } from "powerhooks/tools/urlSearchParams";
-import type { StatefulEvt } from "evt";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
 import { typeGuard } from "tsafe/typeGuard";
+export type { StatefulObservable };
 
 export function createUseLang<Language extends string>(params: {
     languages: readonly Language[];
@@ -17,7 +18,7 @@ export function createUseLang<Language extends string>(params: {
 
     const name = "lang";
 
-    const { useLang, evtLang } = createUseGlobalState({
+    const { useLang, $lang } = createUseGlobalState({
         name,
         "initialState": (() => {
             const lang = getLanguageBestApprox<Language>({
@@ -34,7 +35,14 @@ export function createUseLang<Language extends string>(params: {
         "doPersistAcrossReloads": true,
     });
 
-    evtLang.attach(lang => document.documentElement.setAttribute(name, lang));
+    {
+        const next = (lang: Language) =>
+            document.documentElement.setAttribute(name, lang);
+
+        next($lang.current);
+
+        $lang.subscribe(next);
+    }
 
     read_url: {
         const result = retrieveParamFromUrl({
@@ -54,7 +62,7 @@ export function createUseLang<Language extends string>(params: {
                 break read_url;
             }
 
-            evtLang.state = result.value;
+            $lang.current = result.value;
         }
     }
 
@@ -111,6 +119,6 @@ export function createUseLang<Language extends string>(params: {
 
     return {
         useLang,
-        [symToStr({ evtLang })]: id<StatefulEvt<Language>>(evtLang),
+        [symToStr({ $lang })]: id<StatefulObservable<Language>>($lang),
     };
 }

@@ -64,4 +64,4 @@
 -   [ ] React Native support.
 -   [ ] SSG Support.
 -   [ ] Support lazy loading of resources files by language.
--   [ ] Reduce bundle size.
+-   [x] Reduce bundle size.

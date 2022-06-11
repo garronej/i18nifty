@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createUseSsrGlobalState } from "powerhooks/useSsrGlobalState";
+import type { StatefulObservable } from "powerhooks/useGlobalState";
 import Head from "next/head";
 import {
     updateSearchBarUrl,
@@ -10,7 +11,7 @@ import { assert } from "tsafe/assert";
 import { getLanguageBestApprox } from "./getLanguageBestApprox";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
-import type { StatefulEvt } from "evt";
+export type { StatefulObservable };
 
 export function createUseLang<Language extends string>(params: {
     languages: readonly Language[];
@@ -32,7 +33,7 @@ export function createUseLang<Language extends string>(params: {
         }
     }
 
-    const { useLang, evtLang, withLang } = createUseSsrGlobalState({
+    const { useLang, $lang, withLang } = createUseSsrGlobalState({
         name,
         "getStateSeverSide": appContext => {
             const { [name]: value } = appContext.router.query;
@@ -144,7 +145,7 @@ export function createUseLang<Language extends string>(params: {
 
     return {
         useLang,
-        [symToStr({ evtLang })]: id<StatefulEvt<Language>>(evtLang),
+        [symToStr({ $lang })]: id<StatefulObservable<Language>>($lang),
         withLang,
     };
 }

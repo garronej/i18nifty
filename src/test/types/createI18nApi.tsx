@@ -18,7 +18,7 @@ import DefaultApp from "next/app";
 
     const {
         useTranslation,
-        evtLang,
+        $lang,
         resolveLocalizedString,
         useLang,
         useResolveLocalizedString,
@@ -64,7 +64,7 @@ import DefaultApp from "next/app";
 
     const {
         useTranslation,
-        evtLang,
+        $lang,
         resolveLocalizedString,
         useLang,
         useResolveLocalizedString,
