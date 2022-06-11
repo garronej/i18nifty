@@ -45,7 +45,7 @@
 -   [x] I want to be able to [use React components](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L35-L40) and [involve JS logic](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L45-L53) in my translations.
 -   [x] I want the language to **default to the browser preference**.
 -   [x] I want the language preferences to be **persistant across reloads**.
--   [x] **SEO**: I want to let Google know that my website is available in multiple language.
+-   [x] **SEO**: I want to let Google know that my website is available in multiple languages.
 -   [x] I want all this to work with **server side rendering**.
 -   [x] I want to be able to change the language of my app by adding `?lang=xx` to the URL without involving my routing library.
 
@@ -58,3 +58,10 @@
 ![demo_3](https://user-images.githubusercontent.com/6702424/172604440-509f0d8e-6241-4131-b32b-dbdb7149aeb1.gif)
 
 </div>
+
+## Roadmap
+
+-   [ ] React Native support.
+-   [ ] SSG Support.
+-   [ ] Support lazy loading of resources files by language.
+-   [ ] Reduce bundle size.
