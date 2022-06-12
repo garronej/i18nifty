@@ -22,8 +22,8 @@ export const {
     fallbackLanguage
   },
   {
-    "en": ()=>import("./en").then(({ translations }) => translations),
-    "fr": () => import("./fr").then(({ translations }) => translations),
-    "zh-CN": () => import("./zh-CN").then(({ translations }) => translations)
+    "en": ()=>import("./resources/en").then(({ translations }) => translations),
+    "fr": () => import("./resources/fr").then(({ translations }) => translations),
+    "zh-CN": () => import("./resources/zh-CN").then(({ translations }) => translations)
   }
 );
