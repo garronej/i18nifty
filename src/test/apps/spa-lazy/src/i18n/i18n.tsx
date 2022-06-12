@@ -1,8 +1,8 @@
 
 import { createI18nApi, declareComponentKeys } from "i18nifty";
-import { languages, fallbackLanguage } from "./type";
+import { languages, fallbackLanguage } from "./types";
+import { ComponentKey } from "./types";
 export { declareComponentKeys };
-
 
 export type LocalizedString = Parameters<typeof resolveLocalizedString>[0];
 
@@ -13,16 +13,10 @@ export const {
   $lang,
   useResolveLocalizedString,
   useIsI18nFetching
-} = createI18nApi<
-  | typeof import('../components/MyComponent').i18n
-  | typeof import('../components/MyOtherComponent').i18n
->()(
+} = createI18nApi<ComponentKey>()(
+  { languages, fallbackLanguage },
   {
-    languages,
-    fallbackLanguage
-  },
-  {
-    "en": ()=>import("./resources/en").then(({ translations }) => translations),
+    "en": () => import("./resources/en").then(({ translations }) => translations),
     "fr": () => import("./resources/fr").then(({ translations }) => translations),
     "zh-CN": () => import("./resources/zh-CN").then(({ translations }) => translations)
   }

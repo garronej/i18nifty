@@ -1,4 +1,4 @@
-import type { Translations } from "../type";
+import type { Translations } from "../types";
 
 export const translations: Translations<"en"> = {
 	"MyComponent": {

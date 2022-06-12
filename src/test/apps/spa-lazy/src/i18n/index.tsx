@@ -1,5 +1,5 @@
 
 export * from "./i18n";
 
-export { languages, fallbackLanguage } from "./type";
-export type { Language } from "./type";
+export { languages, fallbackLanguage } from "./types";
+export type { Language } from "./types";
