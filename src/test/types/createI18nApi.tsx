@@ -22,6 +22,7 @@ import DefaultApp from "next/app";
         resolveLocalizedString,
         useLang,
         useResolveLocalizedString,
+        useIsI18nFetching,
         ...rest
     } = createI18nApi<typeof i18n>()(
         {
@@ -69,6 +70,7 @@ import DefaultApp from "next/app";
         useLang,
         useResolveLocalizedString,
         withLang,
+        useIsI18nFetching,
         ...rest
     } = createSsrI18nApi<typeof i18n>()(
         {
@@ -126,24 +128,25 @@ import DefaultApp from "next/app";
             "fallbackLanguage": "en" as const,
         },
         {
-            "en": {
-                "MyComponent1": {
-                    "key1": Reflect<string>(),
-                    "key2": Reflect<JSX.Element>(),
-                    "key3": ({ x }) => {
-                        assert<Equals<typeof x, number>>();
-                        return Reflect<JSX.Element>();
+            "en": () =>
+                Promise.resolve({
+                    "MyComponent1": {
+                        "key1": Reflect<string>(),
+                        "key2": Reflect<JSX.Element>(),
+                        "key3": ({ x }) => {
+                            assert<Equals<typeof x, number>>();
+                            return Reflect<JSX.Element>();
+                        },
                     },
-                },
-                "MyComponent2": {
-                    "keyA": Reflect<string>(),
-                    "keyB": ({ str }) => {
-                        assert<Equals<typeof str, string>>();
-                        return Reflect<JSX.Element>();
+                    "MyComponent2": {
+                        "keyA": Reflect<string>(),
+                        "keyB": ({ str }) => {
+                            assert<Equals<typeof str, string>>();
+                            return Reflect<JSX.Element>();
+                        },
+                        "keyC": Reflect<string>(),
                     },
-                    "keyC": Reflect<string>(),
-                },
-            },
+                }),
             "fr": {
                 "MyComponent1": {
                     "key1": Reflect<string>(),

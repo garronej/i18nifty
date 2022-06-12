@@ -40,14 +40,14 @@
 
 -   [x] I want **true type safety**, If I forgot something I want to be warned about it at **compile time**. I want to be guided by intelisence
         through and through so I can focus on my content.
--   [x] I want to be able to **explicitly fallback to English** when I can't translate myself.
--   [x] I want it to be **easy for non-tech peoples** to provide missing translations.
--   [x] I want to be able to [use React components](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L35-L40) and [involve JS logic](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L45-L53) in my translations.
+-   [x] I want to be able to [use React components](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L35-L40) and [involve JS logic](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L45-L53) in my translations (even if it means giving up support for third part translations services like https://locize.com/).
 -   [x] I want the language to **default to the browser preference**.
--   [x] I want the language preferences to be **persistant across reloads**.
+-   [x] I want the language preferences to be **persistent across reloads**.
+-   [x] I want asynchronous loading of locales (disclaimer: not yet available with SSR)
 -   [x] **SEO**: I want to let Google know that my website is available in multiple languages.
 -   [x] I want all this to work with **server side rendering**.
 -   [x] I want to be able to change the language of my app by adding `?lang=xx` to the URL without involving my routing library.
+-   [x] I want to be able to **explicitly fallback to English** when I can't translate myself.
 
 `i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).
 
@@ -63,5 +63,4 @@
 
 -   [ ] React Native support.
 -   [ ] SSG Support.
--   [ ] Support lazy loading of resources files by language.
--   [x] Reduce bundle size.
+-   [ ] Support lazy loading of SSR and SSG.
