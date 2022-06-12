@@ -36,9 +36,10 @@
   <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
 
-NEW: 
- - GZipped size 22.5Kb -> 4.6Kb  
- - Asynchronous download of locales (in SPA)  
+NEW:
+
+-   GZipped size 22.5Kb -> 4.6Kb
+-   Asynchronous download of locales (in SPA)
 
 ## What do I expect from my i18n library
 
