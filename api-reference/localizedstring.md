@@ -32,7 +32,7 @@ const text = resolveLocalizedString({
 ```
 
 {% hint style="warning" %}
-Do not use resolveLocalizedString in a react component. Wen the language changes the component wont be rerendered. Use [useResolveLocalizedString](localizedstring.md#useresolvelocalizedstring) instead.
+Do not use resolveLocalizedString in a react component. When the language changes the component wont be rerendered. Use [useResolveLocalizedString](localizedstring.md#useresolvelocalizedstring) instead.
 {% endhint %}
 
 ### useResolveLocalizedString
