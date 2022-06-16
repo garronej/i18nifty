@@ -18,7 +18,6 @@ import { playgroundUrl, docsUrl } from "../router";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 
-
 Home.routeGroup = createGroup([routes.home]);
 
 export function Home() {
@@ -86,7 +85,9 @@ export function Home() {
             />
             <GlArticle
                 title={t("article 2 title") + " 🦾"}
-                body={t("article 2 body", { "copilotUrl": "https://copilot.github.com/" })}
+                body={t("article 2 body", {
+                    "copilotUrl": "https://copilot.github.com/",
+                })}
                 buttonLabel={t("see documentation")}
                 buttonLink={{ "href": docsUrl }}
                 classes={{
@@ -115,29 +116,37 @@ export function Home() {
                 elements={[
                     {
                         "title": t("bp title 1"),
-                        "description": t("bp description 1", { "nextUrl": "https://nextjs.org/", "demoNextUrl": "https://ssr.i18nifty.dev" })
+                        "description": t("bp description 1", {
+                            "nextUrl": "https://nextjs.org/",
+                            "demoNextUrl": "https://ssr.i18nifty.dev",
+                        }),
                     },
                     {
                         "title": t("bp title 2"),
-                        "description": t("bp description 2")
+                        "description": t("bp description 2", {
+                            "playgroundUrl":
+                                "https://stackblitz.com/edit/react-ts-zgmo8u?file=i18n%252Fi18n.ts",
+                        }),
                     },
                     {
                         "title": t("bp title 3"),
-                        "description": t("bp description 3")
+                        "description": t("bp description 3"),
                     },
                     {
                         "title": t("bp title 4"),
-                        "description": t("bp description 4")
+                        "description": t("bp description 4"),
                     },
                     {
                         "title": t("bp title 5"),
-                        "description": t("bp description 5", { "hreflangImgUrl":"https://user-images.githubusercontent.com/6702424/172121583-524a83d1-7283-4964-8fd1-a447f1a20be1.png",
-                        "youtubeVideoUrl": "https://youtu.be/isW-Ke-AJJU?t=3356"
-                      })
+                        "description": t("bp description 5", {
+                            "hreflangImgUrl":
+                                "https://user-images.githubusercontent.com/6702424/172121583-524a83d1-7283-4964-8fd1-a447f1a20be1.png",
+                            "youtubeVideoUrl": "https://youtu.be/isW-Ke-AJJU?t=3356",
+                        }),
                     },
                     {
                         "title": t("bp title 6"),
-                        "description": t("bp description 6")
+                        "description": t("bp description 6"),
                     },
                 ]}
             />
@@ -146,25 +155,25 @@ export function Home() {
 }
 
 export const { i18n } = declareComponentKeys<
-    | "hero text subtext" 
-    | "subTitle" 
-    | "article title" 
-    | "article body" 
+    | "hero text subtext"
+    | "subTitle"
+    | "article title"
+    | "article body"
     | "try now"
-    | "article 2 title" 
-    | { K: "article 2 body"; P: { copilotUrl: string; }; }
+    | "article 2 title"
+    | { K: "article 2 body"; P: { copilotUrl: string } }
     | "see documentation"
     | "production ready"
     | "bp title 1"
-    | { K: "bp description 1"; P: { nextUrl: string; demoNextUrl: string; }  }
+    | { K: "bp description 1"; P: { nextUrl: string; demoNextUrl: string } }
     | "bp title 2"
-    | "bp description 2"
+    | { K: "bp description 2"; P: { playgroundUrl: string } }
     | "bp title 3"
     | "bp description 3"
     | "bp title 4"
     | "bp description 4"
     | "bp title 5"
-    | { K: "bp description 5"; P: { hreflangImgUrl: string; youtubeVideoUrl: string; } }
+    | { K: "bp description 5"; P: { hreflangImgUrl: string; youtubeVideoUrl: string } }
     | "bp title 6"
     | "bp description 6"
 >()({ Home });
@@ -173,16 +182,13 @@ const useStyles = makeStyles({ name: { Home } })(theme => ({
     "heroIllustration": {
         "borderRadius": 10,
         //TODO: Remove once gitlanding fixed
-        "width": (()=>{
-
-            if( theme.windowInnerWidth > 535 ){
+        "width": (() => {
+            if (theme.windowInnerWidth > 535) {
                 return 450;
             }
 
             return undefined;
-
-
-        })()
+        })(),
     },
     "articleVideo": {
         "maxWidth": 500,
