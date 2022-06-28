@@ -41,6 +41,11 @@ type I18nApi<
         localizedString: LocalizedString<Language>,
     ) => string;
     useIsI18nFetching: () => boolean;
+    getTranslation: <ComponentName extends ComponentKey[0]>(
+        componentName: ComponentName,
+    ) => {
+        t: TranslationFunction<ComponentName, ComponentKey>;
+    };
 };
 
 export type GenericTranslations<
@@ -261,6 +266,42 @@ export function createI18nApiFactory<
                 return { resolveLocalizedString };
             }
 
+            function getTranslationForLanguage<
+                ComponentName extends ComponentKey[0],
+            >(params: {
+                componentName: ComponentName;
+                lang: Language;
+            }): { t: TranslationFunction<ComponentName, ComponentKey> } {
+                const { componentName, lang } = params;
+
+                const t = (key: string, params?: Record<string, any>) => {
+                    if ((fetchedTranslations as any)[lang] === undefined) {
+                        return "";
+                    }
+
+                    const getStrOrFn = (lang: string) => {
+                        //return (fetchedTranslations as any)[lang][componentName][key];
+                        const translation = (fetchedTranslations as any)[lang];
+
+                        if (translation === undefined) {
+                            return "";
+                        }
+
+                        return translation[componentName][key];
+                    };
+
+                    let strOrFn = getStrOrFn(lang);
+
+                    if (strOrFn === undefined) {
+                        strOrFn = getStrOrFn(fallbackLanguage);
+                    }
+
+                    return params === undefined ? strOrFn : strOrFn(params);
+                };
+
+                return { t };
+            }
+
             function useTranslation<ComponentName extends ComponentKey[0]>(
                 componentNameAsKey: Record<ComponentName, unknown>,
             ): { t: TranslationFunction<ComponentName, ComponentKey> } {
@@ -270,35 +311,21 @@ export function createI18nApiFactory<
 
                 const componentName = symToStr(componentNameAsKey);
 
-                const t = useGuaranteedMemo(
-                    (): any => (key: string, params?: Record<string, any>) => {
-                        if ((fetchedTranslations as any)[lang] === undefined) {
-                            return "";
-                        }
-
-                        const getStrOrFn = (lang: string) => {
-                            //return (fetchedTranslations as any)[lang][componentName][key];
-                            const translation = (fetchedTranslations as any)[
-                                lang
-                            ];
-
-                            if (translation === undefined) {
-                                return "";
-                            }
-
-                            return translation[componentName][key];
-                        };
-
-                        let strOrFn = getStrOrFn(lang);
-
-                        if (strOrFn === undefined) {
-                            strOrFn = getStrOrFn(fallbackLanguage);
-                        }
-
-                        return params === undefined ? strOrFn : strOrFn(params);
-                    },
+                const { t } = useGuaranteedMemo(
+                    () => getTranslationForLanguage({ lang, componentName }),
                     [lang, componentName],
                 );
+
+                return { t };
+            }
+
+            function getTranslation<ComponentName extends ComponentKey[0]>(
+                componentName: ComponentName,
+            ): { t: TranslationFunction<ComponentName, ComponentKey> } {
+                const { t } = getTranslationForLanguage({
+                    componentName,
+                    "lang": $lang.current,
+                });
 
                 return { t };
             }
@@ -319,6 +346,7 @@ export function createI18nApiFactory<
                 resolveLocalizedString,
                 $lang,
                 useIsI18nFetching,
+                getTranslation,
             };
 
             return {

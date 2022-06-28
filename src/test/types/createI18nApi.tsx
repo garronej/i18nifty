@@ -23,6 +23,7 @@ import DefaultApp from "next/app";
         useLang,
         useResolveLocalizedString,
         useIsI18nFetching,
+        getTranslation,
         ...rest
     } = createI18nApi<typeof i18n>()(
         {
@@ -46,6 +47,10 @@ import DefaultApp from "next/app";
     assert<Equals<typeof rest, {}>>();
 
     const { t } = useTranslation({ "MyComponent": null });
+
+    const { t: t2 } = getTranslation("MyComponent");
+
+    assert<Equals<typeof t, typeof t2>>();
 
     const out = t("the key", { "x": Reflect<number>() });
 
@@ -71,6 +76,7 @@ import DefaultApp from "next/app";
         useResolveLocalizedString,
         withLang,
         useIsI18nFetching,
+        getTranslation,
         ...rest
     } = createSsrI18nApi<typeof i18n>()(
         {
@@ -105,7 +111,7 @@ import DefaultApp from "next/app";
 }
 
 {
-    const { useTranslation } = createI18nApi<
+    const { useTranslation, getTranslation } = createI18nApi<
         | [
               "MyComponent1",
               (
@@ -170,6 +176,10 @@ import DefaultApp from "next/app";
 
     {
         const { t } = useTranslation({ "MyComponent1": null });
+
+        const { t: t2 } = getTranslation("MyComponent1");
+
+        assert<Equals<typeof t, typeof t2>>();
 
         {
             const text = t("key1");
