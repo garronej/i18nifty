@@ -19,7 +19,9 @@ export const {
   useLang,
   $lang,
   useResolveLocalizedString,
-  withLang
+  withLang,
+  /** For use outside of React */
+  getTranslation
 } = createI18nApi<
   | typeof import('./components/MyComponent').i18n
   | typeof import('./components/MyOtherComponent').i18n
