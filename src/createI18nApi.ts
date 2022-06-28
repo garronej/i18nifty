@@ -270,11 +270,13 @@ export function createI18nApiFactory<
                 ComponentName extends ComponentKey[0],
             >(params: {
                 componentName: ComponentName;
-                lang: Language;
+                getLang: () => Language;
             }): { t: TranslationFunction<ComponentName, ComponentKey> } {
-                const { componentName, lang } = params;
+                const { componentName, getLang } = params;
 
                 const t = (key: string, params?: Record<string, any>) => {
+                    const lang = getLang();
+
                     if ((fetchedTranslations as any)[lang] === undefined) {
                         return "";
                     }
@@ -312,7 +314,11 @@ export function createI18nApiFactory<
                 const componentName = symToStr(componentNameAsKey);
 
                 const { t } = useGuaranteedMemo(
-                    () => getTranslationForLanguage({ lang, componentName }),
+                    () =>
+                        getTranslationForLanguage({
+                            "getLang": () => lang,
+                            componentName,
+                        }),
                     [lang, componentName],
                 );
 
@@ -324,7 +330,7 @@ export function createI18nApiFactory<
             ): { t: TranslationFunction<ComponentName, ComponentKey> } {
                 const { t } = getTranslationForLanguage({
                     componentName,
-                    "lang": $lang.current,
+                    "getLang": () => $lang.current,
                 });
 
                 return { t };
