@@ -58,7 +58,7 @@
         }
     },
     "dependencies": {
-        "powerhooks": "^0.20.0",
+        "powerhooks": "^0.20.2",
         "tsafe": "^0.10.0"
     },
     "devDependencies": {
