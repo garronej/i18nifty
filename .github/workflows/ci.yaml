@@ -78,17 +78,6 @@ jobs:
     needs: 
       - check_if_version_upgraded
     steps:
-    - name: Build GitHub release body
-      id: step1
-      run: |
-        if [ "$FROM_VERSION" = "0.0.0" ]; then
-            echo "::set-output name=body::🚀"
-        else
-            echo "::set-output name=body::📋 [CHANGELOG](https://github.com/$GITHUB_REPOSITORY/blob/v$TO_VERSION/CHANGELOG.md)"
-        fi
-      env: 
-        FROM_VERSION: ${{ needs.check_if_version_upgraded.outputs.from_version }}
-        TO_VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
     - uses: softprops/action-gh-release@v1
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
