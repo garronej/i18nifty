@@ -80,17 +80,26 @@ export const App = memo(() => {
             }}
             footer={
                 <GlFooter
-                  bottomDivContent={`[GitHub](${githubRepoUrl}) - [Documentation](${docsUrl}) - [${t("edit this website")}](${githubRepoUrl}/blob/landingpage/src/ui/i18n.tsx)`}
-                  links={[
-                    {
-                      "href": "https://www.npmjs.com/package/i18nifty",
-                      "label": <img src="https://img.shields.io/npm/dw/i18nifty" alt="" />
-                    },
-                    {
-                      "href": `${githubRepoUrl}/blob/main/LICENSE`,
-                      "label": <img src="https://img.shields.io/npm/l/i18nifty" alt="" />
-                    }
-                  ]}
+                    bottomDivContent={`[GitHub](${githubRepoUrl}) - [Documentation](${docsUrl}) - [${t(
+                        "edit this website",
+                    )}](${githubRepoUrl}/blob/landingpage/src/ui/i18n.tsx)`}
+                    links={[
+                        {
+                            "href": "https://www.npmjs.com/package/i18nifty",
+                            "label": (
+                                <img
+                                    src="https://img.shields.io/npm/dw/i18nifty"
+                                    alt=""
+                                />
+                            ),
+                        },
+                        {
+                            "href": `${githubRepoUrl}/blob/main/LICENSE`,
+                            "label": (
+                                <img src="https://img.shields.io/npm/l/i18nifty" alt="" />
+                            ),
+                        },
+                    ]}
                 />
             }
         >
@@ -109,7 +118,9 @@ export const App = memo(() => {
     );
 });
 
-export const { i18n } = declareComponentKeys<"documentation" | "try it" | "edit this website">()({
+export const { i18n } = declareComponentKeys<
+    "documentation" | "try it" | "edit this website"
+>()({
     App,
 });
 
