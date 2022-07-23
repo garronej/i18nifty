@@ -20,7 +20,6 @@
             "packagePatterns": ["powerhooks", "tsafe"],
             "matchUpdateTypes": ["minor", "patch"],
             "automerge": true,
-            "automergeType": "branch",
             "groupName": "garronej_modules_update"
         }
     ]
