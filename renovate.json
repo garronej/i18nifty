@@ -1,23 +1,21 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
-  "rangeStrategy": "bump",
-  "ignorePaths": [".github/**"],
-  "bumpVersion": "patch",
-  "packageRules": [
-    {
-      "packagePatterns": ["*"],
-      "excludePackagePatterns": ["powerhooks", "tsafe"],
-      "enabled": false
-    },
-    {
-      "packagePatterns": ["powerhooks", "tsafe"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "branch",
-      "branchName": "garronej_depdendencies_update"
-    }
-  ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:base"],
+    "rangeStrategy": "bump",
+    "ignorePaths": [".github/**"],
+    "bumpVersion": "patch",
+    "packageRules": [
+        {
+            "packagePatterns": ["*"],
+            "excludePackagePatterns": ["powerhooks", "tsafe"],
+            "enabled": false
+        },
+        {
+            "packagePatterns": ["powerhooks", "tsafe"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "automerge": true,
+            "automergeType": "branch",
+            "branchName": "garronej_depdendencies_update"
+        }
+    ]
 }
