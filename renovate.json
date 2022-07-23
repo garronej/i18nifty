@@ -2,7 +2,7 @@
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "baseBranches": ["main", "landingpage"],
     "extends": ["config:base"],
-    "bumpVersion": null,
+    "bumpVersion": "",
     "rangeStrategy": "bump",
     "dependencyDashboard": false,
     "ignorePaths": [".github/**"],
@@ -38,7 +38,6 @@
             ],
             "matchUpdateTypes": ["minor", "patch"],
             "automerge": true,
-            "automergeType": "branch",
             "groupName": "garronej_modules_update"
         }
     ]
