@@ -14,9 +14,10 @@
     },
     {
       "packagePatterns": ["powerhooks", "tsafe"],
-      "groupName": "homegrown",
       "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
+      "automerge": true,
+      "automergeType": "branch",
+      "branchName": "garronej_depdendencies_update"
     }
   ]
 }
