@@ -1,7 +1,7 @@
 {
     "homepage": "https://www.i18nifty.dev/",
     "name": "i18nifty_landingpage",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "i18nifty landingpage",
     "scripts": {
         "build": "react-scripts build && hack-gh-pages src/ui/router.ts",
@@ -36,7 +36,7 @@
         "gitlanding": "^0.17.5",
         "memoizee": "^0.4.15",
         "onyxia-ui": "^0.41.2",
-        "powerhooks": "^0.20.7",
+        "powerhooks": "^0.20.8",
         "tsafe": "^0.10.0",
         "tss-react": "^3.7.0",
         "type-route": "^0.7.1",
