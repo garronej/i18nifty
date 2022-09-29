@@ -1444,15 +1444,15 @@ postcss@8.4.5:
     picocolors "^1.0.0"
     source-map-js "^1.0.1"
 
-powerhooks@^0.20.18:
-  version "0.20.18"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.18.tgz#8d0fe7527d7f43ab8e83587dc6a1e192e3269a52"
-  integrity sha512-oI+WTQu4obdrB8Yjb2Nvcuh4Dyj0ParA8Iq14QCO9VpGGPg1CSl7Zb/Yi5IOpfPis3TZHHMwCUcSIhHNnAkqjQ==
+powerhooks@^0.20.19:
+  version "0.20.19"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.19.tgz#1bf783c71712c8e9ea82815a106f12983224b5a3"
+  integrity sha512-KhhVyNRI6MvUpJ8TDvACSeE4Csv1cZXkpod/oonk0N3csHZC6JBNxaWV0l7vPaDj4F6J3pZq394dUNZdE8pyGg==
   dependencies:
     evt "^2.4.3"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
-    tsafe "^1.1.0"
+    tsafe "^1.1.1"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
