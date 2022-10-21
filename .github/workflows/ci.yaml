@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
     - uses: bahmutov/npm-install@v1
-    - uses: garronej/ts-ci@v2.0.2
+    - uses: garronej/ts-ci@v2.1.0
       with: 
         action_name: remove_dark_mode_specific_images_from_readme
     - run: cat README.md
