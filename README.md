@@ -23,6 +23,9 @@
     <a href="https://www.npmjs.com/package/i18nifty">
       <img src="https://img.shields.io/npm/dm/i18nifty">
     </a>
+    <a href="https://www.npmjs.com/package/i18nifty">
+      <img src="https://img.shields.io/npm/v/i18nifty?logo=npm">
+    </a>
     <a href="https://github.com/garronej/i18nifty/blob/main/LICENSE">
       <img src="https://img.shields.io/npm/l/i18nifty">
     </a>
