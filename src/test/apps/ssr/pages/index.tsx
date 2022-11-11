@@ -25,7 +25,7 @@ export default function App() {
 				<br/>
 				The code of this app is <a href="https://github.com/garronej/i18nifty/tree/main/src/test/apps/ssr">here</a>
 				<br/>
-				You can switch the language by appending <code>?lang=fr</code> or <code>?lang=en</code> in the URL.
+				You can switch the language by appending <code>?lang=fr</code> or <code>?lang=en</code> in the URL!
 			</p>
 		</div>
 	);
