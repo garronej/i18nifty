@@ -58,8 +58,8 @@
         }
     },
     "dependencies": {
-        "powerhooks": "^0.20.23",
-        "tsafe": "^1.1.3"
+        "powerhooks": "^0.20.25",
+        "tsafe": "^1.2.1"
     },
     "devDependencies": {
         "@types/node": "^16.11.38",
