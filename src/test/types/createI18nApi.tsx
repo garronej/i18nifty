@@ -1,5 +1,5 @@
 import { createI18nApi } from "../../spa";
-import { createI18nApi as createSsrI18nApi } from "../../ssr";
+import { createI18nApi as createSsrI18nApi } from "../../next";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { Reflect } from "tsafe/Reflect";
