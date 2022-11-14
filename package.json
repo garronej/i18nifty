@@ -74,7 +74,7 @@
         "prettier": "^2.3.0",
         "ts-node": "^10.2.1",
         "typescript": "^4.6.3",
-        "next": "12.1.7-canary.4",
+        "next": "13.0.3",
         "react": "18.1.0"
     }
 }
