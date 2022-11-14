@@ -1108,10 +1108,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-i18nifty@../../../../dist:
+"i18nifty@file:../../../../dist":
   version "1.3.28"
   dependencies:
-    powerhooks "^0.20.26"
+    powerhooks "^0.20.27"
     tsafe "^1.2.1"
 
 ignore@^4.0.6:
@@ -1629,7 +1629,7 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-powerhooks@^0.20.26:
+powerhooks@^0.20.27:
   version "0.20.27"
   resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.27.tgz#ac82dba8c525434929ba8af3674a0d0ba1485a4a"
   integrity sha512-1xHmVKWXCA4WgSCkaQlYsNKfrLmrpn+jpRFpt4QIIEcWAV2+gswAujPu5+MCxXIOdmIsr0t16uJ1gN2Jc8xp2A==

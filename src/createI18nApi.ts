@@ -92,12 +92,9 @@ export function createI18nApiFactory<
             ? unknown
             : AppType extends { type: "ssr" }
             ? {
-                  withLang: {
-                      <AppComponent extends AppType["NextComponentType"]>(
-                          App: AppComponent
-                      ): AppComponent;
-                      (): AppType["DefaultAppType"];
-                  };
+                  withLang: <AppComponent extends AppType["NextComponentType"]>(
+                      App: AppComponent
+                  ) => AppComponent;
               }
             : never);
 } {

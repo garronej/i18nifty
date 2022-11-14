@@ -97,7 +97,7 @@ import DefaultApp from "next/app";
 
     assert<Equals<typeof rest, {}>>();
 
-    let MyApp = withLang();
+    let MyApp = withLang(DefaultApp);
 
     assert<Equals<typeof MyApp, typeof DefaultApp>>();
 
