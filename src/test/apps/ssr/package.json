@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "next": "13.0.3",
-        "i18nifty": "latest",
+        "i18nifty": "file:../../../../dist",
         "react": "18.2.0",
         "react-dom": "18.2.0"
     },
