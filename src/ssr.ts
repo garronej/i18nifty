@@ -8,5 +8,5 @@ export const { createI18nApi } = createI18nApiFactory<{
     NextComponentType: NextComponentType<any, any, any>;
     DefaultAppType: typeof DefaultApp;
 }>({
-    createUseLang,
+    createUseLang
 });

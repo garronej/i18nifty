@@ -3,7 +3,7 @@ import type { StatefulObservable } from "powerhooks/useGlobalState";
 import {
     updateSearchBarUrl,
     retrieveParamFromUrl,
-    addParamToUrl,
+    addParamToUrl
 } from "powerhooks/tools/urlSearchParams";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
@@ -23,7 +23,7 @@ export function createUseLang<Language extends string>(params: {
         "initialState": (() => {
             const lang = getLanguageBestApprox<Language>({
                 "languageLike": navigator.language,
-                languages,
+                languages
             });
 
             if (lang === undefined) {
@@ -32,7 +32,7 @@ export function createUseLang<Language extends string>(params: {
 
             return lang;
         })(),
-        "doPersistAcrossReloads": true,
+        "doPersistAcrossReloads": true
     });
 
     {
@@ -47,7 +47,7 @@ export function createUseLang<Language extends string>(params: {
     read_url: {
         const result = retrieveParamFromUrl({
             "url": window.location.href,
-            name,
+            name
         });
 
         if (result.wasPresent) {
@@ -56,7 +56,7 @@ export function createUseLang<Language extends string>(params: {
             if (
                 !typeGuard<Language>(
                     result.value,
-                    id<readonly string[]>(languages).includes(result.value),
+                    id<readonly string[]>(languages).includes(result.value)
                 )
             ) {
                 break read_url;
@@ -76,7 +76,7 @@ export function createUseLang<Language extends string>(params: {
                 : addParamToUrl({
                       "url": window.location.href,
                       name,
-                      "value": lang,
+                      "value": lang
                   }).newUrl;
 
         document.getElementsByTagName("head")[0].appendChild(link);
@@ -90,7 +90,7 @@ export function createUseLang<Language extends string>(params: {
 
         scope: {
             const lang = languages.find(
-                lang => lang.toLowerCase() === languageLike.toLowerCase(),
+                lang => lang.toLowerCase() === languageLike.toLowerCase()
             );
 
             if (lang === undefined) {
@@ -104,7 +104,7 @@ export function createUseLang<Language extends string>(params: {
             const iso2LanguageLike = languageLike.split("-")[0].toLowerCase();
 
             const lang = languages.find(lang =>
-                lang.toLowerCase().includes(iso2LanguageLike),
+                lang.toLowerCase().includes(iso2LanguageLike)
             );
 
             if (lang === undefined) {
@@ -119,6 +119,6 @@ export function createUseLang<Language extends string>(params: {
 
     return {
         useLang,
-        [symToStr({ $lang })]: id<StatefulObservable<Language>>($lang),
+        [symToStr({ $lang })]: id<StatefulObservable<Language>>($lang)
     };
 }

@@ -5,7 +5,7 @@ import Head from "next/head";
 import {
     updateSearchBarUrl,
     retrieveParamFromUrl,
-    addParamToUrl,
+    addParamToUrl
 } from "powerhooks/tools/urlSearchParams";
 import { assert } from "tsafe/assert";
 import { getLanguageBestApprox } from "./getLanguageBestApprox";
@@ -25,7 +25,7 @@ export function createUseLang<Language extends string>(params: {
     if (typeof window !== "undefined") {
         const result = retrieveParamFromUrl({
             "url": window.location.href,
-            name,
+            name
         });
 
         if (result.wasPresent) {
@@ -44,7 +44,7 @@ export function createUseLang<Language extends string>(params: {
 
             const lang = getLanguageBestApprox({
                 languages,
-                "languageLike": value,
+                "languageLike": value
             });
 
             if (lang === undefined) {
@@ -59,7 +59,7 @@ export function createUseLang<Language extends string>(params: {
             try {
                 const tmp =
                     appContext.ctx.req?.headers["accept-language"]?.split(
-                        /[,;]/,
+                        /[,;]/
                     )[1];
 
                 assert(typeof tmp === "string");
@@ -68,19 +68,19 @@ export function createUseLang<Language extends string>(params: {
             } catch {
                 return {
                     "doFallbackToGetInitialValueClientSide": true,
-                    "initialValue": fallbackLanguage,
+                    "initialValue": fallbackLanguage
                 } as const;
             }
 
             const lang = getLanguageBestApprox<Language>({
                 languageLike,
-                languages,
+                languages
             });
 
             if (lang === undefined) {
                 return {
                     "doFallbackToGetInitialValueClientSide": true,
-                    "initialValue": fallbackLanguage,
+                    "initialValue": fallbackLanguage
                 } as const;
             }
 
@@ -89,7 +89,7 @@ export function createUseLang<Language extends string>(params: {
         "getInitialStateClientSide": () => {
             const lang = getLanguageBestApprox<Language>({
                 "languageLike": navigator.language,
-                languages,
+                languages
             });
 
             if (lang === undefined) {
@@ -117,13 +117,13 @@ export function createUseLang<Language extends string>(params: {
 
                                     return {
                                         ...rest,
-                                        ...(lang === undefined ? {} : { lang }),
+                                        ...(lang === undefined ? {} : { lang })
                                     };
-                                })(),
+                                })()
                             ).reduce((url, [name, value]) => {
                                 if (typeof value !== "string") {
                                     console.warn(
-                                        "TODO: Fix hrefLang generator",
+                                        "TODO: Fix hrefLang generator"
                                     );
                                     return url;
                                 }
@@ -131,7 +131,7 @@ export function createUseLang<Language extends string>(params: {
                                 const { newUrl } = addParamToUrl({
                                     url,
                                     name,
-                                    value,
+                                    value
                                 });
 
                                 return newUrl;
@@ -140,12 +140,12 @@ export function createUseLang<Language extends string>(params: {
                     ))}
                 </Head>
             );
-        },
+        }
     });
 
     return {
         useLang,
         [symToStr({ $lang })]: id<StatefulObservable<Language>>($lang),
-        withLang,
+        withLang
     };
 }

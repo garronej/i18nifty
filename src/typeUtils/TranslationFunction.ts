@@ -1,21 +1,21 @@
 export type TranslationFunction<
     ComponentName extends string,
-    ComponentKey extends [string, string | { K: string }],
+    ComponentKey extends [string, string | { K: string }]
 > = {
     <
         K extends HelperFlatKeyNoParams<
             HelperExtractKey<ComponentKey, ComponentName>
-        >,
+        >
     >(
-        key: K,
+        key: K
     ): HelperR<HelperExtractKey<ComponentKey, ComponentName>, K>;
     <
         K extends HelperFlatKeyWithParams<
             HelperExtractKey<ComponentKey, ComponentName>
-        >,
+        >
     >(
         key: K,
-        params: HelperP<HelperExtractKey<ComponentKey, ComponentName>, K>,
+        params: HelperP<HelperExtractKey<ComponentKey, ComponentName>, K>
     ): HelperR<HelperExtractKey<ComponentKey, ComponentName>, K>;
 };
 
@@ -26,7 +26,7 @@ type HelperROrString<Key extends { K: string }> = Key extends { R: any }
 
 type HelperR<
     Key extends string | { K: string },
-    K extends string,
+    K extends string
 > = Key extends { K: string }
     ? Key extends { K: K }
         ? HelperROrString<Key>
@@ -37,7 +37,7 @@ type HelperR<
 
 type HelperExtractKey<
     ComponentKey extends [string, string | { K: string }],
-    ComponentName extends string,
+    ComponentName extends string
 > = Extract<ComponentKey, [ComponentName, any]>[1];
 
 type HelperFlatKeyNoParams<Key extends string | { K: string }> = Key extends {
@@ -62,7 +62,7 @@ type HelperPOrVoid<Key extends { K: string }> = Key extends { P: any }
 
 type HelperP<
     Key extends string | { K: string },
-    K extends string,
+    K extends string
 > = Key extends { K: string }
     ? Key extends { K: K }
         ? HelperPOrVoid<Key>

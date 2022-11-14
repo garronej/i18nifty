@@ -12,7 +12,7 @@ import DefaultApp from "next/app";
             {
                 K: "the key";
                 P: { x: number };
-            },
+            }
         ]
     >();
 
@@ -28,7 +28,7 @@ import DefaultApp from "next/app";
     } = createI18nApi<typeof i18n>()(
         {
             "languages": ["en"] as const,
-            "fallbackLanguage": "en",
+            "fallbackLanguage": "en"
         },
         {
             "en": {
@@ -38,10 +38,10 @@ import DefaultApp from "next/app";
                         return Reflect<string>();
                     },
                     //@ts-expect-error: This key is not declared
-                    "not a key": "",
-                },
-            },
-        },
+                    "not a key": ""
+                }
+            }
+        }
     );
 
     assert<Equals<typeof rest, {}>>();
@@ -64,7 +64,7 @@ import DefaultApp from "next/app";
             {
                 K: "the key";
                 P: { x: number };
-            },
+            }
         ]
     >();
 
@@ -81,7 +81,7 @@ import DefaultApp from "next/app";
     } = createSsrI18nApi<typeof i18n>()(
         {
             "languages": ["en"] as const,
-            "fallbackLanguage": "en",
+            "fallbackLanguage": "en"
         },
         {
             "en": {
@@ -89,10 +89,10 @@ import DefaultApp from "next/app";
                     "the key": ({ x }) => {
                         assert<Equals<typeof x, number>>();
                         return Reflect<string>();
-                    },
-                },
-            },
-        },
+                    }
+                }
+            }
+        }
     );
 
     assert<Equals<typeof rest, {}>>();
@@ -118,7 +118,7 @@ import DefaultApp from "next/app";
                   | "key1"
                   | { K: "key2"; R: JSX.Element | string }
                   | { K: "key3"; P: { x: number }; R: JSX.Element | string }
-              ),
+              )
           ]
         | [
               "MyComponent2",
@@ -126,12 +126,12 @@ import DefaultApp from "next/app";
                   | "keyA"
                   | { K: "keyB"; P: { str: string }; R: JSX.Element }
                   | "keyC"
-              ),
+              )
           ]
     >()(
         {
             "languages": ["en", "fr"] as const,
-            "fallbackLanguage": "en" as const,
+            "fallbackLanguage": "en" as const
         },
         {
             "en": () =>
@@ -142,7 +142,7 @@ import DefaultApp from "next/app";
                         "key3": ({ x }) => {
                             assert<Equals<typeof x, number>>();
                             return Reflect<JSX.Element>();
-                        },
+                        }
                     },
                     "MyComponent2": {
                         "keyA": Reflect<string>(),
@@ -150,8 +150,8 @@ import DefaultApp from "next/app";
                             assert<Equals<typeof str, string>>();
                             return Reflect<JSX.Element>();
                         },
-                        "keyC": Reflect<string>(),
-                    },
+                        "keyC": Reflect<string>()
+                    }
                 }),
             "fr": {
                 "MyComponent1": {
@@ -160,7 +160,7 @@ import DefaultApp from "next/app";
                     "key3": ({ x }) => {
                         assert<Equals<typeof x, number>>();
                         return Reflect<string>();
-                    },
+                    }
                 },
                 "MyComponent2": {
                     "keyA": Reflect<string>(),
@@ -168,10 +168,10 @@ import DefaultApp from "next/app";
                         assert<Equals<typeof str, string>>();
                         return Reflect<JSX.Element>();
                     },
-                    "keyC": undefined,
-                },
-            },
-        },
+                    "keyC": undefined
+                }
+            }
+        }
     );
 
     {

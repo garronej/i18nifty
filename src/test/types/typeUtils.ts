@@ -1,7 +1,7 @@
 import type {
     KeyToRecord,
     ComponentKeyToRecord,
-    TranslationFunction,
+    TranslationFunction
 } from "../../typeUtils";
 import { assert } from "tsafe/assert";
 import { Reflect } from "tsafe/Reflect";
@@ -39,7 +39,7 @@ import type { Equals } from "tsafe";
                   | { K: "key3"; P: { x: number } }
                   | { K: "key4"; P: { y: string }; R: JSX.Element }
                   | { K: "key5"; R: JSX.Element }
-              ),
+              )
           ]
         | [
               "MyComponent2",
@@ -50,7 +50,7 @@ import type { Equals } from "tsafe";
                   | { K: "keyC"; P: { x: number } }
                   | { K: "keyD"; P: { y: string }; R: JSX.Element }
                   | { K: "keyE"; R: JSX.Element }
-              ),
+              )
           ];
 
     type ExpectedOutput = {
@@ -90,7 +90,7 @@ import type { Equals } from "tsafe";
                   | { K: "key3"; P: { x: number } }
                   | { K: "key4"; P: { y: string }; R: JSX.Element }
                   | { K: "key5"; R: JSX.Element }
-              ),
+              )
           ]
         | [
               "MyComponent2",
@@ -101,7 +101,7 @@ import type { Equals } from "tsafe";
                   | { K: "keyC"; P: { x: number } }
                   | { K: "keyD"; P: { y: string }; R: JSX.Element }
                   | { K: "keyE"; R: JSX.Element }
-              ),
+              )
           ];
 
     const t: TranslationFunction<ComponentName, ComponentKey> = null as any;

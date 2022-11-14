@@ -6,7 +6,7 @@ import { symToStr } from "tsafe/symToStr";
 import type {
     ComponentKeyToRecord,
     WithOptionalKeys,
-    TranslationFunction,
+    TranslationFunction
 } from "./typeUtils";
 import type { Dispatch, SetStateAction } from "react";
 import { StatefulObservable } from "powerhooks/tools/StatefulObservable";
@@ -14,13 +14,13 @@ import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import {
     createStatefulObservable,
-    useRerenderOnChange,
+    useRerenderOnChange
 } from "powerhooks/tools/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 
 type I18nApi<
     ComponentKey extends [string, string | { K: string }],
-    Language extends string,
+    Language extends string
 > = {
     useLang: () => {
         lang: Language;
@@ -28,21 +28,21 @@ type I18nApi<
     };
     $lang: StatefulObservable<Language>;
     useTranslation: <ComponentName extends ComponentKey[0]>(
-        componentNameAsKey: Record<ComponentName, unknown>,
+        componentNameAsKey: Record<ComponentName, unknown>
     ) => {
         t: TranslationFunction<ComponentName, ComponentKey>;
     };
     useResolveLocalizedString: () => {
         resolveLocalizedString: (
-            localizedString: LocalizedString<Language>,
+            localizedString: LocalizedString<Language>
         ) => string;
     };
     resolveLocalizedString: (
-        localizedString: LocalizedString<Language>,
+        localizedString: LocalizedString<Language>
     ) => string;
     useIsI18nFetching: () => boolean;
     getTranslation: <ComponentName extends ComponentKey[0]>(
-        componentName: ComponentName,
+        componentName: ComponentName
     ) => {
         t: TranslationFunction<ComponentName, ComponentKey>;
     };
@@ -52,7 +52,7 @@ export type GenericTranslations<
     ComponentKey extends [string, string | { K: string }],
     Language extends string,
     FallbackLanguage extends Language,
-    L extends Language,
+    L extends Language
 > = L extends FallbackLanguage
     ? ComponentKeyToRecord<ComponentKey>
     : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
@@ -62,7 +62,7 @@ type ValueOrAsyncGetter<T> = T | (() => Promise<T>);
 export function createI18nApiFactory<
     AppType extends
         | { type: "ssr"; NextComponentType: any; DefaultAppType: any }
-        | { type: "spa" },
+        | { type: "spa" }
 >(params: {
     createUseLang: <Language extends string>(params: {
         languages: readonly Language[];
@@ -76,7 +76,7 @@ export function createI18nApiFactory<
     };
 }): {
     createI18nApi: <
-        ComponentKey extends [string, string | { K: string }],
+        ComponentKey extends [string, string | { K: string }]
     >() => <Language extends string, FallbackLanguage extends Language>(
         params: {
             languages: readonly Language[];
@@ -86,7 +86,7 @@ export function createI18nApiFactory<
             [L in Language]: ValueOrAsyncGetter<
                 GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
             >;
-        },
+        }
     ) => I18nApi<ComponentKey, Language> &
         (AppType extends { type: "spa" }
             ? unknown
@@ -94,7 +94,7 @@ export function createI18nApiFactory<
             ? {
                   withLang: {
                       <AppComponent extends AppType["NextComponentType"]>(
-                          App: AppComponent,
+                          App: AppComponent
                       ): AppComponent;
                       (): AppType["DefaultAppType"];
                   };
@@ -105,7 +105,7 @@ export function createI18nApiFactory<
 
     /** @see <https://docs.i18nifty.dev> */
     function createI18nApi<
-        ComponentKey extends [string, string | { K: string }],
+        ComponentKey extends [string, string | { K: string }]
     >() {
         return function <
             Language extends string,
@@ -119,20 +119,20 @@ export function createI18nApiFactory<
                         L
                     >
                 >;
-            },
+            }
         >(
             params: {
                 languages: readonly Language[];
                 fallbackLanguage: FallbackLanguage;
             },
-            translations: Translations,
+            translations: Translations
         ) {
             const { languages, fallbackLanguage } = params;
 
             const { useLang, $lang, withLang } = (() => {
                 const result = createUseLang({
                     languages,
-                    fallbackLanguage,
+                    fallbackLanguage
                 });
 
                 const { useLang, $lang } = result;
@@ -161,8 +161,8 @@ export function createI18nApiFactory<
                 >;
             } = Object.fromEntries(
                 Object.entries(translations).filter(
-                    ([, value]) => typeof value !== "function",
-                ),
+                    ([, value]) => typeof value !== "function"
+                )
             ) as any;
 
             const $isFetching = createStatefulObservable<boolean>(() => false);
@@ -174,7 +174,7 @@ export function createI18nApiFactory<
             }
 
             const $translationFetched = createStatefulObservable<number>(
-                () => 0,
+                () => 0
             );
 
             lazy_fetch: {
@@ -228,12 +228,12 @@ export function createI18nApiFactory<
                         if (
                             objectKeys(translation)
                                 .map(
-                                    componentName => translation[componentName],
+                                    componentName => translation[componentName]
                                 )
                                 .map(componentTranslation =>
                                     objectKeys(componentTranslation)
                                         .map(key => componentTranslation[key])
-                                        .includes(undefined as any),
+                                        .includes(undefined as any)
                                 )
                                 .flat()
                                 .includes(true)
@@ -257,7 +257,7 @@ export function createI18nApiFactory<
                     const { resolveLocalizedString } =
                         createResolveLocalizedString({
                             "currentLanguage": lang,
-                            fallbackLanguage,
+                            fallbackLanguage
                         });
 
                     return { resolveLocalizedString };
@@ -267,7 +267,7 @@ export function createI18nApiFactory<
             }
 
             function getTranslationForLanguage<
-                ComponentName extends ComponentKey[0],
+                ComponentName extends ComponentKey[0]
             >(params: {
                 componentName: ComponentName;
                 getLang: () => Language;
@@ -305,7 +305,7 @@ export function createI18nApiFactory<
             }
 
             function useTranslation<ComponentName extends ComponentKey[0]>(
-                componentNameAsKey: Record<ComponentName, unknown>,
+                componentNameAsKey: Record<ComponentName, unknown>
             ): { t: TranslationFunction<ComponentName, ComponentKey> } {
                 const { lang } = useLang();
 
@@ -317,31 +317,31 @@ export function createI18nApiFactory<
                     () =>
                         getTranslationForLanguage({
                             "getLang": () => lang,
-                            componentName,
+                            componentName
                         }),
-                    [lang, componentName],
+                    [lang, componentName]
                 );
 
                 return { t };
             }
 
             function getTranslation<ComponentName extends ComponentKey[0]>(
-                componentName: ComponentName,
+                componentName: ComponentName
             ): { t: TranslationFunction<ComponentName, ComponentKey> } {
                 const { t } = getTranslationForLanguage({
                     componentName,
-                    "getLang": () => $lang.current,
+                    "getLang": () => $lang.current
                 });
 
                 return { t };
             }
 
             function resolveLocalizedString(
-                localizedString: LocalizedString<Language>,
+                localizedString: LocalizedString<Language>
             ): string {
                 return createResolveLocalizedString({
                     "currentLanguage": $lang.current,
-                    fallbackLanguage,
+                    fallbackLanguage
                 }).resolveLocalizedString(localizedString);
             }
 
@@ -352,12 +352,12 @@ export function createI18nApiFactory<
                 resolveLocalizedString,
                 $lang,
                 useIsI18nFetching,
-                getTranslation,
+                getTranslation
             };
 
             return {
                 ...i18nApi,
-                withLang,
+                withLang
             } as any;
         };
     }

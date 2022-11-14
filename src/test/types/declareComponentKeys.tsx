@@ -28,7 +28,7 @@ export const MyComponent = memo(() => {
                   P: { x: number; name: string };
                   R: JSX.Element;
               }
-        ),
+        )
     ];
 
     type Got = typeof i18n;
@@ -38,7 +38,7 @@ export const MyComponent = memo(() => {
 
 {
     const { i18n } = declareComponentKeys<"one thing" | "something else">()({
-        MyComponent,
+        MyComponent
     });
 
     type Expected = ["MyComponent", "one thing" | "something else"];
