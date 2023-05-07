@@ -53,6 +53,7 @@
 -   [x] I want all this to work with **server side rendering**.
 -   [x] I want to be able to change the language of my app by adding `?lang=xx` to the URL without involving my routing library.
 -   [x] I want to be able to **explicitly fallback to English** when I can't translate myself.
+-   [x] a11y: When internationalized text received from the backend aren't in the language of the app [I want a label to be added](https://docs.i18nifty.dev/api-reference/localizedstring)
 
 `i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).
 
