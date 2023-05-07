@@ -78,7 +78,8 @@ Start by declaring the text keys you'll need in each component.&#x20;
 then create your `src/i18n.tsx` file: &#x20;
 
 ```tsx
-import { createI18nApi } from "i18nifty";
+import { createI18nApi, declareComponentKeys } from "i18nifty";
+export { declareComponentKeys };
 
 //List the languages you with to support
 export const languages = ["en", "fr"] as const;
@@ -95,8 +96,10 @@ export const {
 	useTranslation, 
 	resolveLocalizedString, 
 	useLang, 
-	evtLang,
-	useResolveLocalizedString 
+	$lang,
+	useResolveLocalizedString,
+	/** For use outside of React */
+	getTranslation 
 } = createI18nApi<
     | typeof import ("components/MyComponent").i18n
     | typeof import ("components/MyOtherComponent").i18n
@@ -158,7 +161,7 @@ Edit your `i18n.ts` file like so: &#x20;
 
 ```diff
 -import { createI18nApi } from "i18nifty";
-+import { createI18nApi } from "i18nifty/ssr";
++import { createI18nApi } from "i18nifty/next";
 
  export const { 
  	 useTranslation, 
@@ -170,15 +173,13 @@ Edit your `i18n.ts` file like so: &#x20;
  } = createI18nApi<
 ```
 
-Create an \_app.tsx file (if you didn't had one already):
+Create an `pages/_app.tsx` file (if you didn't had one already):
 
 ```jsx
+import DefaultApp from "next/app";
 import { withLang } from "../i18n";
 
-export default withLang();
-
-//Or, if you had a custom App already 
-//export default withLang(MyApp);
+export default withLang(DefaultApp);
 ```
 
 </details>
@@ -186,8 +187,7 @@ export default withLang();
 Now go back to your component and use the translation function: &#x20;
 
 ```diff
- import { declareComponentKeys } from "i18nifty";
-+import { useTranslation } from "i18n"; //You can import it like that thanks to baseUrl
++import { useTranslation, declareComponentKeys } from "i18n"; //You can import it like that thanks to baseUrl
    
  type Props = {
      name: string;
