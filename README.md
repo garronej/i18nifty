@@ -39,7 +39,7 @@
   <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
 
-> Disclamer: This tool is great for SPAs applications (e.g Create React App, Vite), not so for Next.js projects...  
+> Disclamer: This tool is great for SPAs applications (e.g Create React App, Vite), not so for Next.js projects...
 
 ## What do I expect from my i18n library
 

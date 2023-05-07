@@ -2,6 +2,7 @@ import { useReducer, useEffect } from "react";
 import { MyComponent } from "./MyComponent";
 import { MyOtherComponent } from "./MyOtherComponent";
 import { LanguageSwitch } from "./LanguageSwitch";
+import { useResolveLocalizedString } from "../i18n";
 
 export function App() {
 
@@ -11,6 +12,11 @@ export function App() {
 		() => { setInterval(incrementMessageCount, 3000); },
 		[]
 	);
+
+	const { resolveLocalizedString } = useResolveLocalizedString({
+		"labelWhenMismatchingLanguage": true
+	});
+
 
 	return (
 		<div>
@@ -25,6 +31,12 @@ export function App() {
 				<br/>
 				You can switch the language by appending <code>?lang=fr</code> or <code>?lang=en</code> in the URL.
 			</p>
+			{resolveLocalizedString("This is a text always in english")}
+			<br/>
+			{resolveLocalizedString({
+				"en": "This is a localized text from the API",
+				"fr": "Ceci est un texte localisé de l'API"
+			})}
 		</div>
 	);
 }

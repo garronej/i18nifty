@@ -32,14 +32,49 @@ type I18nApi<
     ) => {
         t: TranslationFunction<ComponentName, ComponentKey>;
     };
-    useResolveLocalizedString: () => {
+
+    useResolveLocalizedString(params?: {
+        /** default: false */
+        labelWhenMismatchingLanguage?: false;
+    }): {
         resolveLocalizedString: (
             localizedString: LocalizedString<Language>
         ) => string;
     };
-    resolveLocalizedString: (
-        localizedString: LocalizedString<Language>
-    ) => string;
+    useResolveLocalizedString(params?: {
+        /** default: false */
+        labelWhenMismatchingLanguage:
+            | true
+            | {
+                  /* if true fallbackLanguage */
+                  ifStringAssumeLanguage: Language;
+              };
+    }): {
+        resolveLocalizedString: (
+            localizedString: LocalizedString<Language>
+        ) => JSX.Element;
+    };
+
+    resolveLocalizedString(
+        localizedString: LocalizedString<Language>,
+        options?: {
+            /** default: false */
+            labelWhenMismatchingLanguage?: false;
+        }
+    ): string;
+    resolveLocalizedString(
+        localizedString: LocalizedString<Language>,
+        options?: {
+            /** default: false */
+            labelWhenMismatchingLanguage:
+                | true
+                | {
+                      /* if true fallbackLanguage */
+                      ifStringAssumeLanguage: Language;
+                  };
+        }
+    ): JSX.Element;
+
     useIsI18nFetching: () => boolean;
     getTranslation: <ComponentName extends ComponentKey[0]>(
         componentName: ComponentName
@@ -247,18 +282,57 @@ export function createI18nApiFactory<
                 $lang.subscribe(next);
             }
 
-            function useResolveLocalizedString() {
+            function useResolveLocalizedString(params?: {
+                /** default: false */
+                labelWhenMismatchingLanguage?: false;
+            }): {
+                resolveLocalizedString: (
+                    localizedString: LocalizedString<Language>
+                ) => string;
+            };
+            function useResolveLocalizedString(params?: {
+                /** default: false */
+                labelWhenMismatchingLanguage:
+                    | true
+                    | {
+                          /* if true fallbackLanguage */
+                          ifStringAssumeLanguage: Language;
+                      };
+            }): {
+                resolveLocalizedString: (
+                    localizedString: LocalizedString<Language>
+                ) => JSX.Element;
+            };
+            function useResolveLocalizedString(params?: {
+                /** default: false */
+                labelWhenMismatchingLanguage?:
+                    | boolean
+                    | { ifStringAssumeLanguage: Language };
+            }): {
+                resolveLocalizedString: (
+                    localizedString: LocalizedString<Language>
+                ) => JSX.Element | string;
+            } {
+                const { labelWhenMismatchingLanguage } = params ?? {};
+
                 const { lang } = useLang();
 
                 const { resolveLocalizedString } = useGuaranteedMemo(() => {
                     const { resolveLocalizedString } =
                         createResolveLocalizedString({
                             "currentLanguage": lang,
-                            fallbackLanguage
+                            fallbackLanguage,
+                            "labelWhenMismatchingLanguage":
+                                labelWhenMismatchingLanguage as false
                         });
 
                     return { resolveLocalizedString };
-                }, [lang]);
+                }, [
+                    lang,
+                    typeof labelWhenMismatchingLanguage === "object"
+                        ? labelWhenMismatchingLanguage.ifStringAssumeLanguage
+                        : labelWhenMismatchingLanguage
+                ]);
 
                 return { resolveLocalizedString };
             }
@@ -334,12 +408,45 @@ export function createI18nApiFactory<
             }
 
             function resolveLocalizedString(
-                localizedString: LocalizedString<Language>
-            ): string {
-                return createResolveLocalizedString({
-                    "currentLanguage": $lang.current,
-                    fallbackLanguage
-                }).resolveLocalizedString(localizedString);
+                localizedString: LocalizedString<Language>,
+                options?: {
+                    /** default: false */
+                    labelWhenMismatchingLanguage?: false;
+                }
+            ): string;
+            function resolveLocalizedString(
+                localizedString: LocalizedString<Language>,
+                options?: {
+                    /** default: false */
+                    labelWhenMismatchingLanguage:
+                        | true
+                        | {
+                              /* if true fallbackLanguage */
+                              ifStringAssumeLanguage: Language;
+                          };
+                }
+            ): JSX.Element;
+            function resolveLocalizedString(
+                localizedString: LocalizedString<Language>,
+                options?: {
+                    /** default: false */
+                    labelWhenMismatchingLanguage?:
+                        | boolean
+                        | { ifStringAssumeLanguage: Language };
+                }
+            ): string | JSX.Element {
+                const { labelWhenMismatchingLanguage } = options ?? {};
+
+                const { resolveLocalizedString } = createResolveLocalizedString(
+                    {
+                        "currentLanguage": $lang.current,
+                        fallbackLanguage,
+                        "labelWhenMismatchingLanguage":
+                            labelWhenMismatchingLanguage as any
+                    }
+                );
+
+                return resolveLocalizedString(localizedString);
             }
 
             const i18nApi: I18nApi<ComponentKey, Language> = {
