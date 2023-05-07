@@ -1,6 +1,6 @@
 {
     "name": "i18nifty",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "description": "Type safe React i18n library",
     "homepage": "https://www.i18nifty.dev",
     "repository": {
@@ -58,8 +58,8 @@
         }
     },
     "dependencies": {
-        "powerhooks": "^0.20.27",
-        "tsafe": "^1.2.1"
+        "powerhooks": "^0.26.8",
+        "tsafe": "^1.6.0"
     },
     "devDependencies": {
         "@types/node": "^16.11.38",
