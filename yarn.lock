@@ -808,14 +808,14 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-evt@^2.4.10:
-  version "2.4.10"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.10.tgz#91b3c10e5ce50112656bdbe6c599c38f72617e51"
-  integrity sha512-HPepROqeyGpl54AvytYMJh+JoB5eGInaRG3Sqr7VAQX69jzWdou6mq8vNvy41lRSSsK2rQ7XJXoyEaqVnLDBSw==
+evt@^2.4.18:
+  version "2.4.18"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.18.tgz#931012610dcd3bc7c0877d61018a704e9e5511db"
+  integrity sha512-kMYW3DPrUWvFsOUf3cN1NMdg0MEFYLMLqC7hPSasNs8TOZCOBsDgazr6nXda2iUur/2L6BtRu0oCl2++oGYZxA==
   dependencies:
     minimal-polyfills "^2.2.2"
     run-exclusive "^2.2.18"
-    tsafe "^1.2.1"
+    tsafe "^1.6.0"
 
 execa@^5.1.1:
   version "5.1.1"
@@ -1463,15 +1463,15 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-powerhooks@^0.20.27:
-  version "0.20.27"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.27.tgz#ac82dba8c525434929ba8af3674a0d0ba1485a4a"
-  integrity sha512-1xHmVKWXCA4WgSCkaQlYsNKfrLmrpn+jpRFpt4QIIEcWAV2+gswAujPu5+MCxXIOdmIsr0t16uJ1gN2Jc8xp2A==
+powerhooks@^0.26.8:
+  version "0.26.8"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.26.8.tgz#fa93e6141e424c17c031a56f77fde1c75e128dbc"
+  integrity sha512-lXuxiZgAEtPP/FPRCLOncE2ibHrZH1UQ3RRYcWFIK4zd7Hbf54p4OjS8n3/6cKTf8BhbU0b1AUio1hEPWO10Gg==
   dependencies:
-    evt "^2.4.10"
+    evt "^2.4.18"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
-    tsafe "^1.2.1"
+    tsafe "^1.6.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -1761,10 +1761,10 @@ ts-node@^10.2.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-tsafe@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.2.1.tgz#578f7acd22b5ff32b5b820b6eb551af9ad4024da"
-  integrity sha512-fDDbPiAG6xjZuyXXakHZi8ewGx7ERxGVJ3dwFtcoex+9lvp/nHm5ROlFAB6lyZSmspG0cjpYpFxrKyRnniiOdQ==
+tsafe@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.0.tgz#48a9bd0a4c43df43d289bdfc1d89f0d7fffbd612"
+  integrity sha512-wlUeRBnyN3EN2chXznpLm7vBEvJLEOziDU+MN6NRlD99AkwmXgtChNQhp+V97VyRa3Bp05IaL4Cocsc7JlyEUg==
 
 tslib@^1.8.1:
   version "1.14.1"
