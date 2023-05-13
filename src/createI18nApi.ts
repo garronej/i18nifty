@@ -197,12 +197,14 @@ export function createI18nApiFactory<
                 )
             ) as any;
 
-            const $isFetching = createStatefulObservable<boolean>(() => false);
+            const $isFetchingOrNeverFetched = createStatefulObservable(
+                () => true
+            );
 
             function useIsI18nFetching() {
-                useRerenderOnChange($isFetching);
+                useRerenderOnChange($isFetchingOrNeverFetched);
 
-                return $isFetching.current;
+                return $isFetchingOrNeverFetched.current;
             }
 
             const $translationFetched = createStatefulObservable<number>(
@@ -216,7 +218,10 @@ export function createI18nApiFactory<
                 }
 
                 const next = (lang: Language) => {
-                    if (fetchedTranslations[lang] !== undefined) {
+                    if (
+                        fetchedTranslations[lang] !== undefined ||
+                        fetchingTranslations[lang] !== undefined
+                    ) {
                         return;
                     }
 
@@ -224,7 +229,7 @@ export function createI18nApiFactory<
 
                     assert(typeof fetchTranslations === "function");
 
-                    $isFetching.current = true;
+                    $isFetchingOrNeverFetched.current = true;
 
                     const pr = fetchTranslations();
 
@@ -246,7 +251,7 @@ export function createI18nApiFactory<
                                 return;
                             }
 
-                            $isFetching.current = false;
+                            $isFetchingOrNeverFetched.current = false;
                         };
 
                         if (
