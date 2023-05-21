@@ -808,13 +808,13 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-evt@^2.4.19:
-  version "2.4.19"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.19.tgz#91e5adc264905f4fbf708894c6167c8537948a10"
-  integrity sha512-7eSvZt7awZ14ZSpcbWY/MujuGjo1O8IZBeCPkOKNguSU5a0awl93UQVdDm4LyUBLE5ATiLPpQykYmSDZ5zX2GQ==
+evt@^2.4.20:
+  version "2.4.20"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.20.tgz#c360967aaa1d301a3859bdb8f20ee6a71b6fe515"
+  integrity sha512-jxKOns/EwAkcaApct90cf5ebeVifnVtIUwJS5Q9wecZjrCLVVoSfhzrx1X3BovZ98jDfn2TYIbEPFL+L5GAl0A==
   dependencies:
-    minimal-polyfills "^2.2.2"
-    run-exclusive "^2.2.18"
+    minimal-polyfills "^2.2.3"
+    run-exclusive "^2.2.19"
     tsafe "^1.6.3"
 
 execa@^5.1.1:
@@ -1266,15 +1266,10 @@ mimic-fn@^2.1.0:
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
-minimal-polyfills@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/minimal-polyfills/-/minimal-polyfills-2.2.1.tgz#7249d7ece666d3b4e1ec1c1b8f949eb9d44e2308"
-  integrity sha512-WLmHQrsZob4rVYf8yHapZPNJZ3sspGa/sN8abuSD59b0FifDEE7HMfLUi24z7mPZqTpBXy4Svp+iGvAmclCmXg==
-
-minimal-polyfills@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/minimal-polyfills/-/minimal-polyfills-2.2.2.tgz#6b06a004acce420eb91cf94698f5e6e7f2518378"
-  integrity sha512-eEOUq/LH/DbLWihrxUP050Wi7H/N/I2dQT98Ep6SqOpmIbk4sXOI4wqalve66QoZa+6oljbZWU6I6T4dehQGmw==
+minimal-polyfills@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/minimal-polyfills/-/minimal-polyfills-2.2.3.tgz#22af58de16807b325f29b83ca38ffb83e75ec3f4"
+  integrity sha512-oxdmJ9cL+xV72h0xYxp4tP2d5/fTBpP45H8DIOn9pASuF8a3IYTf+25fMGDYGiWW+MFsuog6KD6nfmhZJQ+uUw==
 
 minimatch@^3.0.4, minimatch@^3.1.1:
   version "3.1.2"
@@ -1463,12 +1458,12 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-powerhooks@^0.26.11:
-  version "0.26.11"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.26.11.tgz#fcbf407f34e14d5477a9e10530369560fd9116f3"
-  integrity sha512-onATVo8QZKN57L+D+SsjNS1d31iIcNd4L/+avEzcRUJhv53csKjGjwKt/KjmAhC5oXZY3rV4aiHSqMpQJj21IQ==
+powerhooks@^0.26.12:
+  version "0.26.12"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.26.12.tgz#5520024d507fec6de2fdeb26504f181a600d2212"
+  integrity sha512-t0SEuAKtNZT6Cg7un2Jku8qRJdnf61zTu8bPouJQQAOt+l5+2j710i7Luwz9hpc6IQnhk3WAGLUxxtS7jnm54w==
   dependencies:
-    evt "^2.4.19"
+    evt "^2.4.20"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
     tsafe "^1.6.3"
@@ -1550,12 +1545,12 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-run-exclusive@^2.2.18:
-  version "2.2.18"
-  resolved "https://registry.yarnpkg.com/run-exclusive/-/run-exclusive-2.2.18.tgz#ec930edc3a7044750dc827df9372bde8f610f586"
-  integrity sha512-TXr1Gkl1iEAOCCpBTRm/2m0+1KGjORcWpZZ+VGGTe7dYX8E4y8/fMvrHk0zf+kclec2R//tpvdBxgG0bDgaJfw==
+run-exclusive@^2.2.19:
+  version "2.2.19"
+  resolved "https://registry.yarnpkg.com/run-exclusive/-/run-exclusive-2.2.19.tgz#37a2fb6e3671f8ae0d63521ebd1865fc796cf307"
+  integrity sha512-K3mdoAi7tjJ/qT7Flj90L7QyPozwUaAG+CVhkdDje4HLKXUYC3N/Jzkau3flHVDLQVhiHBtcimVodMjN9egYbA==
   dependencies:
-    minimal-polyfills "^2.2.1"
+    minimal-polyfills "^2.2.3"
 
 run-parallel@^1.1.9:
   version "1.2.0"
