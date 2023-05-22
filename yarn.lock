@@ -808,10 +808,10 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-evt@^2.4.20:
-  version "2.4.20"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.20.tgz#c360967aaa1d301a3859bdb8f20ee6a71b6fe515"
-  integrity sha512-jxKOns/EwAkcaApct90cf5ebeVifnVtIUwJS5Q9wecZjrCLVVoSfhzrx1X3BovZ98jDfn2TYIbEPFL+L5GAl0A==
+evt@^2.4.21:
+  version "2.4.21"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.21.tgz#9c642c50f1f1c3fa6c018cb6b5a57165cefbe270"
+  integrity sha512-GeR04mLiX9PYqVhGtW6jTPD28p+GTnCF4wsCKWofBLx6cHr6vwqQLa6NA5xZUKBQl5fJxesEwxvx4nyryNYdQw==
   dependencies:
     minimal-polyfills "^2.2.3"
     run-exclusive "^2.2.19"
@@ -1458,12 +1458,12 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-powerhooks@^0.26.12:
-  version "0.26.12"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.26.12.tgz#5520024d507fec6de2fdeb26504f181a600d2212"
-  integrity sha512-t0SEuAKtNZT6Cg7un2Jku8qRJdnf61zTu8bPouJQQAOt+l5+2j710i7Luwz9hpc6IQnhk3WAGLUxxtS7jnm54w==
+powerhooks@^0.26.13:
+  version "0.26.13"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.26.13.tgz#e970d0c88c60ef1e2ba8639778c4824cb9d1a129"
+  integrity sha512-T8Lv36fHOZQHuFqIKbUIzzSANpyQRw8OcHlK78HSdj/63bBVHL6v4dBwZuY+gCjQGJ8U1M01PJYRETt9H9pEbw==
   dependencies:
-    evt "^2.4.20"
+    evt "^2.4.21"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
     tsafe "^1.6.3"
