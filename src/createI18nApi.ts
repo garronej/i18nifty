@@ -395,7 +395,7 @@ export function createI18nApiFactory<
                             "getLang": () => lang,
                             componentName
                         }),
-                    [lang, componentName]
+                    [lang, componentName, $translationFetched.current]
                 );
 
                 return { t };
