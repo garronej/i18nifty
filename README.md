@@ -1,13 +1,9 @@
 <div align="center">
-
-![Logo Dark](https://user-images.githubusercontent.com/6702424/172086369-292a3ada-8294-4328-bbb0-336061cbf830.png#gh-dark-mode-only)
-
-</div>
-
-<div align="center">
-
-![Logo Light](https://user-images.githubusercontent.com/6702424/172086583-2014cf56-6deb-466d-b4d4-df80b6e85a1e.png#gh-light-mode-only)
-
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/6702424/172086369-292a3ada-8294-4328-bbb0-336061cbf830.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/6702424/172086583-2014cf56-6deb-466d-b4d4-df80b6e85a1e.png">
+    <img alt="i18nifty Logo" src="https://user-images.githubusercontent.com/6702424/172086583-2014cf56-6deb-466d-b4d4-df80b6e85a1e.png">
+  </picture>
 </div>
 
 <p align="center">
