@@ -39,7 +39,7 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
         resolveLocalizedStringDetailed: (
             localizedString: LocalizedString<Language>
         ) => {
-            spanLangAttrValue: Language | undefined;
+            langAttrValue: Language | undefined;
             str: string;
         };
     };
@@ -57,7 +57,7 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
         resolveLocalizedStringDetailed?: (
             localizedString: LocalizedString<Language>
         ) => {
-            spanLangAttrValue: Language | undefined;
+            langAttrValue: Language | undefined;
             str: string;
         };
     } {
@@ -72,7 +72,7 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
         function resolveLocalizedStringDetailed(
             localizedString: LocalizedString
         ): {
-            spanLangAttrValue: Language | undefined;
+            langAttrValue: Language | undefined;
             str: string;
         } {
             if (typeof localizedString === "string") {
@@ -84,13 +84,13 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
                 if (currentLanguage === ifStringAssumeLanguage) {
                     return {
                         "str": localizedString,
-                        "spanLangAttrValue": undefined
+                        "langAttrValue": undefined
                     };
                 }
 
                 return {
                     "str": localizedString,
-                    "spanLangAttrValue": ifStringAssumeLanguage
+                    "langAttrValue": ifStringAssumeLanguage
                 };
             }
 
@@ -102,7 +102,7 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
                 if (typeof text === "string") {
                     return {
                         "str": text,
-                        "spanLangAttrValue": undefined
+                        "langAttrValue": undefined
                     };
                 }
             }
@@ -113,7 +113,7 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
                 if (typeof text === "string") {
                     return {
                         "str": text,
-                        "spanLangAttrValue": fallbackLanguage
+                        "langAttrValue": fallbackLanguage
                     };
                 }
             }
@@ -126,18 +126,18 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
 
             return {
                 "str": text,
-                "spanLangAttrValue": lang
+                "langAttrValue": lang
             };
         }
 
         function resolveLocalizedString(
             localizedString: LocalizedString
         ): string | JSXElement {
-            const { str, spanLangAttrValue } =
+            const { str, langAttrValue } =
                 resolveLocalizedStringDetailed(localizedString);
 
             return labelWhenMismatchingLanguage !== false
-                ? createJsxElement({ "text": str, "lang": spanLangAttrValue })
+                ? createJsxElement({ "text": str, "lang": langAttrValue })
                 : str;
         }
 

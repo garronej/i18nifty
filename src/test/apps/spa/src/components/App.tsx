@@ -39,11 +39,11 @@ export function App() {
 			<br />
 			{(()=>{
 
-				const { spanLangAttrValue, str} = resolveLocalizedStringDetailed({
+				const { langAttrValue, str} = resolveLocalizedStringDetailed({
 					"en": "This is another localized text from the API",
 				});
 
-				return <span lang={spanLangAttrValue}>{str}</span>;
+				return <span lang={langAttrValue}>{str}</span>;
 
 			})()}
 		</div>

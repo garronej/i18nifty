@@ -56,7 +56,7 @@ type I18nApi<
         resolveLocalizedStringDetailed: (
             localizedString: LocalizedString<Language>
         ) => {
-            spanLangAttrValue: Language | undefined;
+            langAttrValue: Language | undefined;
             str: string;
         };
     };
@@ -316,7 +316,7 @@ export function createI18nApiFactory<
                 resolveLocalizedStringDetailed: (
                     localizedString: LocalizedString<Language>
                 ) => {
-                    spanLangAttrValue: Language | undefined;
+                    langAttrValue: Language | undefined;
                     str: string;
                 };
             };
@@ -332,7 +332,7 @@ export function createI18nApiFactory<
                 resolveLocalizedStringDetailed?: (
                     localizedString: LocalizedString<Language>
                 ) => {
-                    spanLangAttrValue: Language | undefined;
+                    langAttrValue: Language | undefined;
                     str: string;
                 };
             } {
