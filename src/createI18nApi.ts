@@ -53,6 +53,12 @@ type I18nApi<
         resolveLocalizedString: (
             localizedString: LocalizedString<Language>
         ) => JSX.Element;
+        resolveLocalizedStringDetailed: (
+            localizedString: LocalizedString<Language>
+        ) => {
+            spanLangAttrValue: Language | undefined;
+            str: string;
+        };
     };
 
     resolveLocalizedString(
@@ -307,6 +313,12 @@ export function createI18nApiFactory<
                 resolveLocalizedString: (
                     localizedString: LocalizedString<Language>
                 ) => JSX.Element;
+                resolveLocalizedStringDetailed: (
+                    localizedString: LocalizedString<Language>
+                ) => {
+                    spanLangAttrValue: Language | undefined;
+                    str: string;
+                };
             };
             function useResolveLocalizedString(params?: {
                 /** default: false */
@@ -317,21 +329,35 @@ export function createI18nApiFactory<
                 resolveLocalizedString: (
                     localizedString: LocalizedString<Language>
                 ) => JSX.Element | string;
+                resolveLocalizedStringDetailed?: (
+                    localizedString: LocalizedString<Language>
+                ) => {
+                    spanLangAttrValue: Language | undefined;
+                    str: string;
+                };
             } {
                 const { labelWhenMismatchingLanguage } = params ?? {};
 
                 const { lang } = useLang();
 
-                const { resolveLocalizedString } = useGuaranteedMemo(() => {
-                    const { resolveLocalizedString } =
-                        createResolveLocalizedString({
-                            "currentLanguage": lang,
-                            fallbackLanguage,
-                            "labelWhenMismatchingLanguage":
-                                labelWhenMismatchingLanguage as false
-                        });
+                const {
+                    resolveLocalizedString,
+                    resolveLocalizedStringDetailed
+                } = useGuaranteedMemo(() => {
+                    const {
+                        resolveLocalizedString,
+                        resolveLocalizedStringDetailed
+                    } = createResolveLocalizedString({
+                        "currentLanguage": lang,
+                        fallbackLanguage,
+                        "labelWhenMismatchingLanguage":
+                            labelWhenMismatchingLanguage as true
+                    });
 
-                    return { resolveLocalizedString };
+                    return {
+                        resolveLocalizedString,
+                        resolveLocalizedStringDetailed
+                    };
                 }, [
                     lang,
                     typeof labelWhenMismatchingLanguage === "object"
@@ -339,7 +365,10 @@ export function createI18nApiFactory<
                         : labelWhenMismatchingLanguage
                 ]);
 
-                return { resolveLocalizedString };
+                return {
+                    resolveLocalizedString,
+                    resolveLocalizedStringDetailed
+                };
             }
 
             function getTranslationForLanguage<

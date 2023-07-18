@@ -13,10 +13,9 @@ export function App() {
 		[]
 	);
 
-	const { resolveLocalizedString } = useResolveLocalizedString({
+	const { resolveLocalizedString, resolveLocalizedStringDetailed } = useResolveLocalizedString({
 		"labelWhenMismatchingLanguage": true
 	});
-
 
 	return (
 		<div>
@@ -37,6 +36,16 @@ export function App() {
 				"en": "This is a localized text from the API",
 				"fr": "Ceci est un texte localisé de l'API"
 			})}
+			<br />
+			{(()=>{
+
+				const { spanLangAttrValue, str} = resolveLocalizedStringDetailed({
+					"en": "This is another localized text from the API",
+				});
+
+				return <span lang={spanLangAttrValue}>{str}</span>;
+
+			})()}
 		</div>
 	);
 }

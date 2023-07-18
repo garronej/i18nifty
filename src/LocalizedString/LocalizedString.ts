@@ -1,4 +1,5 @@
 import { assert } from "tsafe/assert";
+import { is } from "tsafe/is";
 import { noUndefined } from "tsafe/noUndefined";
 
 export type LocalizedString<Language extends string> =
@@ -35,6 +36,12 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
         resolveLocalizedString: (
             localizedString: LocalizedString<Language>
         ) => JSXElement;
+        resolveLocalizedStringDetailed: (
+            localizedString: LocalizedString<Language>
+        ) => {
+            spanLangAttrValue: Language | undefined;
+            str: string;
+        };
     };
     function createResolveLocalizedString<Language extends string>(params: {
         currentLanguage: Language;
@@ -47,6 +54,12 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
         resolveLocalizedString: (
             localizedString: LocalizedString<Language>
         ) => string | JSXElement;
+        resolveLocalizedStringDetailed?: (
+            localizedString: LocalizedString<Language>
+        ) => {
+            spanLangAttrValue: Language | undefined;
+            str: string;
+        };
     } {
         const {
             currentLanguage,
@@ -56,27 +69,29 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
 
         type LocalizedString = string | Partial<Record<Language, string>>;
 
-        function resolveLocalizedString(
+        function resolveLocalizedStringDetailed(
             localizedString: LocalizedString
-        ): string | JSXElement {
+        ): {
+            spanLangAttrValue: Language | undefined;
+            str: string;
+        } {
             if (typeof localizedString === "string") {
-                if (labelWhenMismatchingLanguage === false) {
-                    return localizedString;
-                }
-
                 const { ifStringAssumeLanguage } =
                     typeof labelWhenMismatchingLanguage === "object"
                         ? labelWhenMismatchingLanguage
                         : { ifStringAssumeLanguage: fallbackLanguage };
 
                 if (currentLanguage === ifStringAssumeLanguage) {
-                    return createJsxElement({ "text": localizedString });
+                    return {
+                        "str": localizedString,
+                        "spanLangAttrValue": undefined
+                    };
                 }
 
-                return createJsxElement({
-                    "text": localizedString,
-                    "lang": ifStringAssumeLanguage
-                });
+                return {
+                    "str": localizedString,
+                    "spanLangAttrValue": ifStringAssumeLanguage
+                };
             }
 
             localizedString = noUndefined(localizedString);
@@ -85,9 +100,10 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
                 const text = localizedString[currentLanguage];
 
                 if (typeof text === "string") {
-                    return labelWhenMismatchingLanguage !== false
-                        ? createJsxElement({ text })
-                        : text;
+                    return {
+                        "str": text,
+                        "spanLangAttrValue": undefined
+                    };
                 }
             }
 
@@ -95,9 +111,10 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
                 const text = localizedString[fallbackLanguage];
 
                 if (typeof text === "string") {
-                    return labelWhenMismatchingLanguage !== false
-                        ? createJsxElement({ text, "lang": fallbackLanguage })
-                        : text;
+                    return {
+                        "str": text,
+                        "spanLangAttrValue": fallbackLanguage
+                    };
                 }
             }
 
@@ -105,12 +122,26 @@ export function createResolveLocalizedStringFactory<JSXElement>(params: {
 
             assert(typeof text === "string", "Must contain at least one value");
 
-            return labelWhenMismatchingLanguage !== false
-                ? createJsxElement({ text, lang })
-                : text;
+            assert(is<Language>(lang));
+
+            return {
+                "str": text,
+                "spanLangAttrValue": lang
+            };
         }
 
-        return { resolveLocalizedString };
+        function resolveLocalizedString(
+            localizedString: LocalizedString
+        ): string | JSXElement {
+            const { str, spanLangAttrValue } =
+                resolveLocalizedStringDetailed(localizedString);
+
+            return labelWhenMismatchingLanguage !== false
+                ? createJsxElement({ "text": str, "lang": spanLangAttrValue })
+                : str;
+        }
+
+        return { resolveLocalizedString, resolveLocalizedStringDetailed };
     }
 
     return { createResolveLocalizedString };
