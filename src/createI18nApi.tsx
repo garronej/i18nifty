@@ -8,7 +8,7 @@ import type {
     WithOptionalKeys,
     TranslationFunction
 } from "./typeUtils";
-import type { Dispatch, SetStateAction, ReactNode } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { StatefulObservable } from "powerhooks/tools/StatefulObservable";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
@@ -83,11 +83,6 @@ type I18nApi<
     ): JSX.Element;
 
     useIsI18nFetching: () => boolean;
-
-    I18nResourcesDownloadingFallbackProvider: (props: {
-        fallback?: ReactNode;
-        children: ReactNode;
-    }) => JSX.Element;
 
     getTranslation: <ComponentName extends ComponentKey[0]>(
         componentName: ComponentName
@@ -165,19 +160,6 @@ export function createI18nApi<
             useRerenderOnChange($isFetchingOrNeverFetched);
 
             return $isFetchingOrNeverFetched.current;
-        }
-
-        function I18nResourcesDownloadingFallbackProvider(props: {
-            fallback?: ReactNode;
-            children: ReactNode;
-        }) {
-            const { fallback, children } = props;
-
-            const isFetchingOrNeverFetched = useIsI18nFetching();
-
-            return (
-                <>{isFetchingOrNeverFetched ? fallback ?? null : children}</>
-            );
         }
 
         const $translationFetched = createStatefulObservable<number>(() => 0);
@@ -449,8 +431,7 @@ export function createI18nApi<
             resolveLocalizedString,
             $lang,
             useIsI18nFetching,
-            getTranslation,
-            I18nResourcesDownloadingFallbackProvider
+            getTranslation
         };
 
         return i18nApi;
