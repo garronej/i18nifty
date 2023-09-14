@@ -17,6 +17,7 @@ import {
     useRerenderOnChange
 } from "powerhooks/tools/StatefulObservable";
 import { exclude } from "tsafe/exclude";
+import { createUseLang } from "./useLang";
 
 type I18nApi<
     ComponentKey extends [string, string | { K: string }],
@@ -100,250 +101,191 @@ export type GenericTranslations<
 
 type ValueOrAsyncGetter<T> = T | (() => Promise<T>);
 
-export function createI18nApiFactory<
-    AppType extends
-        | { type: "ssr"; NextComponentType: any; DefaultAppType: any }
-        | { type: "spa" }
->(params: {
-    createUseLang: <Language extends string>(params: {
-        languages: readonly Language[];
-        fallbackLanguage: Language;
-    }) => {
-        useLang: () => {
-            lang: Language;
-            setLang: Dispatch<SetStateAction<Language>>;
-        };
-        $lang: StatefulObservable<Language>;
-    };
-}): {
-    createI18nApi: <
-        ComponentKey extends [string, string | { K: string }]
-    >() => <Language extends string, FallbackLanguage extends Language>(
-        params: {
-            languages: readonly Language[];
-            fallbackLanguage: FallbackLanguage;
-        },
-        translations: {
+/** @see <https://docs.i18nifty.dev> */
+export function createI18nApi<
+    ComponentKey extends [string, string | { K: string }]
+>() {
+    return function <
+        Language extends string,
+        FallbackLanguage extends Language,
+        Translations extends {
             [L in Language]: ValueOrAsyncGetter<
                 GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
             >;
         }
-    ) => I18nApi<ComponentKey, Language> &
-        (AppType extends { type: "spa" }
-            ? unknown
-            : AppType extends { type: "ssr" }
-            ? {
-                  withLang: <AppComponent extends AppType["NextComponentType"]>(
-                      App: AppComponent
-                  ) => AppComponent;
-              }
-            : never);
-} {
-    const { createUseLang } = params;
+    >(
+        params: {
+            languages: readonly Language[];
+            fallbackLanguage: FallbackLanguage;
+        },
+        translations: Translations
+    ) {
+        const { languages, fallbackLanguage } = params;
 
-    /** @see <https://docs.i18nifty.dev> */
-    function createI18nApi<
-        ComponentKey extends [string, string | { K: string }]
-    >() {
-        return function <
-            Language extends string,
-            FallbackLanguage extends Language,
-            Translations extends {
-                [L in Language]: ValueOrAsyncGetter<
-                    GenericTranslations<
-                        ComponentKey,
-                        Language,
-                        FallbackLanguage,
-                        L
-                    >
-                >;
-            }
-        >(
-            params: {
-                languages: readonly Language[];
-                fallbackLanguage: FallbackLanguage;
-            },
-            translations: Translations
-        ) {
-            const { languages, fallbackLanguage } = params;
+        const { useLang, $lang, withLang } = (() => {
+            const result = createUseLang({
+                languages,
+                fallbackLanguage
+            });
 
-            const { useLang, $lang, withLang } = (() => {
-                const result = createUseLang({
-                    languages,
-                    fallbackLanguage
-                });
+            const { useLang, $lang } = result;
+            const { withLang } = result as any;
 
-                const { useLang, $lang } = result;
-                const { withLang } = result as any;
+            return { useLang, $lang, withLang };
+        })();
 
-                return { useLang, $lang, withLang };
-            })();
+        const fetchingTranslations: {
+            [L in Language]?: Promise<
+                GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
+            >;
+        } = {};
 
-            const fetchingTranslations: {
-                [L in Language]?: Promise<
-                    GenericTranslations<
-                        ComponentKey,
-                        Language,
-                        FallbackLanguage,
-                        L
-                    >
-                >;
-            } = {};
+        const fetchedTranslations: {
+            [L in Language]?: GenericTranslations<
+                ComponentKey,
+                Language,
+                FallbackLanguage,
+                L
+            >;
+        } = Object.fromEntries(
+            Object.entries(translations).filter(
+                ([, value]) => typeof value !== "function"
+            )
+        ) as any;
 
-            const fetchedTranslations: {
-                [L in Language]?: GenericTranslations<
-                    ComponentKey,
-                    Language,
-                    FallbackLanguage,
-                    L
-                >;
-            } = Object.fromEntries(
-                Object.entries(translations).filter(
-                    ([, value]) => typeof value !== "function"
-                )
-            ) as any;
+        const $isFetchingOrNeverFetched = createStatefulObservable(() => true);
 
-            const $isFetchingOrNeverFetched = createStatefulObservable(
-                () => true
-            );
+        function useIsI18nFetching() {
+            useRerenderOnChange($isFetchingOrNeverFetched);
 
-            function useIsI18nFetching() {
-                useRerenderOnChange($isFetchingOrNeverFetched);
+            return $isFetchingOrNeverFetched.current;
+        }
 
-                return $isFetchingOrNeverFetched.current;
+        const $translationFetched = createStatefulObservable<number>(() => 0);
+
+        lazy_fetch: {
+            if (withLang !== undefined) {
+                //TODO: Support lazy fetching for SSR
+                break lazy_fetch;
             }
 
-            const $translationFetched = createStatefulObservable<number>(
-                () => 0
-            );
-
-            lazy_fetch: {
-                if (withLang !== undefined) {
-                    //TODO: Support lazy fetching for SSR
-                    break lazy_fetch;
+            const next = (lang: Language) => {
+                if (
+                    fetchedTranslations[lang] !== undefined ||
+                    fetchingTranslations[lang] !== undefined
+                ) {
+                    return;
                 }
 
-                const next = (lang: Language) => {
-                    if (
-                        fetchedTranslations[lang] !== undefined ||
-                        fetchingTranslations[lang] !== undefined
-                    ) {
-                        return;
-                    }
+                const fetchTranslations = translations[lang];
 
-                    const fetchTranslations = translations[lang];
+                assert(typeof fetchTranslations === "function");
 
-                    assert(typeof fetchTranslations === "function");
+                $isFetchingOrNeverFetched.current = true;
 
-                    $isFetchingOrNeverFetched.current = true;
+                const pr = fetchTranslations();
 
-                    const pr = fetchTranslations();
+                fetchingTranslations[lang] = pr;
 
-                    fetchingTranslations[lang] = pr;
+                pr.then(translation => {
+                    fetchingTranslations[lang] = undefined;
 
-                    pr.then(translation => {
-                        fetchingTranslations[lang] = undefined;
+                    fetchedTranslations[lang] = translation;
 
-                        fetchedTranslations[lang] = translation;
+                    $translationFetched.current++;
 
-                        $translationFetched.current++;
-
-                        const notifyIfNoLongerFetchingIfItsTheCase = () => {
-                            if (
-                                objectKeys(fetchingTranslations)
-                                    .map(lang => fetchingTranslations[lang])
-                                    .filter(exclude(undefined)).length !== 0
-                            ) {
-                                return;
-                            }
-
-                            $isFetchingOrNeverFetched.current = false;
-                        };
-
+                    const notifyIfNoLongerFetchingIfItsTheCase = () => {
                         if (
-                            lang === fallbackLanguage ||
-                            fetchedTranslations[fallbackLanguage] !== undefined
+                            objectKeys(fetchingTranslations)
+                                .map(lang => fetchingTranslations[lang])
+                                .filter(exclude(undefined)).length !== 0
                         ) {
-                            notifyIfNoLongerFetchingIfItsTheCase();
                             return;
                         }
 
-                        if (
-                            objectKeys(translation)
-                                .map(
-                                    componentName => translation[componentName]
-                                )
-                                .map(componentTranslation =>
-                                    objectKeys(componentTranslation)
-                                        .map(key => componentTranslation[key])
-                                        .includes(undefined as any)
-                                )
-                                .flat()
-                                .includes(true)
-                        ) {
-                            next(fallbackLanguage);
-                        } else {
-                            notifyIfNoLongerFetchingIfItsTheCase();
-                        }
-                    });
-                };
+                        $isFetchingOrNeverFetched.current = false;
+                    };
 
-                next($lang.current);
+                    if (
+                        lang === fallbackLanguage ||
+                        fetchedTranslations[fallbackLanguage] !== undefined
+                    ) {
+                        notifyIfNoLongerFetchingIfItsTheCase();
+                        return;
+                    }
 
-                $lang.subscribe(next);
-            }
-
-            function useResolveLocalizedString(params?: {
-                /** default: false */
-                labelWhenMismatchingLanguage?: false;
-            }): {
-                resolveLocalizedString: (
-                    localizedString: LocalizedString<Language>
-                ) => string;
+                    if (
+                        objectKeys(translation)
+                            .map(componentName => translation[componentName])
+                            .map(componentTranslation =>
+                                objectKeys(componentTranslation)
+                                    .map(key => componentTranslation[key])
+                                    .includes(undefined as any)
+                            )
+                            .flat()
+                            .includes(true)
+                    ) {
+                        next(fallbackLanguage);
+                    } else {
+                        notifyIfNoLongerFetchingIfItsTheCase();
+                    }
+                });
             };
-            function useResolveLocalizedString(params?: {
-                /** default: false */
-                labelWhenMismatchingLanguage:
-                    | true
-                    | {
-                          /* if true fallbackLanguage */
-                          ifStringAssumeLanguage: Language;
-                      };
-            }): {
-                resolveLocalizedString: (
-                    localizedString: LocalizedString<Language>
-                ) => JSX.Element;
-                resolveLocalizedStringDetailed: (
-                    localizedString: LocalizedString<Language>
-                ) => {
-                    langAttrValue: Language | undefined;
-                    str: string;
-                };
+
+            next($lang.current);
+
+            $lang.subscribe(next);
+        }
+
+        function useResolveLocalizedString(params?: {
+            /** default: false */
+            labelWhenMismatchingLanguage?: false;
+        }): {
+            resolveLocalizedString: (
+                localizedString: LocalizedString<Language>
+            ) => string;
+        };
+        function useResolveLocalizedString(params?: {
+            /** default: false */
+            labelWhenMismatchingLanguage:
+                | true
+                | {
+                      /* if true fallbackLanguage */
+                      ifStringAssumeLanguage: Language;
+                  };
+        }): {
+            resolveLocalizedString: (
+                localizedString: LocalizedString<Language>
+            ) => JSX.Element;
+            resolveLocalizedStringDetailed: (
+                localizedString: LocalizedString<Language>
+            ) => {
+                langAttrValue: Language | undefined;
+                str: string;
             };
-            function useResolveLocalizedString(params?: {
-                /** default: false */
-                labelWhenMismatchingLanguage?:
-                    | boolean
-                    | { ifStringAssumeLanguage: Language };
-            }): {
-                resolveLocalizedString: (
-                    localizedString: LocalizedString<Language>
-                ) => JSX.Element | string;
-                resolveLocalizedStringDetailed?: (
-                    localizedString: LocalizedString<Language>
-                ) => {
-                    langAttrValue: Language | undefined;
-                    str: string;
-                };
-            } {
-                const { labelWhenMismatchingLanguage } = params ?? {};
+        };
+        function useResolveLocalizedString(params?: {
+            /** default: false */
+            labelWhenMismatchingLanguage?:
+                | boolean
+                | { ifStringAssumeLanguage: Language };
+        }): {
+            resolveLocalizedString: (
+                localizedString: LocalizedString<Language>
+            ) => JSX.Element | string;
+            resolveLocalizedStringDetailed?: (
+                localizedString: LocalizedString<Language>
+            ) => {
+                langAttrValue: Language | undefined;
+                str: string;
+            };
+        } {
+            const { labelWhenMismatchingLanguage } = params ?? {};
 
-                const { lang } = useLang();
+            const { lang } = useLang();
 
-                const {
-                    resolveLocalizedString,
-                    resolveLocalizedStringDetailed
-                } = useGuaranteedMemo(() => {
+            const { resolveLocalizedString, resolveLocalizedStringDetailed } =
+                useGuaranteedMemo(() => {
                     const {
                         resolveLocalizedString,
                         resolveLocalizedStringDetailed
@@ -365,140 +307,132 @@ export function createI18nApiFactory<
                         : labelWhenMismatchingLanguage
                 ]);
 
-                return {
-                    resolveLocalizedString,
-                    resolveLocalizedStringDetailed
-                };
-            }
+            return {
+                resolveLocalizedString,
+                resolveLocalizedStringDetailed
+            };
+        }
 
-            function getTranslationForLanguage<
-                ComponentName extends ComponentKey[0]
-            >(params: {
-                componentName: ComponentName;
-                getLang: () => Language;
-            }): { t: TranslationFunction<ComponentName, ComponentKey> } {
-                const { componentName, getLang } = params;
+        function getTranslationForLanguage<
+            ComponentName extends ComponentKey[0]
+        >(params: {
+            componentName: ComponentName;
+            getLang: () => Language;
+        }): { t: TranslationFunction<ComponentName, ComponentKey> } {
+            const { componentName, getLang } = params;
 
-                const t = (key: string, params?: Record<string, any>) => {
-                    const lang = getLang();
+            const t = (key: string, params?: Record<string, any>) => {
+                const lang = getLang();
 
-                    if ((fetchedTranslations as any)[lang] === undefined) {
+                if ((fetchedTranslations as any)[lang] === undefined) {
+                    return "";
+                }
+
+                const getStrOrFn = (lang: string) => {
+                    //return (fetchedTranslations as any)[lang][componentName][key];
+                    const translation = (fetchedTranslations as any)[lang];
+
+                    if (translation === undefined) {
                         return "";
                     }
 
-                    const getStrOrFn = (lang: string) => {
-                        //return (fetchedTranslations as any)[lang][componentName][key];
-                        const translation = (fetchedTranslations as any)[lang];
-
-                        if (translation === undefined) {
-                            return "";
-                        }
-
-                        return translation[componentName][key];
-                    };
-
-                    let strOrFn = getStrOrFn(lang);
-
-                    if (strOrFn === undefined) {
-                        strOrFn = getStrOrFn(fallbackLanguage);
-                    }
-
-                    return params === undefined ? strOrFn : strOrFn(params);
+                    return translation[componentName][key];
                 };
 
-                return { t };
-            }
+                let strOrFn = getStrOrFn(lang);
 
-            function useTranslation<ComponentName extends ComponentKey[0]>(
-                componentNameAsKey: Record<ComponentName, unknown>
-            ): { t: TranslationFunction<ComponentName, ComponentKey> } {
-                const { lang } = useLang();
-
-                useRerenderOnChange($translationFetched);
-
-                const componentName = symToStr(componentNameAsKey);
-
-                const { t } = useGuaranteedMemo(
-                    () =>
-                        getTranslationForLanguage({
-                            "getLang": () => lang,
-                            componentName
-                        }),
-                    [lang, componentName, $translationFetched.current]
-                );
-
-                return { t };
-            }
-
-            function getTranslation<ComponentName extends ComponentKey[0]>(
-                componentName: ComponentName
-            ): { t: TranslationFunction<ComponentName, ComponentKey> } {
-                const { t } = getTranslationForLanguage({
-                    componentName,
-                    "getLang": () => $lang.current
-                });
-
-                return { t };
-            }
-
-            function resolveLocalizedString(
-                localizedString: LocalizedString<Language>,
-                options?: {
-                    /** default: false */
-                    labelWhenMismatchingLanguage?: false;
+                if (strOrFn === undefined) {
+                    strOrFn = getStrOrFn(fallbackLanguage);
                 }
-            ): string;
-            function resolveLocalizedString(
-                localizedString: LocalizedString<Language>,
-                options?: {
-                    /** default: false */
-                    labelWhenMismatchingLanguage:
-                        | true
-                        | {
-                              /* if true fallbackLanguage */
-                              ifStringAssumeLanguage: Language;
-                          };
-                }
-            ): JSX.Element;
-            function resolveLocalizedString(
-                localizedString: LocalizedString<Language>,
-                options?: {
-                    /** default: false */
-                    labelWhenMismatchingLanguage?:
-                        | boolean
-                        | { ifStringAssumeLanguage: Language };
-                }
-            ): string | JSX.Element {
-                const { labelWhenMismatchingLanguage } = options ?? {};
 
-                const { resolveLocalizedString } = createResolveLocalizedString(
-                    {
-                        "currentLanguage": $lang.current,
-                        fallbackLanguage,
-                        "labelWhenMismatchingLanguage":
-                            labelWhenMismatchingLanguage as any
-                    }
-                );
-
-                return resolveLocalizedString(localizedString);
-            }
-
-            const i18nApi: I18nApi<ComponentKey, Language> = {
-                useLang,
-                useTranslation,
-                useResolveLocalizedString,
-                resolveLocalizedString,
-                $lang,
-                useIsI18nFetching,
-                getTranslation
+                return params === undefined ? strOrFn : strOrFn(params);
             };
 
-            return {
-                ...i18nApi,
-                withLang
-            } as any;
-        };
-    }
+            return { t };
+        }
 
-    return { createI18nApi };
+        function useTranslation<ComponentName extends ComponentKey[0]>(
+            componentNameAsKey: Record<ComponentName, unknown>
+        ): { t: TranslationFunction<ComponentName, ComponentKey> } {
+            const { lang } = useLang();
+
+            useRerenderOnChange($translationFetched);
+
+            const componentName = symToStr(componentNameAsKey);
+
+            const { t } = useGuaranteedMemo(
+                () =>
+                    getTranslationForLanguage({
+                        "getLang": () => lang,
+                        componentName
+                    }),
+                [lang, componentName, $translationFetched.current]
+            );
+
+            return { t };
+        }
+
+        function getTranslation<ComponentName extends ComponentKey[0]>(
+            componentName: ComponentName
+        ): { t: TranslationFunction<ComponentName, ComponentKey> } {
+            const { t } = getTranslationForLanguage({
+                componentName,
+                "getLang": () => $lang.current
+            });
+
+            return { t };
+        }
+
+        function resolveLocalizedString(
+            localizedString: LocalizedString<Language>,
+            options?: {
+                /** default: false */
+                labelWhenMismatchingLanguage?: false;
+            }
+        ): string;
+        function resolveLocalizedString(
+            localizedString: LocalizedString<Language>,
+            options?: {
+                /** default: false */
+                labelWhenMismatchingLanguage:
+                    | true
+                    | {
+                          /* if true fallbackLanguage */
+                          ifStringAssumeLanguage: Language;
+                      };
+            }
+        ): JSX.Element;
+        function resolveLocalizedString(
+            localizedString: LocalizedString<Language>,
+            options?: {
+                /** default: false */
+                labelWhenMismatchingLanguage?:
+                    | boolean
+                    | { ifStringAssumeLanguage: Language };
+            }
+        ): string | JSX.Element {
+            const { labelWhenMismatchingLanguage } = options ?? {};
+
+            const { resolveLocalizedString } = createResolveLocalizedString({
+                "currentLanguage": $lang.current,
+                fallbackLanguage,
+                "labelWhenMismatchingLanguage":
+                    labelWhenMismatchingLanguage as any
+            });
+
+            return resolveLocalizedString(localizedString);
+        }
+
+        const i18nApi: I18nApi<ComponentKey, Language> = {
+            useLang,
+            useTranslation,
+            useResolveLocalizedString,
+            resolveLocalizedString,
+            $lang,
+            useIsI18nFetching,
+            getTranslation
+        };
+
+        return i18nApi;
+    };
 }

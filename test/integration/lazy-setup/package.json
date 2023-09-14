@@ -1,0 +1,42 @@
+{
+    "name": "i18nifty-app",
+    "version": "0.0.0",
+    "description": "SPA test app for i18nifty",
+    "private": true,
+    "scripts": {
+        "build": "react-app-rewired build",
+        "start": "react-app-rewired start"
+    },
+    "dependencies": {
+        "i18nifty": "file:../../../dist",
+        "react": "18.1.0",
+        "react-dom": "18.1.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.7.3",
+        "react-scripts": "5.0.1",
+        "@types/node": "^16.11.38",
+        "@types/react": "18.0.11",
+        "@types/react-dom": "18.0.5",
+        "react-app-rewired": "^2.2.1",
+        "circular-dependency-plugin": "^5.2.2"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

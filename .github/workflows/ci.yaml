@@ -17,14 +17,13 @@ jobs:
     - uses: bahmutov/npm-install@v1
     - name: If this step fails run 'yarn lint' and 'yarn format' then commit again.
       run: |
-        yarn lint:check
         yarn format:check
   test:
     runs-on: ${{ matrix.os }}
     needs: test_lint
     strategy:
       matrix:
-        node: [ '14' ]
+        node: [ '17' ]
         os: [ ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
@@ -34,13 +33,14 @@ jobs:
         node-version: ${{ matrix.node }}
     - uses: bahmutov/npm-install@v1
     - run: yarn build
-    #- run: yarn test
 
   check_if_version_upgraded:
     name: Check if version upgrade
-    # We run this only if it's a push on the default branch or if it's a PR from a 
-    # branch (meaning not a PR from a fork). It would be more straightforward to test if secrets.NPM_TOKEN is 
-    # defined but GitHub Action don't allow it yet.
+    # When someone forks the repo and opens a PR we want to enables the tests to be run (the previous jobs)
+    # but obviously only us should be allowed to release.
+    # In the following check we make sure that we own the branch this CI workflow is running on before continuing.
+    # Without this check, trying to release would fail anyway because only us have the correct secret.NPM_TOKEN but
+    # it's cleaner to stop the execution instead of letting the CI crash.
     if: |
       github.event_name == 'push' || 
       github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login 
@@ -56,12 +56,11 @@ jobs:
       id: step1
       with: 
         action_name: is_package_json_version_upgraded
-        branch: ${{ github.head_ref || github.ref }}
 
   create_github_release:
     runs-on: ubuntu-latest
-    # We create a release only if the version have been upgraded and we are on the main branch
-    # or if we are on a branch of the repo that has an PR open on main.
+    # We create release only if the version in the package.json have been upgraded and this CI is running against the main branch.
+    # We allow branches with a PR open on main to publish pre-release (x.y.z-rc.u) but not actual releases.
     if: |
       needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true' &&
       (
@@ -96,9 +95,12 @@ jobs:
         registry-url: https://registry.npmjs.org/
     - uses: bahmutov/npm-install@v1
     - run: yarn build
-    - run: npx -y -p denoify@1.2.2 enable_short_npm_import_path
+    - run: npx -y -p denoify@1.5.7 enable_short_npm_import_path
       env:
         DRY_RUN: "0"
+    - uses: garronej/ts-ci@v2.1.0
+      with: 
+        action_name: remove_dark_mode_specific_images_from_readme
     - name: Publishing on NPM
       run: |
         if [ "$(npm show . version)" = "$VERSION" ]; then
