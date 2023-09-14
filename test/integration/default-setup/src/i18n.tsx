@@ -8,7 +8,7 @@ export const languages = ["en", "fr", "zh-CN"] as const;
 //of the languages above specify the language to fallback to:
 export const fallbackLanguage = "en";
 
-export type Language = typeof languages[number];
+export type Language = (typeof languages)[number];
 
 export type LocalizedString = Parameters<typeof resolveLocalizedString>[0];
 
