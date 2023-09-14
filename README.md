@@ -91,4 +91,5 @@ yarn start-test-app-lazy
 
 # Link in an external app.
 yarn link-in-app YOUR-APP # ../YOUR-APP is supposed to exist
+npx tsc -w
 ```
