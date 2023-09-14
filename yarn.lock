@@ -808,10 +808,10 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-evt@^2.4.22:
-  version "2.4.22"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.22.tgz#1a87471bca6e71909b66a9f8da86929bd34c8736"
-  integrity sha512-lxC4XLMhKXD2jj1p5O6AZ3tTFTIOt2qhD2NjX5phXPTfK/oIZhWUsZsqsdtrifxUOXf7PZ9TZF4PtylK/S5QGw==
+evt@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.2.tgz#fe2c86657de488fd873195daae35323b96daefb2"
+  integrity sha512-N8+A+VJRMPDIOz7KDctin7JSMPIvS1edLSDSgH51OGN6MGlAdthZ6pSztRBe1dxvNb0CvlzLKu9kRK2zYiWukw==
   dependencies:
     minimal-polyfills "^2.2.3"
     run-exclusive "^2.2.19"
@@ -1458,14 +1458,13 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-powerhooks@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.27.0.tgz#600e750fae6c42682639634e80e1b12f59cfea4d"
-  integrity sha512-oA5t6jFI5wqxs5PSJrp5Q3DK51Z8k4/htlD6Hdpqzstth25wT44MOuBlEJITZnNMpOVWLpEzQnakSC4vV0Eaew==
+powerhooks@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.1.tgz#23973fa8b6a81cbcb3b7107c147d2f294f7a8d7a"
+  integrity sha512-HvB3yKK3uF1P5i+GIZYebRPh6y9FRsrG0VvbQ2b9k/FUFxjMZ54sx2P+pRtsMyhChK5/nb98jdwovRJsqTXpGQ==
   dependencies:
-    evt "^2.4.22"
+    evt "^2.5.2"
     memoizee "^0.4.15"
-    resize-observer-polyfill "^1.5.1"
     tsafe "^1.6.4"
 
 prelude-ls@^1.2.1:
@@ -1509,11 +1508,6 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
-
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-from@^4.0.0:
   version "4.0.0"
