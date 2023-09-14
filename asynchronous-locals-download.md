@@ -1,9 +1,5 @@
 # 🚄 Asynchronous locals download
 
-{% hint style="warning" %}
-At the moment this only work with SPAs. (That is to say, it doesn’t work with Next.js)
-{% endhint %}
-
 {% hint style="info" %}
 Only implement this if bundling all the i18n resources for every language you are supporting have a significant impact on the bundle size.
 
