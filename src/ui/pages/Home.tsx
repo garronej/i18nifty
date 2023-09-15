@@ -115,13 +115,6 @@ export function Home() {
                 hasAnimation={true}
                 elements={[
                     {
-                        "title": t("bp title 1"),
-                        "description": t("bp description 1", {
-                            "nextUrl": "https://nextjs.org/",
-                            "demoNextUrl": "https://ssr.i18nifty.dev",
-                        }),
-                    },
-                    {
                         "title": t("bp title 2"),
                         "description": t("bp description 2", {
                             "playgroundUrl":
@@ -164,8 +157,6 @@ export const { i18n } = declareComponentKeys<
     | { K: "article 2 body"; P: { copilotUrl: string } }
     | "see documentation"
     | "production ready"
-    | "bp title 1"
-    | { K: "bp description 1"; P: { nextUrl: string; demoNextUrl: string } }
     | "bp title 2"
     | { K: "bp description 2"; P: { playgroundUrl: string } }
     | "bp title 3"
