@@ -44,12 +44,6 @@ export const {
                     `With [GitHub Copilot](${copilotUrl}) enabled, translation is mostly a matter of supervision, even when there is logic involved!`,
                 "see documentation": "Documentation",
                 "production ready": "Production ready",
-                "bp title 1": "SSR Ready",
-                "bp description 1": ({
-                    nextUrl,
-                    demoNextUrl,
-                }) => `i18nifty features a great [Next.js](${nextUrl}) integration.  
-					First print in the user's language read from HTTP header Accept-Language [See for yourself](${demoNextUrl}).`,
                 "bp title 2": "Only the user's language translations downloaded",
                 "bp description 2": ({
                     playgroundUrl,
@@ -97,13 +91,6 @@ export const {
                     `Avec [GitHub Copilot](${copilotUrl}) activé, la traduction est généralement un travail de supervision, même quand il y a de la logique JavaScript!`,
                 "see documentation": "Documentation",
                 "production ready": "Prêt pour la prod",
-                "bp title 1": "Compatible avec le SSR",
-                "bp description 1": ({
-                    nextUrl,
-                    demoNextUrl,
-                }) => `i18nifty s'intègre parfaitement avec [Next.js](${nextUrl}).  
-					Premier print dans la langue de l'utilisateur lu depuis le HTTP header Accept-Language.
-					[Jugez vous-même](${demoNextUrl}).`,
                 "bp title 2":
                     "Selement les traductions pour une langue sont téléchargées",
                 "bp description 2": ({
