@@ -20,7 +20,9 @@
     },
     "exports": {
         ".": "./dist/index.js",
-        "./*": "./dist/*.js"
+        "./*": "./dist/*.js",
+        "./LocalizedString": "./dist/LocalizedString/index.js",
+        "./typeUtils": "./dist/typeUtils/index.js"
     },
     "lint-staged": {
         "*.{ts,tsx,json,md}": [
