@@ -18,22 +18,30 @@ export function createUseLang<Language extends string>(params: {
 
     const name = "lang";
 
+    const getInitialState = () => {
+        const lang = getLanguageBestApprox<Language>({
+            "languageLike": navigator.language,
+            languages
+        });
+
+        if (lang === undefined) {
+            return fallbackLanguage;
+        }
+
+        return lang;
+    };
+
     const { useLang, $lang } = createUseGlobalState({
         name,
-        "initialState": (() => {
-            const lang = getLanguageBestApprox<Language>({
-                "languageLike": navigator.language,
-                languages
-            });
-
-            if (lang === undefined) {
-                return fallbackLanguage;
-            }
-
-            return lang;
-        })(),
+        "initialState": getInitialState,
         "doPersistAcrossReloads": true
     });
+
+    // If the language has support has been removed or
+    // if we are on another website using i18nifty on the same host.
+    if (!languages.includes($lang.current)) {
+        $lang.current = getInitialState();
+    }
 
     {
         const next = (lang: Language) =>
