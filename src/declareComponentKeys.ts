@@ -1,16 +1,14 @@
-import { Reflect } from "tsafe/Reflect";
-
 /** @see <https://docs.i18nifty.dev> */
-export function declareComponentKeys<Key extends string | { K: string }>() {
-    return function <ComponentName extends string>(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        componentNameAsKey: Record<ComponentName, unknown>
-    ) {
-        //NOTE: Just to prevent unused warning.
-        componentNameAsKey;
-
-        return {
-            "i18n": Reflect<[ComponentName, Key]>()
-        };
+export function declareComponentKeys<Key extends string | { K: string }>(): {
+    <ComponentName extends string>(
+        wrappedComponentName: Record<ComponentName, Function>
+    ): {
+        i18n: [ComponentName, Key];
     };
+    <ComponentName extends string>(componentName: ComponentName): {
+        i18n: [ComponentName, Key];
+    };
+} {
+    // @ts-expect-error: We know better
+    return () => ({ "i18n": null });
 }

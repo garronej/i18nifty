@@ -7,7 +7,7 @@ type Props = {
 export function MyComponent(props: Props) {
     const { name } = props;
 
-    const { t } = useTranslation({ MyComponent });
+    const { t } = useTranslation("MyComponent");
 
     return (
         <div>
@@ -19,9 +19,11 @@ export function MyComponent(props: Props) {
     );
 }
 
+console.log("==========>", declareComponentKeys);
+
 export const { i18n } = declareComponentKeys<
     | { K: "greeting"; P: { who: string } }
     | "how are you"
     | { K: "any questions ?"; R: JSX.Element }
     | { K: "learn more"; P: { href: string }; R: JSX.Element }
->()({ MyComponent });
+>()("MyComponent");

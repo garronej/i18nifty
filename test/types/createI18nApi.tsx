@@ -166,4 +166,52 @@ import { Reflect } from "tsafe/Reflect";
             assert<Equals<typeof text, string>>();
         }
     }
+
+    {
+        const { t } = useTranslation("MyComponent1");
+
+        const { t: t2 } = getTranslation("MyComponent1");
+
+        assert<Equals<typeof t, typeof t2>>();
+
+        {
+            const text = t("key1");
+
+            assert<Equals<typeof text, string>>();
+        }
+
+        {
+            const text = t("key2");
+
+            assert<Equals<typeof text, string | JSX.Element>>();
+        }
+
+        {
+            const text = t("key3", { "x": Reflect<number>() });
+
+            assert<Equals<typeof text, string | JSX.Element>>();
+        }
+    }
+
+    {
+        const { t } = useTranslation("MyComponent2");
+
+        {
+            const text = t("keyA");
+
+            assert<Equals<typeof text, string>>();
+        }
+
+        {
+            const text = t("keyB", { "str": Reflect<string>() });
+
+            assert<Equals<typeof text, JSX.Element>>();
+        }
+
+        {
+            const text = t("keyC");
+
+            assert<Equals<typeof text, string>>();
+        }
+    }
 }

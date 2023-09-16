@@ -19,6 +19,17 @@ import {
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
 
+type UseTranslation<ComponentKey extends [string, string | { K: string }]> = {
+    <ComponentName extends ComponentKey[0]>(
+        wrappedComponentName: Record<ComponentName, unknown>
+    ): {
+        t: TranslationFunction<ComponentName, ComponentKey>;
+    };
+    <ComponentName extends ComponentKey[0]>(componentName: ComponentName): {
+        t: TranslationFunction<ComponentName, ComponentKey>;
+    };
+};
+
 type I18nApi<
     ComponentKey extends [string, string | { K: string }],
     Language extends string
@@ -28,11 +39,7 @@ type I18nApi<
         setLang: Dispatch<SetStateAction<Language>>;
     };
     $lang: StatefulObservable<Language>;
-    useTranslation: <ComponentName extends ComponentKey[0]>(
-        componentNameAsKey: Record<ComponentName, unknown>
-    ) => {
-        t: TranslationFunction<ComponentName, ComponentKey>;
-    };
+    useTranslation: UseTranslation<ComponentKey>;
 
     useResolveLocalizedString(params?: {
         /** default: false */
@@ -352,21 +359,24 @@ export function createI18nApi<
         }
 
         function useTranslation<ComponentName extends ComponentKey[0]>(
-            componentNameAsKey: Record<ComponentName, unknown>
+            componentName: ComponentName | Record<ComponentName, unknown>
         ): { t: TranslationFunction<ComponentName, ComponentKey> } {
             const { lang } = useLang();
 
             useRerenderOnChange($translationFetched);
 
-            const componentName = symToStr(componentNameAsKey);
+            const componentName_str =
+                typeof componentName === "string"
+                    ? componentName
+                    : symToStr(componentName);
 
             const { t } = useGuaranteedMemo(
                 () =>
                     getTranslationForLanguage({
                         "getLang": () => lang,
-                        componentName
+                        "componentName": componentName_str
                     }),
-                [lang, componentName, $translationFetched.current]
+                [lang, componentName_str, $translationFetched.current]
             );
 
             return { t };
