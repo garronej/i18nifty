@@ -108,18 +108,17 @@ export function createI18nApi<
 >() {
     return function <
         Language extends string,
-        FallbackLanguage extends Language,
-        Translations extends {
-            [L in Language]: ValueOrAsyncGetter<
-                GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
-            >;
-        }
+        FallbackLanguage extends Language
     >(
         params: {
             languages: readonly Language[];
             fallbackLanguage: FallbackLanguage;
         },
-        translations: Translations
+        translations: {
+            [L in Language]: ValueOrAsyncGetter<
+                GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
+            >;
+        }
     ) {
         const { languages, fallbackLanguage } = params;
 

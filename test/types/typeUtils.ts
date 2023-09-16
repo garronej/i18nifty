@@ -2,7 +2,7 @@ import type {
     KeyToRecord,
     ComponentKeyToRecord,
     TranslationFunction
-} from "../../typeUtils";
+} from "../../src/typeUtils";
 import { assert } from "tsafe/assert";
 import { Reflect } from "tsafe/Reflect";
 import type { Equals } from "tsafe";

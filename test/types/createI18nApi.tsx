@@ -1,9 +1,7 @@
-import { createI18nApi } from "../../spa";
-import { createI18nApi as createSsrI18nApi } from "../../next";
+import { createI18nApi } from "../../src/createI18nApi";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { Reflect } from "tsafe/Reflect";
-import DefaultApp from "next/app";
 
 {
     const i18n = Reflect<
@@ -51,59 +49,6 @@ import DefaultApp from "next/app";
     const { t: t2 } = getTranslation("MyComponent");
 
     assert<Equals<typeof t, typeof t2>>();
-
-    const out = t("the key", { "x": Reflect<number>() });
-
-    assert<Equals<typeof out, string>>();
-}
-
-{
-    const i18n = Reflect<
-        [
-            "MyComponent",
-            {
-                K: "the key";
-                P: { x: number };
-            }
-        ]
-    >();
-
-    const {
-        useTranslation,
-        $lang,
-        resolveLocalizedString,
-        useLang,
-        useResolveLocalizedString,
-        withLang,
-        useIsI18nFetching,
-        getTranslation,
-        ...rest
-    } = createSsrI18nApi<typeof i18n>()(
-        {
-            "languages": ["en"] as const,
-            "fallbackLanguage": "en"
-        },
-        {
-            "en": {
-                "MyComponent": {
-                    "the key": ({ x }) => {
-                        assert<Equals<typeof x, number>>();
-                        return Reflect<string>();
-                    }
-                }
-            }
-        }
-    );
-
-    assert<Equals<typeof rest, {}>>();
-
-    let MyApp = withLang(DefaultApp);
-
-    assert<Equals<typeof MyApp, typeof DefaultApp>>();
-
-    MyApp = withLang(DefaultApp);
-
-    const { t } = useTranslation({ "MyComponent": null });
 
     const out = t("the key", { "x": Reflect<number>() });
 

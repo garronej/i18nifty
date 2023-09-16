@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { declareComponentKeys } from "../..";
+import { declareComponentKeys } from "../../src/declareComponentKeys";
 import { assert } from "tsafe/assert";
 import { Equals } from "tsafe";
 
