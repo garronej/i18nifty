@@ -68,7 +68,7 @@ In i18nifty, everything is TypeScript and type-safe. You can define your transla
 
 ## Showcases
 
-This library has been used to build the following projects:
+This library is powering the internationalization of the folowing projects:  
 
 <a href="https://youtu.be/FvpNfVrxBFM">
   <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/231314534-2eeb1ab5-5460-4caa-b78d-55afd400c9fc.png">
@@ -76,7 +76,7 @@ This library has been used to build the following projects:
 
 <a href="https://youtu.be/AT3CvmY_Y7M?si=Edkf0vRNjosGLA3R">
   <img width="1712" alt="image" src="https://github.com/garronej/i18nifty/assets/6702424/aa06cc30-b2bd-4c8b-b435-2f875f53175b">
-</a>
+</a>  
 
 ## Contributing
 
