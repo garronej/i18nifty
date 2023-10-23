@@ -104,7 +104,11 @@ export const {
     | typeof import ("components/MyComponent").i18n
     | typeof import ("components/MyOtherComponent").i18n
 >()(
-    { languages, fallbackLanguage },
+    { 
+      languages, 
+      fallbackLanguage,
+      doAllowOptionalKeysForNonFallbackLanguage: true
+    },
     {
         "en": {
             "MyComponent": {
