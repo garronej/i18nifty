@@ -35,8 +35,6 @@
   <a href="https://stackblitz.com/edit/react-ts-m4d8w7?file=components%2FMyComponent.tsx">Sandbox</a>
 </p>
 
-> There's been a mini breaking change in v3, checkout [the migration guide](https://docs.i18nifty.dev/migration-guides/v2-greater-than-v3).
-
 An internationalization and translation (i18n) library for React that focuses on the developer experience.  
 With ChatGPT capable of producing high-quality translations, there's no longer a need to rely on third-party translation services.  
 This allows us to shift our attention from making resource files editable in spreadsheet software to enhancing the developer experience.  
@@ -70,7 +68,7 @@ In i18nifty, everything is TypeScript and type-safe. You can define your transla
 
 ## Showcases
 
-This library is powering the internationalization of the folowing projects:
+This library has been used to build the following projects:
 
 <a href="https://youtu.be/FvpNfVrxBFM">
   <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/231314534-2eeb1ab5-5460-4caa-b78d-55afd400c9fc.png">

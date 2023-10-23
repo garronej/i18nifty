@@ -26,8 +26,7 @@ import { Reflect } from "tsafe/Reflect";
     } = createI18nApi<typeof i18n>()(
         {
             "languages": ["en"] as const,
-            "fallbackLanguage": "en",
-            "doAllowOptionalKeysForNonFallbackLanguage": false
+            "fallbackLanguage": "en"
         },
         {
             "en": {
@@ -77,8 +76,7 @@ import { Reflect } from "tsafe/Reflect";
     >()(
         {
             "languages": ["en", "fr"] as const,
-            "fallbackLanguage": "en" as const,
-            "doAllowOptionalKeysForNonFallbackLanguage": true
+            "fallbackLanguage": "en" as const
         },
         {
             "en": () =>
@@ -216,46 +214,4 @@ import { Reflect } from "tsafe/Reflect";
             assert<Equals<typeof text, string>>();
         }
     }
-}
-
-{
-    const i18n = Reflect<["MyComponent", "the key"]>();
-
-    const {
-        useTranslation,
-        $lang,
-        resolveLocalizedString,
-        useLang,
-        useResolveLocalizedString,
-        useIsI18nFetching,
-        getTranslation,
-        ...rest
-    } = createI18nApi<typeof i18n>()(
-        {
-            "languages": ["en", "fr"] as const,
-            "fallbackLanguage": "en",
-            "doAllowOptionalKeysForNonFallbackLanguage": false
-        },
-        {
-            "en": {
-                "MyComponent": {
-                    "the key": "the value"
-                }
-            },
-            "fr": {
-                "MyComponent": {
-                    //@ts-expect-error: This key is not declared
-                    "the key": undefined
-                }
-            }
-        }
-    );
-
-    assert<Equals<typeof rest, {}>>();
-
-    const { t } = useTranslation({ "MyComponent": null });
-
-    const { t: t2 } = getTranslation("MyComponent");
-
-    assert<Equals<typeof t, typeof t2>>();
 }
