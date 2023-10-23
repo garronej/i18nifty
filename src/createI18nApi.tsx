@@ -102,8 +102,11 @@ export type GenericTranslations<
     ComponentKey extends [string, string | { K: string }],
     Language extends string,
     FallbackLanguage extends Language,
-    L extends Language
-> = L extends FallbackLanguage
+    L extends Language,
+    DoAllowOptionalKeys extends boolean
+> = DoAllowOptionalKeys extends false
+    ? ComponentKeyToRecord<ComponentKey>
+    : L extends FallbackLanguage
     ? ComponentKeyToRecord<ComponentKey>
     : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
 
@@ -115,15 +118,23 @@ export function createI18nApi<
 >() {
     return function <
         Language extends string,
-        FallbackLanguage extends Language
+        FallbackLanguage extends Language,
+        DoAllowOptionalKeys extends boolean
     >(
         params: {
             languages: readonly Language[];
             fallbackLanguage: FallbackLanguage;
+            doAllowOptionalKeysForNonFallbackLanguage: DoAllowOptionalKeys;
         },
         translations: {
             [L in Language]: ValueOrAsyncGetter<
-                GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
+                GenericTranslations<
+                    ComponentKey,
+                    Language,
+                    FallbackLanguage,
+                    L,
+                    DoAllowOptionalKeys
+                >
             >;
         }
     ) {
@@ -143,7 +154,13 @@ export function createI18nApi<
 
         const fetchingTranslations: {
             [L in Language]?: Promise<
-                GenericTranslations<ComponentKey, Language, FallbackLanguage, L>
+                GenericTranslations<
+                    ComponentKey,
+                    Language,
+                    FallbackLanguage,
+                    L,
+                    DoAllowOptionalKeys
+                >
             >;
         } = {};
 
@@ -152,7 +169,8 @@ export function createI18nApi<
                 ComponentKey,
                 Language,
                 FallbackLanguage,
-                L
+                L,
+                DoAllowOptionalKeys
             >;
         } = Object.fromEntries(
             Object.entries(translations).filter(

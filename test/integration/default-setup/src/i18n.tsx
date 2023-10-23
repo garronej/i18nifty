@@ -26,7 +26,8 @@ export const {
 >()(
     {
         languages,
-        fallbackLanguage
+        fallbackLanguage,
+        "doAllowOptionalKeysForNonFallbackLanguage": true
     },
     {
         "en": {

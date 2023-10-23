@@ -1,5 +1,5 @@
 import { createI18nApi, declareComponentKeys } from "i18nifty";
-import { languages, fallbackLanguage } from "./types";
+import { languages, fallbackLanguage, doAllowOptionalKeysForNonFallbackLanguage } from "./types";
 import { ComponentKey } from "./types";
 export { declareComponentKeys };
 
@@ -15,7 +15,11 @@ export const {
     /** For use outside of React */
     getTranslation
 } = createI18nApi<ComponentKey>()(
-    { languages, fallbackLanguage },
+    { 
+        languages, 
+        fallbackLanguage,
+        doAllowOptionalKeysForNonFallbackLanguage
+    },
     {
         "en": () =>
             import("./resources/en").then(({ translations }) => translations),

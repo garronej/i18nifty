@@ -15,8 +15,8 @@
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
         "link-in-app": "yarn build && ts-node --skipProject scripts/link-in-app.ts",
-        "start-test-app": "yarn build && ts-node --skipProject scripts/link-in-test-apps.ts && ((cd test/integration/default-setup && rm -rf node_modules/.cache && yarn start) & yarn build -w)",
-        "start-test-app-lazy": "yarn build && ts-node --skipProject scripts/link-in-test-apps.ts && ((cd test/integration/lazy-setup && rm -rf node_modules/.cache && yarn start) & yarn build -w)"
+        "start-test-app": "yarn build && ts-node --skipProject scripts/link-in-test-apps.ts && cd test/integration/default-setup && rm -rf node_modules/.cache && yarn start",
+        "start-test-app-lazy": "yarn build && ts-node --skipProject scripts/link-in-test-apps.ts && cd test/integration/lazy-setup && rm -rf node_modules/.cache && yarn start"
     },
     "exports": {
         ".": "./dist/index.js",
