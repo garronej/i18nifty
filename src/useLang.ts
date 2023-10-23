@@ -25,7 +25,9 @@ export function createUseLang<Language extends string>(params: {
         });
 
         if (lang === undefined) {
-            return fallbackLanguage;
+            return languages.includes(fallbackLanguage)
+                ? fallbackLanguage
+                : languages[0];
         }
 
         return lang;
