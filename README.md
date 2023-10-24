@@ -50,7 +50,7 @@ In i18nifty, everything is TypeScript and type-safe. You can define your transla
 -   [x] I want to be able to [use React components](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L35-L40) and [involve JS logic](https://github.com/garronej/i18nifty/blob/216d90bfa80741c2dc39b79ff7965d18af0bc258/src/test/apps/spa/src/i18n.tsx#L45-L53) in my translations (even if it means giving up support for third part translations services like https://locize.com/).
 -   [x] I want the language to **default to the browser preference**.
 -   [x] I want the language preferences to be **persistent across reloads**.
--   [x] I want asynchronous loading of locales (disclaimer: not yet available with SSR)
+-   [x] I want asynchronous loading of locales 
 -   [x] **SEO**: I want to let Google know that my website is available in multiple languages.
 -   [x] I want to be able to change the language of my app by adding `?lang=xx` to the URL without involving my routing library.
 -   [x] I want to be able to **explicitly fallback to English** when I can't translate myself.
