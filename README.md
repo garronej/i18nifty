@@ -56,7 +56,7 @@ In i18nifty, everything is TypeScript and type-safe. You can define your transla
 -   [x] I want to be able to **explicitly fallback to English** (or another language) when the translation for a given language is incomplete.
 -   [x] a11y: When internationalized text received from the backend aren't in the language of the app [I want a label to be added](https://docs.i18nifty.dev/api-reference/localizedstring)
 
-`i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).
+`i18nifty` is the only library i18n library (at the time of writing theses lines) that checks all the boxes. [Discover](https://www.i18nifty.dev).
 
 <div align="center">  
     
