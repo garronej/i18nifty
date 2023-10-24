@@ -11,7 +11,7 @@
     <br>
     <br>
     <a href="https://github.com/garronej/i18nifty/actions">
-      <img src="https://github.com/garronej/i18nifty/workflows/ci/badge.svg?branch=main">
+      <img src="https://github.com/garronej/i18nifty/actions/workflows/ci.yaml/badge.svg">
     </a>
     <a href="https://bundlephobia.com/package/i18nifty">
       <img src="https://img.shields.io/bundlephobia/minzip/i18nifty">
