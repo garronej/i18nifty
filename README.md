@@ -53,7 +53,7 @@ In i18nifty, everything is TypeScript and type-safe. You can define your transla
 -   [x] I want asynchronous loading of locales 
 -   [x] **SEO**: I want to let Google know that my website is available in multiple languages.
 -   [x] I want to be able to change the language of my app by adding `?lang=xx` to the URL without involving my routing library.
--   [x] I want to be able to **explicitly fallback to English** when I can't translate myself.
+-   [x] I want to be able to **explicitly fallback to English** (or another language) when the translation for a given language is incomplete.
 -   [x] a11y: When internationalized text received from the backend aren't in the language of the app [I want a label to be added](https://docs.i18nifty.dev/api-reference/localizedstring)
 
 `i18nifty` is the first i18n library that checks all the boxes. [Discover](https://www.i18nifty.dev).
