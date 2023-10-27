@@ -129,10 +129,14 @@ export function createI18nApi<
     ) {
         const { languages, fallbackLanguage } = params;
 
+        const fallbackEnabledLanguage = languages.includes(fallbackLanguage)
+            ? fallbackLanguage
+            : languages[0];
+
         const { useLang, $lang, withLang } = (() => {
             const result = createUseLang({
                 languages,
-                fallbackLanguage
+                fallbackEnabledLanguage
             });
 
             const { useLang, $lang } = result;
@@ -298,7 +302,7 @@ export function createI18nApi<
                         resolveLocalizedStringDetailed
                     } = createResolveLocalizedString({
                         "currentLanguage": lang,
-                        fallbackLanguage,
+                        "fallbackLanguage": fallbackEnabledLanguage,
                         "labelWhenMismatchingLanguage":
                             labelWhenMismatchingLanguage as true
                     });
@@ -425,7 +429,7 @@ export function createI18nApi<
 
             const { resolveLocalizedString } = createResolveLocalizedString({
                 "currentLanguage": $lang.current,
-                fallbackLanguage,
+                "fallbackLanguage": fallbackEnabledLanguage,
                 "labelWhenMismatchingLanguage":
                     labelWhenMismatchingLanguage as any
             });

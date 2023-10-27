@@ -12,9 +12,10 @@ export type { StatefulObservable };
 
 export function createUseLang<Language extends string>(params: {
     languages: readonly Language[];
-    fallbackLanguage: Language;
+    /* NOTE: fallbackEnabledLanguage is expected to be in languages */
+    fallbackEnabledLanguage: Language;
 }) {
-    const { languages, fallbackLanguage } = params;
+    const { languages, fallbackEnabledLanguage } = params;
 
     const name = "lang";
 
@@ -25,9 +26,7 @@ export function createUseLang<Language extends string>(params: {
         });
 
         if (lang === undefined) {
-            return languages.includes(fallbackLanguage)
-                ? fallbackLanguage
-                : languages[0];
+            return fallbackEnabledLanguage;
         }
 
         return lang;
