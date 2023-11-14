@@ -431,7 +431,11 @@ export function createI18nApi<
                 "currentLanguage": $lang.current,
                 "fallbackLanguage": fallbackEnabledLanguage,
                 "labelWhenMismatchingLanguage":
-                    labelWhenMismatchingLanguage as any
+                    labelWhenMismatchingLanguage === true
+                        ? {
+                              "ifStringAssumeLanguage": languages[0]
+                          }
+                        : (labelWhenMismatchingLanguage as any)
             });
 
             return resolveLocalizedString(localizedString);
