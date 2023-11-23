@@ -9,7 +9,10 @@ import type {
     TranslationFunction
 } from "./typeUtils";
 import type { Dispatch, SetStateAction } from "react";
-import { StatefulObservable } from "powerhooks/tools/StatefulObservable";
+import type {
+    StatefulObservable,
+    ReadOnlyStatefulObservable
+} from "powerhooks/tools/StatefulObservable";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import {
@@ -96,13 +99,7 @@ type I18nApi<
     ) => {
         t: TranslationFunction<ComponentName, ComponentKey>;
     };
-    /** Useful for use outside of React
-     *  When the callback is called it means that $lang.current is ready
-     *  to be used, the resources has been downloaded.
-     *  The callback is always called at least once.
-     *  All getTranslation("MyComponent").t("myKey") will return different value.
-     */
-    onEnabledLanguageReady: (callback: () => void) => void;
+    $readyLang: ReadOnlyStatefulObservable<Language | undefined>;
 };
 
 export type GenericTranslations<
@@ -181,30 +178,25 @@ export function createI18nApi<
 
         const $translationFetched = createStatefulObservable<number>(() => 0);
 
-        const onEnabledLanguageReady = (callback: () => void) => {
-            const onLangChange = () => {
+        const $readyLang = createStatefulObservable<Language | undefined>(
+            () => {
+                $isFetchingOrNeverFetched.subscribe(
+                    isFetchingOrNeverFetched => {
+                        if (isFetchingOrNeverFetched) {
+                            $readyLang.current = undefined;
+                        } else {
+                            $readyLang.current = $lang.current;
+                        }
+                    }
+                );
+
                 if (!$isFetchingOrNeverFetched.current) {
-                    callback();
-                    return;
+                    return $lang.current;
                 }
 
-                const onReady = (isFetchingOrNeverFetched: boolean) => {
-                    if (isFetchingOrNeverFetched) {
-                        return;
-                    }
-
-                    unsubscribe();
-                    callback();
-                };
-
-                const { unsubscribe } =
-                    $isFetchingOrNeverFetched.subscribe(onReady);
-            };
-
-            $lang.subscribe(() => onLangChange());
-
-            onLangChange();
-        };
+                return undefined;
+            }
+        );
 
         lazy_fetch: {
             if (withLang !== undefined) {
@@ -481,7 +473,7 @@ export function createI18nApi<
             $lang,
             useIsI18nFetching,
             getTranslation,
-            onEnabledLanguageReady
+            $readyLang
         };
 
         return i18nApi;
