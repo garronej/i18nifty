@@ -96,6 +96,13 @@ type I18nApi<
     ) => {
         t: TranslationFunction<ComponentName, ComponentKey>;
     };
+    /** Useful for use outside of React
+     *  When the callback is called it means that $lang.current is ready
+     *  to be used, the resources has been downloaded.
+     *  The callback is always called at least once.
+     *  All getTranslation("MyComponent").t("myKey") will return different value.
+     */
+    onEnabledLanguageReady: (callback: () => void) => void;
 };
 
 export type GenericTranslations<
@@ -173,6 +180,31 @@ export function createI18nApi<
         }
 
         const $translationFetched = createStatefulObservable<number>(() => 0);
+
+        const onEnabledLanguageReady = (callback: () => void) => {
+            const onLangChange = () => {
+                if (!$isFetchingOrNeverFetched.current) {
+                    callback();
+                    return;
+                }
+
+                const onReady = (isFetchingOrNeverFetched: boolean) => {
+                    if (isFetchingOrNeverFetched) {
+                        return;
+                    }
+
+                    unsubscribe();
+                    callback();
+                };
+
+                const { unsubscribe } =
+                    $isFetchingOrNeverFetched.subscribe(onReady);
+            };
+
+            $lang.subscribe(() => onLangChange());
+
+            onLangChange();
+        };
 
         lazy_fetch: {
             if (withLang !== undefined) {
@@ -448,7 +480,8 @@ export function createI18nApi<
             resolveLocalizedString,
             $lang,
             useIsI18nFetching,
-            getTranslation
+            getTranslation,
+            onEnabledLanguageReady
         };
 
         return i18nApi;
