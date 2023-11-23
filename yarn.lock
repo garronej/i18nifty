@@ -756,10 +756,10 @@ please-upgrade-node@^3.2.0:
   dependencies:
     semver-compare "^1.0.0"
 
-powerhooks@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.4.tgz#f47b02aa61434316ee4f54defd2d8ba3d541f55b"
-  integrity sha512-o9PE3RUf05hgbyOxuRapluUr3GMPFeQiqUbu3x8tZg+vuMSsRW8N/4SKf9ltzvzJnDfzGBq04X/FMSelYZoB2Q==
+powerhooks@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.5.tgz#750a31856b079675e79dfbd462e569cb6ea4a996"
+  integrity sha512-Hy8OuHI+Ky3SIPtjcWCcUFqakdJjJB5Lnh26AHuoofUbO/G6LLe4h3jrFKQlbilY1DgpbJJzJOAyHEFmdp6byQ==
   dependencies:
     evt "^2.5.3"
     memoizee "^0.4.15"

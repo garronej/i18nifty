@@ -11,7 +11,7 @@ import type {
 import type { Dispatch, SetStateAction } from "react";
 import type {
     StatefulObservable,
-    ReadOnlyStatefulObservable
+    StatefulReadonlyObservable
 } from "powerhooks/tools/StatefulObservable";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
@@ -99,7 +99,7 @@ type I18nApi<
     ) => {
         t: TranslationFunction<ComponentName, ComponentKey>;
     };
-    $readyLang: ReadOnlyStatefulObservable<Language | undefined>;
+    $readyLang: StatefulReadonlyObservable<Language | undefined>;
 };
 
 export type GenericTranslations<
