@@ -19,8 +19,6 @@ export function MyComponent(props: Props) {
     );
 }
 
-console.log("==========>", declareComponentKeys);
-
 export const { i18n } = declareComponentKeys<
     | { K: "greeting"; P: { who: string } }
     | "how are you"

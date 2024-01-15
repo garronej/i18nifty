@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import type { ReactNode } from "react";
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
@@ -93,6 +94,10 @@ type I18nApi<
     ): JSX.Element;
 
     useIsI18nFetching: () => boolean;
+    I18nFetchingSuspense: (props: {
+        fallback?: ReactNode;
+        children: JSX.Element;
+    }) => JSX.Element;
 
     getTranslation: <ComponentName extends ComponentKey[0]>(
         componentName: ComponentName
@@ -465,6 +470,17 @@ export function createI18nApi<
             return resolveLocalizedString(localizedString);
         }
 
+        function I18nFetchingSuspense(props: {
+            fallback?: ReactNode;
+            children: JSX.Element;
+        }) {
+            const { fallback, children } = props;
+
+            const isFetching = useIsI18nFetching();
+
+            return <>{isFetching ? fallback ?? null : children}</>;
+        }
+
         const i18nApi: I18nApi<ComponentKey, Language> = {
             useLang,
             useTranslation,
@@ -472,6 +488,7 @@ export function createI18nApi<
             resolveLocalizedString,
             $lang,
             useIsI18nFetching,
+            I18nFetchingSuspense,
             getTranslation,
             $readyLang
         };
