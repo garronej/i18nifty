@@ -18,7 +18,7 @@ Start by declaring the text keys you'll need in each component.&#x20;
 
 `src/components/MyComponent.tsx`
 
-```diff
+```markup
 +import { declareComponentKeys } from "i18nifty";
 
  type Props = {
