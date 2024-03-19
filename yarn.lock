@@ -381,14 +381,14 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-evt@^2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.3.tgz#eda564afdda6dfe1da687bb54933706af3f844d6"
-  integrity sha512-wZKx0JgXaTOVOXI2saNVxINU6VToOHDowMwb3NRcU6l+C59eW3w9dZgNxjokiM8rvMgc7/11yFG0cSDxn4qxgA==
+evt@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.7.tgz#55c5f8ff910f4b7531bfac91e963d4cb3231f253"
+  integrity sha512-dr7Wd16ry5F8WNU1xXLKpFpO3HsoAGg8zC48e08vDdzMzGWCP9/QFGt1PQptEEDh8SwYP3EL8M+d/Gb0kgUp6g==
   dependencies:
     minimal-polyfills "^2.2.3"
     run-exclusive "^2.2.19"
-    tsafe "^1.6.5"
+    tsafe "^1.6.6"
 
 execa@^5.1.1:
   version "5.1.1"
@@ -756,14 +756,14 @@ please-upgrade-node@^3.2.0:
   dependencies:
     semver-compare "^1.0.0"
 
-powerhooks@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.5.tgz#750a31856b079675e79dfbd462e569cb6ea4a996"
-  integrity sha512-Hy8OuHI+Ky3SIPtjcWCcUFqakdJjJB5Lnh26AHuoofUbO/G6LLe4h3jrFKQlbilY1DgpbJJzJOAyHEFmdp6byQ==
+powerhooks@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.9.tgz#a0835855b215999d2e03258a652500a012eee865"
+  integrity sha512-G2OWxB36sYPcz+KehB/6RJSE5DWPeWxpOgHZXJUCzyQ9AsSABwUNibrWVp7HwwNlIUpVpvKvQ1zpi8Fs6tyTxg==
   dependencies:
-    evt "^2.5.3"
+    evt "^2.5.7"
     memoizee "^0.4.15"
-    tsafe "^1.6.5"
+    tsafe "^1.6.6"
 
 prettier@^2.3.0:
   version "2.8.8"
@@ -958,6 +958,11 @@ tsafe@^1.6.5:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.5.tgz#74943b69190069168a53d2accd6d07891cf1cce8"
   integrity sha512-895zss8xqqHKTc28sHGIfZKnt3C5jrstB1DyPr/h3/flK0zojsZUMQL1/W4ytdDW6KI4Oth62nb9rrxmA3s3Iw==
+
+tsafe@^1.6.6:
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.6.tgz#fd93e64d6eb13ef83ed1650669cc24bad4f5df9f"
+  integrity sha512-gzkapsdbMNwBnTIjgO758GujLCj031IgHK/PKr2mrmkCSJMhSOR5FeOuSxKLMUoYc0vAA4RGEYYbjt/v6afD3g==
 
 tslib@^2.1.0:
   version "2.6.2"
