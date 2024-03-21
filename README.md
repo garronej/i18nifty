@@ -1,18 +1,97 @@
 # 🏁 Quick start
 
-Before diving into the thick of things, consider editing your `tsconfig.json` file to be able to use absolute instead of relative path.&#x20;
+{% hint style="info" %}
+This project is designed to be used in SPAs (Single page applications) with no server side rendering. &#x20;
 
-It will prevent you from having to write imports like:
+If you're not using either Vite or Create-React-App, i18nifty is probably not the best choice for you. &#x20;
+{% endhint %}
+
+{% tabs %}
+{% tab title="yarn" %}
+```bash
+yarn add --dev i18nifty
+```
+{% endtab %}
+
+{% tab title="npm" %}
+```bash
+npm install --save-dev i18nifty
+```
+{% endtab %}
+
+{% tab title="bun" %}
+```bash
+bun add --dev i18nifty
+```
+{% endtab %}
+
+{% tab title="npmp" %}
+```bash
+pnpm add --save-dev i18nifty
+```
+{% endtab %}
+{% endtabs %}
+
+Before diving into the thick of things let's make sure you can do local imports relative to your src directory. It will prevent you from having to write imports like:
 
 `import { useTranslations } from "../../../../i18n";`&#x20;
 
+{% code title="tsconfig.json" %}
 ```diff
  {
-     "target": "es5",
-+    "baseUrl": "src"
-     //...
+     "compilerOptions": {
+         "target": "es5",
++        "baseUrl": "src"
+     // ...
+     }
  }
 ```
+{% endcode %}
+
+If you are using Vite (If you're using CRA you don't need the vite-tsconfig-paths plugin):
+
+{% tabs %}
+{% tab title="yarn" %}
+```bash
+yarn add --dev vite-tsconfig-paths
+```
+{% endtab %}
+
+{% tab title="npm" %}
+```bash
+npm install --save-dev vite-tsconfig-paths
+```
+{% endtab %}
+
+{% tab title="bun" %}
+```bash
+bun add --dev vite-tsconfig-paths
+```
+{% endtab %}
+
+{% tab title="npmp" %}
+```bash
+pnpm add --save-dev vite-tsconfig-paths
+```
+{% endtab %}
+{% endtabs %}
+
+{% code title="vite.config.ts" %}
+```diff
+ import { defineConfig } from "vite";
+ import tsconfigPaths from "vite-tsconfig-paths";
+ import react from "@vitejs/plugin-react";
+
+ // https://vitejs.dev/config/
+ export default defineConfig({
+    "plugins": [
+        react(),
++       tsconfigPaths()
+    ]
+ });
+
+```
+{% endcode %}
 
 Start by declaring the text keys you'll need in each component.&#x20;
 
@@ -40,11 +119,12 @@ Start by declaring the text keys you'll need in each component.&#x20;
      );
  }
 
-+export const { i18n } = declareComponentKeys<
++const { i18n } = declareComponentKeys<
 +    | { K: "greating"; P: { who: string; } }
 +    | "how are you"
 +    | { K: "learn more"; P: { href: string; }; R: JSX.Element }
 +>()({ MyComponent });
++export type I18n = typeof i18n;
 ```
 
 `src/components/MyOtherComponent.tsx`
@@ -68,11 +148,12 @@ Start by declaring the text keys you'll need in each component.&#x20;
      );
  }
 
-+export const { i18n } = declareComponentKeys<
++const { i18n } = declareComponentKeys<
 +    | "open"
 +    | "delete"
 +    | { K: "unread messages"; P: { howMany: number; } }
 +>()({ MyOtherComponent });
++export type I18n = typeof i18n;
 ```
 
 then create your `src/i18n.tsx` file: &#x20;
@@ -101,8 +182,8 @@ export const {
 	/** For use outside of React */
 	getTranslation 
 } = createI18nApi<
-    | typeof import ("components/MyComponent").i18n
-    | typeof import ("components/MyOtherComponent").i18n
+    | import ("components/MyComponent").I18n
+    | import ("components/MyOtherComponent").I18n
 >()(
     { 
       languages, 
@@ -156,39 +237,9 @@ export const {
 );
 ```
 
-<details>
-
-<summary>Extra steps for Next.js</summary>
-
-Edit your `i18n.ts` file like so: &#x20;
-
-```diff
--import { createI18nApi } from "i18nifty";
-+import { createI18nApi } from "i18nifty/next";
-
- export const { 
- 	 useTranslation, 
- 	 resolveLocalizedString, 
-	 useLang, 
-	 evtLang,
-	 useResolveLocalizedString,
-+        withLang
- } = createI18nApi<
-```
-
-Create an `pages/_app.tsx` file (if you didn't had one already):
-
-```jsx
-import DefaultApp from "next/app";
-import { withLang } from "../i18n";
-
-export default withLang(DefaultApp);
-```
-
-</details>
-
 Now go back to your component and use the translation function: &#x20;
 
+{% code title="MyComponent.ts" %}
 ```diff
 +import { useTranslation, declareComponentKeys } from "i18n"; //You can import it like that thanks to baseUrl
    
@@ -216,11 +267,17 @@ Now go back to your component and use the translation function: &#x20;
      );
  }
 
- export const { i18n } = declareComponentKeys<
+ const { i18n } = declareComponentKeys<
      | { K: "greating"; P: { who: string; } }
      | "how are you"
      | { K: "learn more"; P: { href: string; }; R: JSX.Element }
  >()({ MyComponent });
+ export type I18n = typeof i18n;
 ```
+{% endcode %}
 
 And so forth for your other components.
+
+Now this setup is great if you're supporting only a few languages and you're app does not contain a lot of text. As you app grow however, you probably want to enable only only the resources for a specific language to be dowloaded. &#x20;
+
+[asynchronous-locals-download.md](asynchronous-locals-download.md "mention")
