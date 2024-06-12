@@ -1,11 +1,11 @@
 # LocalizedString
 
-A localized string is a common type that represent either a plane string or a map lang -> text.
+A localized string is a common type that represent either a plain string or a map lang -> text.
 
 ```typescript
 type LocalizedString = string | Partial<Record<"en" | "fr", string>>;
 
-//You can import your tailor localized string with
+//You can import your tailor-made localized string with
 import type { LocalizedString } from "i18n";
 
 //Example of LocalizedStrings:
@@ -25,7 +25,7 @@ import { resolveLocalizedString, type LocalizedString } from "i18n";
 
 {
 
-//Usualy received from an API
+//Usually received from an API
 const localizedString: LocalizedString = {
     "en": "Hello",
     "fr": "Bonjour"
@@ -48,7 +48,7 @@ const text = resolveLocalizedString(localizedString);
 
 {
 
-//Usualy received from an API
+//Usually received from an API
 const localizedString: LocalizedString = {
     "en": "Hello",
     "fr": "Bonjour"
@@ -70,7 +70,7 @@ const node = resolveLocalizedString(
 
 {
 
-//Usualy received from an API
+//Usually received from an API
 const localizedString: LocalizedString = "Hello";
 
 //Assuming the current lang is "en" and the fallback lang is "en"
@@ -85,8 +85,8 @@ const node = resolveLocalizedString(
 //NOTE: By default when the localizedString is a plain string we assume
 // it's in the fallbackLanguage. You can configure this behavior by using:
 // { "labelWhenMismatchingLanguage": { "ifStringAssumeLanguage": "it" } }
-// In this case we assume all non internationalized string are in italian
-// and we must label them as such whenever the current language isn't italian.
+// In this case we assume all non-internationalized strings are in italian
+// and we must label them as such whenever the current language isn't Italian.
 
 }
 
@@ -94,7 +94,7 @@ const node = resolveLocalizedString(
 ```
 
 {% hint style="warning" %}
-Do not use resolveLocalizedString in a react component. Wen the language changes the component wont be rerendered. Use [useResolveLocalizedString](localizedstring.md#useresolvelocalizedstring) instead.
+Do not use resolveLocalizedString in a react component. When the language changes the component won't be rerendered. Use [useResolveLocalizedString](localizedstring.md#useresolvelocalizedstring) instead.
 {% endhint %}
 
 ### useResolveLocalizedString
