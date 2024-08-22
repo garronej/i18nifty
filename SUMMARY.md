@@ -1,7 +1,7 @@
 # Table of contents
 
 * [🏁 Quick start](README.md)
-* [🚄 Asynchronous locals download](asynchronous-locals-download.md)
+* [🚄 Asynchronous locale resources download](asynchronous-locale-resources-download.md)
 
 ## 📖 API Reference
 

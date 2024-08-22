@@ -13,3 +13,9 @@ const { t } = getTranslation("MyComponent");
 
 t("greating", { "who": "Jhon" });
 ```
+
+{% hint style="warning" %}
+Be mindfull, local resources are downloaded lazyly in with [asynchronous locale download](../asynchronous-locale-resources-download.md).\
+If the resources aren't downloaded yet you'll get empty strings.  \
+Also you have to subscribe to language changes to get the updated values.
+{% endhint %}

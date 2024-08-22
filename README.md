@@ -280,4 +280,4 @@ And so forth for your other components.
 
 Now this setup is great if you're supporting only a few languages and you're app does not contain a lot of text. As you app grow however, you probably want to enable only only the resources for a specific language to be dowloaded. &#x20;
 
-[asynchronous-locals-download.md](asynchronous-locals-download.md "mention")
+[asynchronous-locale-resources-download.md](asynchronous-locale-resources-download.md "mention")
