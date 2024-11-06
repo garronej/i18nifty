@@ -280,11 +280,11 @@ And so forth for your other components.
 
 Now this setup is great if you're supporting only a few languages and you're app does not contain a lot of text. As you app grow however, you probably want to enable only only the resources for a specific language to be dowloaded. &#x20;
 
-## Eslit
+## Eslint
 
 You should add this rule to your eslint config: &#x20;
 
-<pre class="language-javascript" data-title="eslit.config.js"><code class="lang-javascript">export default tseslint.config(
+<pre class="language-javascript" data-title="eslint.config.js"><code class="lang-javascript">export default tseslint.config(
     rules: {
 <strong>      "@typescript-eslint/no-unused-vars": [
 </strong><strong>        "error",
