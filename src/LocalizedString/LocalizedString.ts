@@ -1,5 +1,4 @@
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 import { noUndefined } from "tsafe/noUndefined";
 
 export type LocalizedString<Language extends string> =

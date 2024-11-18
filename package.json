@@ -56,8 +56,8 @@
         }
     },
     "dependencies": {
-        "powerhooks": "^1.0.12",
-        "tsafe": "^1.7.2"
+        "powerhooks": "^1.0.19",
+        "tsafe": "^1.8.5"
     },
     "devDependencies": {
         "@types/node": "^20.6.0",
