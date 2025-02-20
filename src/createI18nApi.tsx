@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import type { ReactNode } from "react";
+import type { ReactNode, ReactElement } from "react";
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
@@ -22,6 +22,10 @@ import {
 } from "powerhooks/tools/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
+
+namespace JSX {
+    export interface Element extends ReactElement<any, any> {}
+}
 
 type UseTranslation<ComponentKey extends [string, string | { K: string }]> = {
     <ComponentName extends ComponentKey[0]>(
