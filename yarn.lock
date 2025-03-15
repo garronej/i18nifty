@@ -784,10 +784,10 @@ please-upgrade-node@^3.2.0:
   dependencies:
     semver-compare "^1.0.0"
 
-powerhooks@^1.0.21:
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.21.tgz#a0b31193570558be17501fea85a87dc6c7d46ca2"
-  integrity sha512-U+e0+mGtnJPHIPatZ2rWynt3Cc20mtBm26xnBRx0GLzRDc6SqQ2/lO9oleDRfYEdYUX5iOeWizjHq2lCNA/aRQ==
+powerhooks@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-2.0.1.tgz#ca2c9b72c934d91ec2fc74afa476b787bed726ea"
+  integrity sha512-G4oStGCXGHBexDEAlRfrYRESgticY6oOOtkz9AEwmUt6uItZwNqoDELWyZiEoHjOrwuLDMd6+S0IHj9lBLz9dA==
   dependencies:
     evt "^2.5.9"
     memoizee "^0.4.17"

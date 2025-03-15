@@ -1,14 +1,32 @@
 import { createUseGlobalState } from "powerhooks/useGlobalState";
 import type { StatefulObservable } from "powerhooks/useGlobalState";
+import { updateSearchBarUrl } from "powerhooks/tools/updateSearchBar";
 import {
-    updateSearchBarUrl,
-    retrieveParamFromUrl,
-    addParamToUrl
+    addOrUpdateSearchParam,
+    getSearchParam
 } from "powerhooks/tools/urlSearchParams";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
 import { typeGuard } from "tsafe/typeGuard";
 export type { StatefulObservable };
+
+const GLOBAL_CONTEXT_KEY = "__i18nifty.useLang.globalContext";
+
+declare global {
+    interface Window {
+        [GLOBAL_CONTEXT_KEY]: {
+            initialLocationHref: string;
+        };
+    }
+}
+
+window[GLOBAL_CONTEXT_KEY] ??= {
+    initialLocationHref: window.location.href
+};
+
+const globalContext = window[GLOBAL_CONTEXT_KEY];
+
+const { initialLocationHref } = globalContext;
 
 export function createUseLang<Language extends string>(params: {
     languages: readonly Language[];
@@ -54,13 +72,22 @@ export function createUseLang<Language extends string>(params: {
     }
 
     read_url: {
-        const result = retrieveParamFromUrl({
-            "url": window.location.href,
+        const result = getSearchParam({
+            "url": initialLocationHref,
             name
         });
 
         if (result.wasPresent) {
-            updateSearchBarUrl(result.newUrl);
+            {
+                const { wasPresent, url_withoutTheParam } = getSearchParam({
+                    "url": window.location.href,
+                    name
+                });
+
+                if (wasPresent) {
+                    updateSearchBarUrl(url_withoutTheParam);
+                }
+            }
 
             if (
                 !typeGuard<Language>(
@@ -82,11 +109,12 @@ export function createUseLang<Language extends string>(params: {
         link.href =
             lang === undefined
                 ? window.location.href
-                : addParamToUrl({
+                : addOrUpdateSearchParam({
                       "url": window.location.href,
                       name,
-                      "value": lang
-                  }).newUrl;
+                      "value": lang,
+                      "encodeMethod": "encodeURIComponent"
+                  });
 
         document.getElementsByTagName("head")[0].appendChild(link);
     });
