@@ -159,7 +159,11 @@ Start by declaring the text keys you'll need in each component.&#x20;
 then create your `src/i18n.tsx` file: &#x20;
 
 ```tsx
-import { createI18nApi, declareComponentKeys } from "i18nifty";
+import { 
+    createI18nApi, 
+    declareComponentKeys, 
+    type LocalizedString as LocalizedString_base 
+} from "i18nifty";
 export { declareComponentKeys };
 
 //List the languages you with to support
@@ -171,7 +175,7 @@ export const fallbackLanguage = "en";
 
 export type Language = typeof languages[number];
 
-export type LocalizedString = Parameters<typeof resolveLocalizedString>[0];
+export type LocalizedString = LocalizedString_base<Language>;
 
 export const { 
 	useTranslation, 
