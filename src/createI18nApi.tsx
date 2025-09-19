@@ -22,6 +22,7 @@ import {
 } from "powerhooks/tools/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
+import { createForwardingProxy } from "./tools/createForwardingProxy";
 
 namespace JSX {
     export interface Element extends ReactElement<any, any> {}
@@ -121,6 +122,34 @@ export type GenericTranslations<
     : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
 
 type ValueOrAsyncGetter<T> = T | (() => Promise<T>);
+
+const fpUseLang = createForwardingProxy<I18nApi<any, any>["useLang"]>({
+    isFunction: true
+});
+const fp$lang = createForwardingProxy<I18nApi<any, any>["$lang"]>({
+    isFunction: false
+});
+const fpUseTranslation = createForwardingProxy<
+    I18nApi<any, any>["useTranslation"]
+>({ isFunction: true });
+const fpUseResolveLocalizedString = createForwardingProxy<
+    I18nApi<any, any>["useResolveLocalizedString"]
+>({ isFunction: true });
+const fpResolveLocalizedString = createForwardingProxy<
+    I18nApi<any, any>["resolveLocalizedString"]
+>({ isFunction: true });
+const fpUseIsI18nFetching = createForwardingProxy<
+    I18nApi<any, any>["useIsI18nFetching"]
+>({ isFunction: true });
+const fpI18nFetchingSuspense = createForwardingProxy<
+    I18nApi<any, any>["I18nFetchingSuspense"]
+>({ isFunction: true });
+const fpGetTranslation = createForwardingProxy<
+    I18nApi<any, any>["getTranslation"]
+>({ isFunction: true });
+const fp$readyLang = createForwardingProxy<I18nApi<any, any>["$readyLang"]>({
+    isFunction: false
+});
 
 /** @see <https://docs.i18nifty.dev> */
 export function createI18nApi<
@@ -485,16 +514,26 @@ export function createI18nApi<
             return <>{isFetching ? fallback ?? null : children}</>;
         }
 
+        fpUseLang.updateTarget(useLang);
+        fpUseTranslation.updateTarget(useTranslation);
+        fpUseResolveLocalizedString.updateTarget(useResolveLocalizedString);
+        fpResolveLocalizedString.updateTarget(resolveLocalizedString);
+        fp$lang.updateTarget($lang);
+        fpUseIsI18nFetching.updateTarget(useIsI18nFetching);
+        fpI18nFetchingSuspense.updateTarget(I18nFetchingSuspense);
+        fpGetTranslation.updateTarget(getTranslation);
+        fp$readyLang.updateTarget($readyLang);
+
         const i18nApi: I18nApi<ComponentKey, Language> = {
-            useLang,
-            useTranslation,
-            useResolveLocalizedString,
-            resolveLocalizedString,
-            $lang,
-            useIsI18nFetching,
-            I18nFetchingSuspense,
-            getTranslation,
-            $readyLang
+            useLang: fpUseLang.proxy,
+            useTranslation: fpUseTranslation.proxy,
+            useResolveLocalizedString: fpUseResolveLocalizedString.proxy,
+            resolveLocalizedString: fpResolveLocalizedString.proxy,
+            $lang: fp$lang.proxy,
+            useIsI18nFetching: fpUseIsI18nFetching.proxy,
+            I18nFetchingSuspense: fpI18nFetchingSuspense.proxy,
+            getTranslation: fpGetTranslation.proxy,
+            $readyLang: fp$readyLang.proxy
         };
 
         return i18nApi;
