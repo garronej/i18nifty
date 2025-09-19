@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import type { ReactNode, ReactElement } from "react";
+import type { ReactElement } from "react";
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
@@ -16,10 +16,7 @@ import type {
 } from "powerhooks/tools/StatefulObservable";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
-import {
-    createStatefulObservable,
-    useRerenderOnChange
-} from "powerhooks/tools/StatefulObservable";
+import { createStatefulObservable } from "powerhooks/tools/StatefulObservable/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
 import { createForwardingProxy } from "./tools/createForwardingProxy";
@@ -98,12 +95,6 @@ type I18nApi<
         }
     ): JSX.Element;
 
-    useIsI18nFetching: () => boolean;
-    I18nFetchingSuspense: (props: {
-        fallback?: ReactNode;
-        children: JSX.Element;
-    }) => JSX.Element;
-
     getTranslation: <ComponentName extends ComponentKey[0]>(
         componentName: ComponentName
     ) => {
@@ -138,12 +129,6 @@ const fpUseResolveLocalizedString = createForwardingProxy<
 const fpResolveLocalizedString = createForwardingProxy<
     I18nApi<any, any>["resolveLocalizedString"]
 >({ isFunction: true });
-const fpUseIsI18nFetching = createForwardingProxy<
-    I18nApi<any, any>["useIsI18nFetching"]
->({ isFunction: true });
-const fpI18nFetchingSuspense = createForwardingProxy<
-    I18nApi<any, any>["I18nFetchingSuspense"]
->({ isFunction: true });
 const fpGetTranslation = createForwardingProxy<
     I18nApi<any, any>["getTranslation"]
 >({ isFunction: true });
@@ -175,16 +160,52 @@ export function createI18nApi<
             ? fallbackLanguage
             : languages[0];
 
-        const { useLang, $lang, withLang } = (() => {
-            const result = createUseLang({
+        const $isFetchingOrNeverFetched = createStatefulObservable(() => true);
+
+        let prFetched: Promise<void> | undefined = undefined;
+        {
+            const next = (isFetchingOrNeverFetched: boolean) => {
+                if (isFetchingOrNeverFetched) {
+                    if (prFetched !== undefined) {
+                        return;
+                    }
+                    prFetched = new Promise<void>(resolve => {
+                        const { unsubscribe } =
+                            $isFetchingOrNeverFetched.subscribe(
+                                isFetchingOrNeverFetched => {
+                                    if (isFetchingOrNeverFetched) {
+                                        return;
+                                    }
+                                    prFetched = undefined;
+                                    unsubscribe();
+                                    resolve();
+                                }
+                            );
+                    });
+                }
+            };
+            next($isFetchingOrNeverFetched.current);
+            $isFetchingOrNeverFetched.subscribe(next);
+        }
+
+        const { useLang, $lang } = (() => {
+            const { useLang: useLang_noSuspense, $lang } = createUseLang({
                 languages,
                 fallbackEnabledLanguage
             });
 
-            const { useLang, $lang } = result;
-            const { withLang } = result as any;
+            function useLang() {
+                if ($isFetchingOrNeverFetched.current) {
+                    assert(prFetched !== undefined);
+                    throw prFetched;
+                }
 
-            return { useLang, $lang, withLang };
+                const lang = useLang_noSuspense();
+
+                return lang;
+            }
+
+            return { useLang, $lang };
         })();
 
         const fetchingTranslations: {
@@ -206,16 +227,6 @@ export function createI18nApi<
             )
         ) as any;
 
-        const $isFetchingOrNeverFetched = createStatefulObservable(() => true);
-
-        function useIsI18nFetching() {
-            useRerenderOnChange($isFetchingOrNeverFetched);
-
-            return $isFetchingOrNeverFetched.current;
-        }
-
-        const $translationFetched = createStatefulObservable<number>(() => 0);
-
         const $readyLang = createStatefulObservable<Language | undefined>(
             () => {
                 $isFetchingOrNeverFetched.subscribe(
@@ -236,17 +247,14 @@ export function createI18nApi<
             }
         );
 
-        lazy_fetch: {
-            if (withLang !== undefined) {
-                //TODO: Support lazy fetching for SSR
-                break lazy_fetch;
-            }
-
+        {
             const next = (lang: Language) => {
-                if (
-                    fetchedTranslations[lang] !== undefined ||
-                    fetchingTranslations[lang] !== undefined
-                ) {
+                if (fetchedTranslations[lang] !== undefined) {
+                    $isFetchingOrNeverFetched.current = false;
+                    return;
+                }
+
+                if (fetchingTranslations[lang] !== undefined) {
                     return;
                 }
 
@@ -264,8 +272,6 @@ export function createI18nApi<
                     fetchingTranslations[lang] = undefined;
 
                     fetchedTranslations[lang] = translation;
-
-                    $translationFetched.current++;
 
                     const notifyIfNoLongerFetchingIfItsTheCase = () => {
                         if (
@@ -429,8 +435,6 @@ export function createI18nApi<
         ): { t: TranslationFunction<ComponentName, ComponentKey> } {
             const { lang } = useLang();
 
-            useRerenderOnChange($translationFetched);
-
             const componentName_str =
                 typeof componentName === "string"
                     ? componentName
@@ -442,7 +446,7 @@ export function createI18nApi<
                         "getLang": () => lang,
                         "componentName": componentName_str
                     }),
-                [lang, componentName_str, $translationFetched.current]
+                [lang, componentName_str]
             );
 
             return { t };
@@ -503,24 +507,11 @@ export function createI18nApi<
             return resolveLocalizedString(localizedString);
         }
 
-        function I18nFetchingSuspense(props: {
-            fallback?: ReactNode;
-            children: JSX.Element;
-        }) {
-            const { fallback, children } = props;
-
-            const isFetching = useIsI18nFetching();
-
-            return <>{isFetching ? fallback ?? null : children}</>;
-        }
-
         fpUseLang.updateTarget(useLang);
         fpUseTranslation.updateTarget(useTranslation);
         fpUseResolveLocalizedString.updateTarget(useResolveLocalizedString);
         fpResolveLocalizedString.updateTarget(resolveLocalizedString);
         fp$lang.updateTarget($lang);
-        fpUseIsI18nFetching.updateTarget(useIsI18nFetching);
-        fpI18nFetchingSuspense.updateTarget(I18nFetchingSuspense);
         fpGetTranslation.updateTarget(getTranslation);
         fp$readyLang.updateTarget($readyLang);
 
@@ -530,8 +521,6 @@ export function createI18nApi<
             useResolveLocalizedString: fpUseResolveLocalizedString.proxy,
             resolveLocalizedString: fpResolveLocalizedString.proxy,
             $lang: fp$lang.proxy,
-            useIsI18nFetching: fpUseIsI18nFetching.proxy,
-            I18nFetchingSuspense: fpI18nFetchingSuspense.proxy,
             getTranslation: fpGetTranslation.proxy,
             $readyLang: fp$readyLang.proxy
         };
