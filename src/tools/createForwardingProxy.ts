@@ -19,10 +19,36 @@ export function createForwardingProxy<T extends object>(params: {
 
     let target: any = undefined;
 
+    const fnProxyByFn = new WeakMap<Function, Function>();
+
     const handler: ProxyHandler<any> = {
         get(_t, prop, receiver) {
             checkSet();
-            return Reflect.get(target, prop, receiver);
+            const out = Reflect.get(target, prop, receiver);
+            if (typeof out === "function") {
+                const fn = out;
+
+                let fnProxy = fnProxyByFn.get(fn);
+
+                if (fnProxy !== undefined) {
+                    return fnProxy;
+                }
+
+                fnProxy = new Proxy(fn, {
+                    apply(_t, thisArg, args) {
+                        return Reflect.apply(
+                            fn,
+                            thisArg === proxy ? target : thisArg,
+                            args
+                        );
+                    }
+                }) as Function;
+
+                fnProxyByFn.set(fn, fnProxy);
+
+                return fnProxy;
+            }
+            return out;
         },
         set(_t, prop, value, receiver) {
             checkSet();
