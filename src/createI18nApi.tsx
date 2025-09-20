@@ -196,7 +196,7 @@ export function createI18nApi<
 
             function useLang() {
                 if ($isFetchingOrNeverFetched.current) {
-                    assert(prFetched !== undefined);
+                    assert(prFetched !== undefined, "20220220");
                     throw prFetched;
                 }
 
@@ -260,7 +260,7 @@ export function createI18nApi<
 
                 const fetchTranslations = translations[lang];
 
-                assert(typeof fetchTranslations === "function");
+                assert(typeof fetchTranslations === "function", "303392");
 
                 $isFetchingOrNeverFetched.current = true;
 
