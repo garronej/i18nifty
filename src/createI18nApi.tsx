@@ -194,10 +194,10 @@ export function createI18nApi<
                     id<typeof setLang_sync>((...args) => {
                         // NOTE: React will give a warning and nudge us to use startTransition
                         // but we precisely want to re-mount the components when we fetch new language.
-                        Promise.resolve().then(() => {
+                        setTimeout(() => {
                             prLanguageChanged = Promise.resolve();
                             setLang_sync(...args);
-                        });
+                        }, 100);
                     })
                 );
 
