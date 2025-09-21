@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { type ReactElement, startTransition } from "react";
+import type { ReactElement } from "react";
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
@@ -179,13 +179,14 @@ export function createI18nApi<
                     throw prFetched;
                 }
 
-                const { lang, setLang: setLang_noTransition } =
-                    useLang_noSuspense();
+                const { lang, setLang: setLang_sync } = useLang_noSuspense();
 
                 const setLang = useConstCallback(
-                    id<typeof setLang_noTransition>((...args) => {
-                        return startTransition(() => {
-                            setLang_noTransition(...args);
+                    id<typeof setLang_sync>((...args) => {
+                        // NOTE: React will give a warning and nudge us to use startTransition
+                        // but we precisely want to re-mount the components when we fetch new language.
+                        Promise.resolve().then(() => {
+                            setLang_sync(...args);
                         });
                     })
                 );
