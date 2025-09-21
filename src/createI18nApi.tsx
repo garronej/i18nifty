@@ -173,10 +173,19 @@ export function createI18nApi<
                 fallbackEnabledLanguage
             });
 
+            let prLanguageChanged: Promise<void> | undefined = undefined;
+
             function useLang() {
                 if ($isFetchingOrNeverFetched.current) {
+                    prLanguageChanged = undefined;
                     assert(prFetched !== undefined, "20220220");
                     throw prFetched;
+                }
+
+                if (prLanguageChanged !== undefined) {
+                    const toThrow = prLanguageChanged;
+                    prLanguageChanged = undefined;
+                    throw toThrow;
                 }
 
                 const { lang, setLang: setLang_sync } = useLang_noSuspense();
@@ -186,6 +195,7 @@ export function createI18nApi<
                         // NOTE: React will give a warning and nudge us to use startTransition
                         // but we precisely want to re-mount the components when we fetch new language.
                         Promise.resolve().then(() => {
+                            prLanguageChanged = Promise.resolve();
                             setLang_sync(...args);
                         });
                     })
