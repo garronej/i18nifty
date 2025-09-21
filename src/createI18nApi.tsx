@@ -19,7 +19,6 @@ import { objectKeys } from "tsafe/objectKeys";
 import { createStatefulObservable } from "powerhooks/tools/StatefulObservable/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
-import { createForwardingProxy } from "./tools/createForwardingProxy";
 
 namespace JSX {
     export interface Element extends ReactElement<any, any> {}
@@ -113,28 +112,6 @@ export type GenericTranslations<
     : WithOptionalKeys<ComponentKeyToRecord<ComponentKey>>;
 
 type ValueOrAsyncGetter<T> = T | (() => Promise<T>);
-
-const fpUseLang = createForwardingProxy<I18nApi<any, any>["useLang"]>({
-    isFunction: true
-});
-const fp$lang = createForwardingProxy<I18nApi<any, any>["$lang"]>({
-    isFunction: false
-});
-const fpUseTranslation = createForwardingProxy<
-    I18nApi<any, any>["useTranslation"]
->({ isFunction: true });
-const fpUseResolveLocalizedString = createForwardingProxy<
-    I18nApi<any, any>["useResolveLocalizedString"]
->({ isFunction: true });
-const fpResolveLocalizedString = createForwardingProxy<
-    I18nApi<any, any>["resolveLocalizedString"]
->({ isFunction: true });
-const fpGetTranslation = createForwardingProxy<
-    I18nApi<any, any>["getTranslation"]
->({ isFunction: true });
-const fp$readyLang = createForwardingProxy<I18nApi<any, any>["$readyLang"]>({
-    isFunction: false
-});
 
 /** @see <https://docs.i18nifty.dev> */
 export function createI18nApi<
@@ -507,22 +484,14 @@ export function createI18nApi<
             return resolveLocalizedString(localizedString);
         }
 
-        fpUseLang.updateTarget(useLang);
-        fpUseTranslation.updateTarget(useTranslation);
-        fpUseResolveLocalizedString.updateTarget(useResolveLocalizedString);
-        fpResolveLocalizedString.updateTarget(resolveLocalizedString);
-        fp$lang.updateTarget($lang);
-        fpGetTranslation.updateTarget(getTranslation);
-        fp$readyLang.updateTarget($readyLang);
-
         const i18nApi: I18nApi<ComponentKey, Language> = {
-            useLang: fpUseLang.proxy,
-            useTranslation: fpUseTranslation.proxy,
-            useResolveLocalizedString: fpUseResolveLocalizedString.proxy,
-            resolveLocalizedString: fpResolveLocalizedString.proxy,
-            $lang: fp$lang.proxy,
-            getTranslation: fpGetTranslation.proxy,
-            $readyLang: fp$readyLang.proxy
+            useLang,
+            useTranslation,
+            useResolveLocalizedString,
+            resolveLocalizedString,
+            $lang,
+            getTranslation,
+            $readyLang
         };
 
         return i18nApi;
