@@ -19,8 +19,6 @@ import { objectKeys } from "tsafe/objectKeys";
 import { createStatefulObservable } from "powerhooks/tools/StatefulObservable/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
-import { useConstCallback } from "powerhooks/useConstCallback";
-import { id } from "tsafe/id";
 
 namespace JSX {
     export interface Element extends ReactElement<any, any> {}
@@ -167,45 +165,10 @@ export function createI18nApi<
             $isFetchingOrNeverFetched.subscribe(next);
         }
 
-        const { useLang, $lang } = (() => {
-            const { useLang: useLang_noSuspense, $lang } = createUseLang({
-                languages,
-                fallbackEnabledLanguage
-            });
-
-            let prLanguageChanged: Promise<void> | undefined = undefined;
-
-            function useLang() {
-                if ($isFetchingOrNeverFetched.current) {
-                    prLanguageChanged = undefined;
-                    assert(prFetched !== undefined, "20220220");
-                    throw prFetched;
-                }
-
-                if (prLanguageChanged !== undefined) {
-                    const toThrow = prLanguageChanged;
-                    prLanguageChanged = undefined;
-                    throw toThrow;
-                }
-
-                const { lang, setLang: setLang_sync } = useLang_noSuspense();
-
-                const setLang = useConstCallback(
-                    id<typeof setLang_sync>((...args) => {
-                        // NOTE: React will give a warning and nudge us to use startTransition
-                        // but we precisely want to re-mount the components when we fetch new language.
-                        setTimeout(() => {
-                            prLanguageChanged = Promise.resolve();
-                            setLang_sync(...args);
-                        }, 100);
-                    })
-                );
-
-                return { lang, setLang };
-            }
-
-            return { useLang, $lang };
-        })();
+        const { useLang, $lang } = createUseLang({
+            languages,
+            fallbackEnabledLanguage
+        });
 
         const fetchingTranslations: {
             [L in Language]?: Promise<
