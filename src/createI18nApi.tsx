@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import type { ReactElement } from "react";
+import { type ReactElement, startTransition } from "react";
 import { createResolveLocalizedString } from "./LocalizedString";
 import type { LocalizedString } from "./LocalizedString";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
@@ -19,6 +19,8 @@ import { objectKeys } from "tsafe/objectKeys";
 import { createStatefulObservable } from "powerhooks/tools/StatefulObservable/StatefulObservable";
 import { exclude } from "tsafe/exclude";
 import { createUseLang } from "./useLang";
+import { useConstCallback } from "powerhooks/useConstCallback";
+import { id } from "tsafe/id";
 
 namespace JSX {
     export interface Element extends ReactElement<any, any> {}
@@ -165,10 +167,34 @@ export function createI18nApi<
             $isFetchingOrNeverFetched.subscribe(next);
         }
 
-        const { useLang, $lang } = createUseLang({
-            languages,
-            fallbackEnabledLanguage
-        });
+        const { useLang, $lang } = (() => {
+            const { useLang: useLang_noSuspense, $lang } = createUseLang({
+                languages,
+                fallbackEnabledLanguage
+            });
+
+            function useLang() {
+                if ($isFetchingOrNeverFetched.current) {
+                    assert(prFetched !== undefined, "20220220");
+                    throw prFetched;
+                }
+
+                const { lang, setLang: setLang_noTransition } =
+                    useLang_noSuspense();
+
+                const setLang = useConstCallback(
+                    id<typeof setLang_noTransition>((...args) => {
+                        return startTransition(() => {
+                            setLang_noTransition(...args);
+                        });
+                    })
+                );
+
+                return { lang, setLang };
+            }
+
+            return { useLang, $lang };
+        })();
 
         const fetchingTranslations: {
             [L in Language]?: Promise<
